@@ -1,9 +1,9 @@
-# POC-Robot-Colony
+# Ground Column of Robots
 ## Team
 **Mentor:**
 - Andrii Ozhovych
 
-**Students: **
+**Students:**
 - Maryna Ohinska 
 - Oleksii Lasiichuck
 - Nestor Leyko 
