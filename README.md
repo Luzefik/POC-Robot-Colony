@@ -1,13 +1,13 @@
 # POC-Robot-Colony
 ## Team
-Mentor:
-Andrii Ozhovych
+**Mentor:**
+- Andrii Ozhovych
 
-Students: 
-Maryna Ohinska 
-Oleksii Lasiichuck
-Nestor Leyko 
-Andrii Kulbaba
+**Students: **
+- Maryna Ohinska 
+- Oleksii Lasiichuck
+- Nestor Leyko 
+- Andrii Kulbaba
 
 ## The Idea 
 The project focuses on realizing the concept of the robot column. The project idea was inspired by many facts of using drones and robots in the current Russian-Ukrainian war. 
