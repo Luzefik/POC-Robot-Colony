@@ -3,46 +3,31 @@ import numpy as np
 import math
 import itertools
 
-# --- CONFIGURATION PARAMETERS ---
-# It's crucial to separate configuration from the main logic for easier tuning.
-CONFIG = {
-    # --- Camera and Object Parameters ---
-    # IMPORTANT: Calibrate this value for your specific camera.
-    # To calibrate, place the robot at a known distance (e.g., 50 cm),
-    # run the script, and note the average 'pixel_width' of the marker.
-    # Then, calculate: FOCAL_LENGTH_PX = (pixel_width * KNOWN_DISTANCE_CM) / REAL_TOTAL_WIDTH_CM
-    "FOCAL_LENGTH_PX": 1400.0,  # PRE-CALIBRATED FOCAL LENGTH (NEEDS YOUR CALIBRATION)
 
-    # Real-world distance between the centers of the two outer dots (in cm).
-    # Since adjacent dots are 5cm apart, the total width is 2 * 5cm.
+CONFIG = {
+    "FOCAL_LENGTH_PX": 1400.0,  # pre adjusted parameter for my laptop (Oleksii)
+
     "REAL_TOTAL_WIDTH_CM": 10.0,
 
-    # --- Color Detection Parameters (HSV Color Space) ---
-    # Red color can wrap around the hue spectrum (0-180 in OpenCV).
-    # These two ranges define the lower and upper bounds for red.
+    # color stuff (red)
     "HSV_RED_LOWER_1": (0, 120, 70),
     "HSV_RED_UPPER_1": (10, 255, 255),
     "HSV_RED_LOWER_2": (170, 120, 70),
     "HSV_RED_UPPER_2": (180, 255, 255),
 
-    # --- Candidate Filtering Parameters ---
-    # These filters help remove noise and false positives (like a red finger).
-    "MIN_CONTOUR_AREA": 25,       # Minimum area of a contour to be considered a dot.
-    "MIN_CIRCULARITY": 0.75,      # Filters out non-circular shapes. 1.0 is a perfect circle.
-    "MIN_SOLIDITY": 0.8,          # Filters out shapes with indentations. 1.0 is a solid shape.
 
-    # --- Geometric Validation Tolerances ---
-    # These tolerances account for real-world imperfections like perspective distortion.
-    "COLLINEARITY_TOLERANCE": 3.5, # How much a point can deviate from the line formed by the other two.
-    "EQUIDISTANT_TOL_RATIO": 0.25, # Allowed relative difference between segments (e.g., 0.25 = 25%).
-    "HORIZONTAL_ANGLE_TOL_DEG": 20.0, # Allowed deviation from a perfectly horizontal line.
+    "MIN_CONTOUR_AREA": 25, 
+    "MIN_CIRCULARITY": 0.75, 
+    "MIN_SOLIDITY": 0.8,
+
+    "COLLINEARITY_TOLERANCE": 3.5,
+    "EQUIDISTANT_TOL_RATIO": 0.25,
+    "HORIZONTAL_ANGLE_TOL_DEG": 20.0, 
 }
 
 
 class RobotTracker:
-    """
-    A class to encapsulate the entire robot tracking and distance estimation pipeline.
-    """
+
     def __init__(self, config):
         self.config = config
         self.focal_length_px = config["FOCAL_LENGTH_PX"]
@@ -50,8 +35,7 @@ class RobotTracker:
 
     def _detect_candidates(self, frame):
         """
-        Stage 1: Detects all potential red, circular objects in the frame.
-        Returns a list of candidate dictionaries and the binary mask for debugging.
+        Detects all potential red, circular objects in the frame.
         """
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         mask1 = cv2.inRange(hsv, self.config["HSV_RED_LOWER_1"], self.config["HSV_RED_UPPER_1"])
@@ -90,8 +74,7 @@ class RobotTracker:
 
     def _find_valid_triplet(self, candidates):
         """
-        Stage 2: Finds a valid triplet of dots from the candidates that satisfies
-        geometric constraints (collinear, equidistant, horizontal).
+        Finds a valid triplet of dots from the candidates
         """
         if len(candidates) < 3:
             return None
@@ -102,17 +85,13 @@ class RobotTracker:
         for triplet in possible_triplets:
             centers = [c['center'] for c in triplet]
             
-            # Sort points by x-coordinate to easily check distances and orientation.
             centers.sort(key=lambda p: p[0])
             p1, p2, p3 = centers[0], centers[1], centers[2]
 
-            # 1. Collinearity Check: Calculate the perpendicular distance of p2 from the line p1-p3
-            # This is more intuitive than the cross-product area.
             distance_from_line = np.abs(np.cross(np.array(p3)-np.array(p1), np.array(p1)-np.array(p2))) / np.linalg.norm(np.array(p3)-np.array(p1))
             if distance_from_line > self.config["COLLINEARITY_TOLERANCE"]:
                 continue
 
-            # 2. Equidistance Check
             dist1 = math.dist(p1, p2)
             dist2 = math.dist(p2, p3)
             if dist1 == 0 or dist2 == 0: continue
@@ -121,7 +100,6 @@ class RobotTracker:
             if ratio_diff > self.config["EQUIDISTANT_TOL_RATIO"]:
                 continue
 
-            # 3. Horizontal Orientation Check
             angle_rad = math.atan2(p3[1] - p1[1], p3[0] - p1[0])
             angle_deg = abs(math.degrees(angle_rad))
             
@@ -135,7 +113,6 @@ class RobotTracker:
         if not valid_triplets:
             return None
 
-        # If multiple valid triplets are found, choose the one with the largest apparent size.
         best_triplet = max(valid_triplets, key=lambda t: t['pixel_width'])
         return best_triplet
 
@@ -179,10 +156,9 @@ def main():
         return
 
     tracker = RobotTracker(CONFIG)
-    print("Starting robot detection. Press 'q' to quit.")
-    print("-" * 30)
-    print("IMPORTANT: You may need to calibrate 'FOCAL_LENGTH_PX' in the CONFIG.")
-    print("-" * 30)
+    print("Start of the program")
+    #   i used it for calibration once:
+    # print("calibrate 'FOCAL_LENGTH_PX' in the CONFIG")
 
     while True:
         ret, frame = cap.read()
