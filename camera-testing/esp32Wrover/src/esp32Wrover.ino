@@ -9,8 +9,8 @@
 // ===========================
 // Enter your WiFi credentials
 // ===========================
-const char *ssid = "YOUR WiFi NAME";
-const char *password = "YOUR WiFi PASSWORD";
+const char *ssid = "Pixel 6a";
+const char *password = "12345678";
 
 void startCameraServer();
 void setupLedFlash();
