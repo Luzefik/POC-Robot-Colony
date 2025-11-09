@@ -2,7 +2,7 @@
 // Need help? https://tinyurl.com/bluepad32-help
 
 #include <string.h>
-
+#include <driving.h>
 #include <uni.h>
 
 // Custom "instance"
@@ -113,6 +113,7 @@ static void my_platform_on_controller_data(uni_hid_device_t* d, uni_controller_t
     switch (ctl->klass) {
         case UNI_CONTROLLER_CLASS_GAMEPAD:
             gp = &ctl->gamepad;
+            printf("We have some activity on the left_y %d", left_joystick_y);
 
             // Debugging
             // Axis ry: control rumble
@@ -124,13 +125,50 @@ static void my_platform_on_controller_data(uni_hid_device_t* d, uni_controller_t
             if ((gp->buttons & BUTTON_B) && d->report_parser.set_player_leds != NULL) {
                 d->report_parser.set_player_leds(d, leds++ & 0x0f);
             }
-            // Axis: control RGB color
-            if ((gp->buttons & BUTTON_X) && d->report_parser.set_lightbar_color != NULL) {
-                uint8_t r = (gp->axis_x * 256) / 512;
-                uint8_t g = (gp->axis_y * 256) / 512;
-                uint8_t b = (gp->axis_rx * 256) / 512;
-                d->report_parser.set_lightbar_color(d, r, g, b);
-            }
+            // // Axis: control RGB color
+            // if ((gp->buttons & BUTTON_X) && d->report_parser.set_lightbar_color != NULL) {
+
+
+
+                // uint8_t left_joystick_x = (gp -> axis_x); we dont need it
+                int16_t left_joystick_y = (gp -> axis_y);
+
+
+                int16_t right_joystick_x = (gp -> axis_rx);
+                // int8_t right_joystick_y = (gp -> axis_ry);
+                // printf("We have some activity on the left_x %d", left_joystick_x);
+
+                printf("We have some activity on the left_y %d", left_joystick_y);
+
+                if (left_joystick_y > 0) {
+
+                    float speed_1, speed_2;
+                    if (right_joystick_x > 0) {
+                        speed_1 = (float)left_joystick_y * 0.75;
+                        speed_2 = (float)left_joystick_y * (float)right_joystick_x / 512;
+                    } else {
+                        speed_1 = (float)left_joystick_y * (float)right_joystick_x / 512;
+                        speed_2 = (float)left_joystick_y * 0.75; // <--- ВИПРАВЛЕНО 2
+                    }
+                    motor_set_speed(4, speed_1);
+                    motor_set_speed(18, speed_2);
+
+                } else {
+                    float speed_1, speed_2;
+                     if (right_joystick_x > 0) {
+                        speed_1 = (float)left_joystick_y * 0.75;
+                        speed_2 = (float)left_joystick_y * (float)right_joystick_x / 512;
+                    } else {
+                        speed_1 = (float)left_joystick_y * (float)right_joystick_x / 512;
+                        speed_2 = (float)left_joystick_y * 0.75;
+                    }
+                    motor_set_speed(5, speed_1);
+                    motor_set_speed(19, speed_2);
+                }
+
+
+                printf("We have some activity on the right_x %d", right_joystick_x);
+            // }
 
             // Toggle Bluetooth connections
             if ((gp->buttons & BUTTON_SHOULDER_L) && enabled) {
