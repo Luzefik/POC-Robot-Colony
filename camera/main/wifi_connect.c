@@ -5,8 +5,8 @@
 #include "esp_netif.h"
 
 
-#define WIFI_SSID "Pixel 6a"
-#define WIFI_PASS "12345678"
+#define WIFI_SSID "WIFI NAME"
+#define WIFI_PASS "PASSWORD"
 
 static const char *TAG = "wifi_init";
 static void (*g_got_ip_cb)(void) = NULL;
@@ -31,14 +31,13 @@ static void on_got_ip(void *arg, esp_event_base_t event_base, int32_t event_id, 
 }
 
 void wifi_init_sta(void) {
-    // 1. Ініціалізація зберігання NVS (обов'язково для Wi-Fi)
+    // INIT NVS (
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
         ESP_ERROR_CHECK(nvs_flash_erase());
         ESP_ERROR_CHECK(nvs_flash_init());
     }
 
-    // 2. Ініціалізація мережевих інтерфейсів
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
 
@@ -47,11 +46,10 @@ void wifi_init_sta(void) {
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_wifi_init(&cfg));
 
-    // 3. Реєстрація подій Wi-Fi і IP
+    // Wi-Fi IP
     ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &on_wifi_event, NULL));
     ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &on_got_ip, NULL));
 
-    // 4. Конфігурація Wi-Fi
     wifi_config_t wifi_config = {
         .sta = {
             .ssid = WIFI_SSID,
@@ -62,7 +60,7 @@ void wifi_init_sta(void) {
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
 
-    // 5. Старт
+    // Start
     ESP_ERROR_CHECK(esp_wifi_start());
     ESP_LOGI(TAG, "Wi-Fi initialization done.");
 }

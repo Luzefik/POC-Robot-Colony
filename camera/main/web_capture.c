@@ -59,23 +59,20 @@ static httpd_handle_t start_webserver(void)
 {
     httpd_handle_t server = NULL;
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
-    config.lru_purge_enable = true; // Допомагає керувати кешем
-
+    config.lru_purge_enable = true;
     ESP_LOGI(TAG, "Starting server on port: '%d'", config.server_port);
     if (httpd_start(&server, &config) == ESP_OK) {
-        // Створюємо URI для /capture
+        //URI: /capture
         httpd_uri_t capture_uri = {
             .uri       = "/capture",
             .method    = HTTP_GET,
-            .handler   = jpg_httpd_handler, // Твій існуючий обробник
+            .handler   = jpg_httpd_handler,
             .user_ctx  = NULL
         };
         httpd_register_uri_handler(server, &capture_uri);
     }
     return server;
 }
-
-// ▼▼▼ ОСЬ ЦЯ ФУНКЦІЯ, ЯКУ ШУКАЄ MAIN.C ▼▼▼
 void web_capture_start(void)
 {
     if (start_webserver() == NULL) {
