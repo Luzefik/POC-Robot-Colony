@@ -6,7 +6,21 @@
 
 // 1. Board setup (Uncomment):
 // #define BOARD_WROVER_KIT
+// #define BOARD_ESP32CAM_AITHINKER
+// #define BOARD_ESP32S3_WROOM
+// #define BOARD_ESP32S3_XIAO
+// #define BOARD_ESP32S3_GOOUUU
+// #define BOARD_ESP32S3_XIAO
 
+/**
+ * 2. Kconfig setup
+ *
+ * If you have a Kconfig file, copy the content from
+ *  https://github.com/espressif/esp32-camera/blob/master/Kconfig into it.
+ * In case you haven't, copy and paste this Kconfig file inside the src directory.
+ * This Kconfig file has definitions that allows more control over the camera and
+ * how it will be initialized.
+ */
 
 /**
  * 3. Enable PSRAM on sdkconfig:
@@ -27,6 +41,8 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+
+
 
 // support IDF 5.x
 #ifndef portTICK_RATE_MS
@@ -66,8 +82,23 @@ static camera_config_t camera_config = {
     .ledc_timer = LEDC_TIMER_0,
     .ledc_channel = LEDC_CHANNEL_0,
 
-    .pixel_format = PIXFORMAT_RGB565, //YUV422,GRAYSCALE,RGB565,JPEG
-    .frame_size = FRAMESIZE_QVGA,    //QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
+    .pixel_format = PIXFORMAT_JPEG, //PIXFORMAT_RGB565, //YUV422,GRAYSCALE,RGB565,JPEG
+
+    .frame_size = FRAMESIZE_XGA,
+    /*
+    FRAMESIZE_VGA (640x480)
+
+    FRAMESIZE_SVGA (800x600)
+
+    FRAMESIZE_XGA (1024x768)
+
+    FRAMESIZE_SXGA (1280x1024)
+
+    FRAMESIZE_UXGA (1600x1200)
+    */
+
+    //QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
+
 
     .jpeg_quality = 12, //0-63, for OV series camera sensors, lower number means higher quality
     .fb_count = 1,       //When jpeg mode is used, if fb_count more than one, the driver will work in continuous mode.
@@ -75,7 +106,7 @@ static camera_config_t camera_config = {
     .grab_mode = CAMERA_GRAB_WHEN_EMPTY,
 };
 
-static esp_err_t init_camera(void)
+esp_err_t camera_init_board(void)
 {
     //initialize the camera
     esp_err_t err = esp_camera_init(&camera_config);
@@ -87,28 +118,28 @@ static esp_err_t init_camera(void)
 
     return ESP_OK;
 }
-#endif
+// #endif
 
-void app_main(void)
-{
-// #if ESP_CAMERA_SUPPORTED
-    if(ESP_OK != init_camera()) {
-        return;
-    }
+// void app_main(void)
+// {
+// // #if ESP_CAMERA_SUPPORTED
+//     if(ESP_OK != init_camera()) {
+//         return;
+//     }
 
-    while (1)
-    {
-        ESP_LOGI(TAG, "Taking picture...");
-        camera_fb_t *pic = esp_camera_fb_get();
+//     while (1)
+//     {
+//         ESP_LOGI(TAG, "Taking picture...");
+//         camera_fb_t *pic = esp_camera_fb_get();
 
-        // use pic->buf to access the image
-        ESP_LOGI(TAG, "Picture taken! Its size was: %zu bytes", pic->len);
-        esp_camera_fb_return(pic);
+//         // use pic->buf to access the image
+//         ESP_LOGI(TAG, "Picture taken! Its size was: %zu bytes", pic->len);
+//         esp_camera_fb_return(pic);
 
-        vTaskDelay(5000 / portTICK_RATE_MS);
-    }
-#else
-    ESP_LOGE(TAG, "Camera support is not available for this chip");
-    return;
-#endif
-}
+//         vTaskDelay(5000 / portTICK_RATE_MS);
+//     }
+// // #else
+//     ESP_LOGE(TAG, "Camera support is not available for this chip");
+//     return;
+// // #endif
+// }
