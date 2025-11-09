@@ -3,17 +3,41 @@
 
 #include "wifi_connect.h"
 #include "take_picture.h"
-#include "web_capture.h"
+
+
+// #include "web_capture.h"
+#include "web_stream.h"
+
 
 #include "esp_psram.h"
 
 static const char *TAG = "app";
 
+#define APP_MODE_STREAM 1
+
+/*
+APP_MODE_STREAM 1 - stream
+APP_MODE_STREAM 0 - capture
+*/
+#if defined(APP_MODE_STREAM)
+    #include "web_stream.h"
+#else
+    #include "web_capture.h"
+#endif
+
 static void on_wifi_ready(void)
 {
-    ESP_LOGI(TAG, "Wi-Fi up → start web server");
+#if defined(APP_MODE_STREAM)
+    ESP_LOGI(TAG, "Wi-Fi up → start WEB STREAM server");
+    web_stream_start();
+#else
+    ESP_LOGI(TAG, "Wi-Fi up → start WEB CAPTURE server");
     web_capture_start();
+#endif
 }
+
+
+
 
 void app_main(void)
 {
@@ -32,6 +56,6 @@ void app_main(void)
     }
 
     wifi_register_got_ip_cb(on_wifi_ready);
-    wifi_init_sta(); 
+    wifi_init_sta();
 
 }

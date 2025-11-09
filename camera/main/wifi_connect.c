@@ -24,7 +24,7 @@ static void on_wifi_event(void *arg, esp_event_base_t event_base, int32_t event_
 static void on_got_ip(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data) {
     ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
     ESP_LOGI(TAG, "Got IP: " IPSTR, IP2STR(&event->ip_info.ip));
-    ESP_LOGI(TAG, "Open http://" IPSTR "/capture", IP2STR(&event->ip_info.ip));
+    ESP_LOGI(TAG, "Open http://" IPSTR, IP2STR(&event->ip_info.ip));
     if (g_got_ip_cb) {
         g_got_ip_cb();
     }
