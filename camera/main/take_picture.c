@@ -5,7 +5,7 @@
 // =============================== SETUP ======================================
 
 // 1. Board setup (Uncomment):
-// #define BOARD_WROVER_KIT
+#define BOARD_WROVER_KIT 1
 // #define BOARD_ESP32CAM_AITHINKER
 // #define BOARD_ESP32S3_WROOM
 // #define BOARD_ESP32S3_XIAO
@@ -50,9 +50,6 @@
 #endif
 
 #include "esp_camera.h"
-
-#define BOARD_WROVER_KIT 1
-
 #include "camera_pinout.h"
 
 static const char *TAG = "example:take_picture";
@@ -82,10 +79,12 @@ static camera_config_t camera_config = {
     .ledc_timer = LEDC_TIMER_0,
     .ledc_channel = LEDC_CHANNEL_0,
 
-    .pixel_format = PIXFORMAT_JPEG, //PIXFORMAT_RGB565, //YUV422,GRAYSCALE,RGB565,JPEG
+    .pixel_format = PIXFORMAT_JPEG,
 
-    .frame_size = FRAMESIZE_XGA,
+    .frame_size = FRAMESIZE_VGA,
     /*
+    FRAMESIZE_QVGA (320x240)
+
     FRAMESIZE_VGA (640x480)
 
     FRAMESIZE_SVGA (800x600)
@@ -99,9 +98,8 @@ static camera_config_t camera_config = {
 
     //QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
 
-
-    .jpeg_quality = 12, //0-63, for OV series camera sensors, lower number means higher quality
-    .fb_count = 1,       //When jpeg mode is used, if fb_count more than one, the driver will work in continuous mode.
+    .jpeg_quality = 10,  // 0-63 lower means higher quality
+    .fb_count = 2,
     .fb_location = CAMERA_FB_IN_PSRAM,
     .grab_mode = CAMERA_GRAB_WHEN_EMPTY,
 };
