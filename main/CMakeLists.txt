@@ -1,8 +1,8 @@
-set(srcs "main.c" "my_platform.c")
+set(srcs)
 
 set(requires "bluepad32" "btstack")
 
-idf_component_register(SRCS "${srcs}"
+idf_component_register(SRCS "my_platform.c" "main.c" "driving.cpp"
                     INCLUDE_DIRS "."
                     REQUIRES "${requires}")
 

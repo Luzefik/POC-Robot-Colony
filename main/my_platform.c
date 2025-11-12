@@ -5,6 +5,9 @@
 
 #include <uni.h>
 
+
+#include <driving.h> //for controlls
+
 // Custom "instance"
 typedef struct my_platform_instance_s {
     uni_gamepad_seat_t gamepad_seat;  // which "seat" is being used
@@ -92,61 +95,68 @@ static uni_error_t my_platform_on_device_ready(uni_hid_device_t* d) {
     return UNI_ERROR_SUCCESS;
 }
 
+int16_t clamp(int x, int min, int max) {
+    if (x < min) {
+        return min;
+    } else if (x >= max) {
+        return max;
+    }
+
+    return x;
+}
+
 static void my_platform_on_controller_data(uni_hid_device_t* d, uni_controller_t* ctl) {
-    static uint8_t leds = 0;
-    static uint8_t enabled = true;
     static uni_controller_t prev = {0};
     uni_gamepad_t* gp;
 
-    // Optimization to avoid processing the previous data so that the console
-    // does not get spammed with a lot of logs, but remove it from your project.
+    static int16_t speed = 0;
+    static int8_t turn = 0;
+
     if (memcmp(&prev, ctl, sizeof(*ctl)) == 0) {
         return;
     }
     prev = *ctl;
-    // Print device Id before dumping gamepad.
-    // This could be very CPU intensive and might crash the ESP32.
-    // Remove these 2 lines in production code.
-    //    logi("(%p), id=%d, \n", d, uni_hid_device_get_idx_for_instance(d));
-    //    uni_controller_dump(ctl);
+    gp = &ctl->gamepad;
 
-    switch (ctl->klass) {
-        case UNI_CONTROLLER_CLASS_GAMEPAD:
-            gp = &ctl->gamepad;
+    const int16_t left_y = (gp->axis_y == 4) ? 0 : -gp->axis_y / 2;
+    const int16_t right_x = (gp->axis_rx == 4) ? 0 : gp->axis_rx / 16;
 
-            // Debugging
-            // Axis ry: control rumble
-            if ((gp->buttons & BUTTON_A) && d->report_parser.play_dual_rumble != NULL) {
-                d->report_parser.play_dual_rumble(d, 0 /* delayed start ms */, 250 /* duration ms */,
-                                                  255 /* weak magnitude */, 0 /* strong magnitude */);
-            }
-            // Buttons: Control LEDs On/Off
-            if ((gp->buttons & BUTTON_B) && d->report_parser.set_player_leds != NULL) {
-                d->report_parser.set_player_leds(d, leds++ & 0x0f);
-            }
-            // Axis: control RGB color
-            if ((gp->buttons & BUTTON_X) && d->report_parser.set_lightbar_color != NULL) {
-                uint8_t r = (gp->axis_x * 256) / 512;
-                uint8_t g = (gp->axis_y * 256) / 512;
-                uint8_t b = (gp->axis_rx * 256) / 512;
-                d->report_parser.set_lightbar_color(d, r, g, b);
-            }
-
-            // Toggle Bluetooth connections
-            if ((gp->buttons & BUTTON_SHOULDER_L) && enabled) {
-                logi("*** Stop scanning\n");
-                uni_bt_stop_scanning_safe();
-                enabled = false;
-            }
-            if ((gp->buttons & BUTTON_SHOULDER_R) && !enabled) {
-                logi("*** Start scanning\n");
-                uni_bt_start_scanning_and_autoconnect_safe();
-                enabled = true;
-            }
-            break;
-        default:
-            break;
+    
+    
+    if (speed < left_y) {
+        speed += 4;
     }
+    else if (speed > left_y) {
+        speed -= 4;
+    }
+
+    if (turn < right_x) {
+        turn += 2;
+    }
+    else if (turn > right_x) {
+        turn -= 2;
+    }
+
+    speed = clamp(left_y, -192, 191);
+    turn = clamp(right_x, -32, 31);
+
+    if (speed > 0) {
+        speed = abs(speed);
+        motor(0, speed - (turn / 2));
+        motor(1, 0);
+
+        motor(2, speed + (turn / 2));
+        motor(3, 0);
+    } else {
+        speed = abs(speed);
+        motor(1, speed - (turn / 2));
+        motor(0, 0);
+
+        motor(3, speed + (turn / 2));
+        motor(2, 0);
+    }
+    printf("speed: %4d | turn: %4d\n", speed, turn);
+    fflush(stdout);
 }
 
 static const uni_property_t* my_platform_get_property(uni_property_idx_t idx) {

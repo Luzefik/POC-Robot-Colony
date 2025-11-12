@@ -1,8 +1,5 @@
-// Example file - Public Domain
-// Need help? http://bit.ly/bluepad32-help
-
 #include <stdlib.h>
-
+#include "driving.h"
 #include <btstack_port_esp32.h>
 #include <btstack_run_loop.h>
 #include <btstack_stdio_esp32.h>
@@ -21,6 +18,7 @@
 struct uni_platform* get_my_platform(void);
 
 int app_main(void) {
+    motor_init();
     // If you enable HCI Dump better to disable "Bluepad32 USB Console" from "idf.py menuconfig".
     // hci_dump_init(hci_dump_embedded_stdout_get_instance());
 

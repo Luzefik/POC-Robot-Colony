@@ -1,10 +1,10 @@
-#pragma once
-#include "esp_err.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 void motor_init(void);
+void motor(int motor_id, int pwm);
 
-void motor_set_speed(int motor_id, float speed_percent);
-
-void motor_stop(int motor_id);
-
-void stop_all(void);
+#ifdef __cplusplus
+}
+#endif
