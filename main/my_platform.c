@@ -2,11 +2,14 @@
 // Need help? https://tinyurl.com/bluepad32-help
 
 #include <string.h>
+#include <stdbool.h>
 #include <driving.h>
-#include <uni.h>
+#include "esp_log.h"
 
+#include "../src/components/bluepad32/include/uni.h"
 
-#include <driving.h> //for controlls
+// External function declared in main.c
+extern void set_gamepad_connected(bool connected);
 
 // Custom "instance"
 typedef struct my_platform_instance_s {
@@ -25,6 +28,7 @@ static void my_platform_init(int argc, const char** argv) {
     ARG_UNUSED(argv);
 
     logi("custom: init()\n");
+    logi("[GAMEPAD] Initializing gamepad platform...\n");
 
 #if 0
     uni_gamepad_mappings_t mappings = GAMEPAD_DEFAULT_MAPPINGS;
@@ -47,12 +51,15 @@ static void my_platform_init(int argc, const char** argv) {
 
 static void my_platform_on_init_complete(void) {
     logi("custom: on_init_complete()\n");
+    logi("[GAMEPAD] Initialization complete - Starting BT scanning...\n");
+    logi("[GAMEPAD] IMPORTANT: Put your gamepad in PAIRING/DISCOVERY MODE!\n");
 
     // Safe to call "unsafe" functions since they are called from BT thread
 
     // Start scanning
     uni_bt_start_scanning_and_autoconnect_unsafe();
     uni_bt_allow_incoming_connections(true);
+    logi("[GAMEPAD] Bluetooth scanning started - waiting for gamepad connection...\n");
 
     // Based on runtime condition, you can delete or list the stored BT keys.
     if (1)
@@ -69,9 +76,13 @@ static uni_error_t my_platform_on_device_discovered(bd_addr_t addr, const char* 
     // @param cod: Class of Device. See "uni_bt_defines.h" for possible values.
     // @param rssi: Received Signal Strength Indicator (RSSI) measured in dBms. The higher (255) the better.
 
+    logi("[GAMEPAD] Discovered device: %02X:%02X:%02X:%02X:%02X:%02X, name='%s', COD=0x%04X, RSSI=%d dBm\n",
+         addr[0], addr[1], addr[2], addr[3], addr[4], addr[5],
+         name ? name : "(unknown)", cod, rssi);
+
     // As an example, if you want to filter out keyboards, do:
     if (((cod & UNI_BT_COD_MINOR_MASK) & UNI_BT_COD_MINOR_KEYBOARD) == UNI_BT_COD_MINOR_KEYBOARD) {
-        logi("Ignoring keyboard\n");
+        logi("[GAMEPAD] Ignoring keyboard device\n");
         return UNI_ERROR_IGNORE_DEVICE;
     }
 
@@ -80,18 +91,40 @@ static uni_error_t my_platform_on_device_discovered(bd_addr_t addr, const char* 
 
 static void my_platform_on_device_connected(uni_hid_device_t* d) {
     logi("custom: device connected: %p\n", d);
+    logi("[GAMEPAD] Connected - Device address: %02X:%02X:%02X:%02X:%02X:%02X\n",
+         d->conn.btaddr[0], d->conn.btaddr[1], d->conn.btaddr[2],
+         d->conn.btaddr[3], d->conn.btaddr[4], d->conn.btaddr[5]);
+    logi("[GAMEPAD] Controller type: %d, Name: %s\n",
+         d->controller_type, d->name);
 }
 
 static void my_platform_on_device_disconnected(uni_hid_device_t* d) {
     logi("custom: device disconnected: %p\n", d);
+    logi("[GAMEPAD] Disconnected - Device address: %02X:%02X:%02X:%02X:%02X:%02X\n",
+         d->conn.btaddr[0], d->conn.btaddr[1], d->conn.btaddr[2],
+         d->conn.btaddr[3], d->conn.btaddr[4], d->conn.btaddr[5]);
+    logi("[GAMEPAD] Waiting for new connection...\n");
+
+    // Signal that gamepad is no longer connected
+    set_gamepad_connected(false);
 }
 
 static uni_error_t my_platform_on_device_ready(uni_hid_device_t* d) {
     logi("custom: device ready: %p\n", d);
+    logi("[GAMEPAD] Ready - Device fully initialized and ready for input!\n");
+    logi("[GAMEPAD] Device ready at address: %02X:%02X:%02X:%02X:%02X:%02X, Name: %s\n",
+         d->conn.btaddr[0], d->conn.btaddr[1], d->conn.btaddr[2],
+         d->conn.btaddr[3], d->conn.btaddr[4], d->conn.btaddr[5],
+         d->name);
+
     my_platform_instance_t* ins = get_my_platform_instance(d);
     ins->gamepad_seat = GAMEPAD_SEAT_A;
 
     trigger_event_on_gamepad(d);
+
+    // Signal that gamepad is now connected and ready
+    set_gamepad_connected(true);
+
     return UNI_ERROR_SUCCESS;
 }
 
@@ -121,8 +154,10 @@ static void my_platform_on_controller_data(uni_hid_device_t* d, uni_controller_t
     const int16_t left_y = (gp->axis_y == 4) ? 0 : -gp->axis_y / 2;
     const int16_t right_x = (gp->axis_rx == 4) ? 0 : gp->axis_rx / 16;
 
-    
-    
+    logi("[GAMEPAD] ↻ Input received from: %02X:%02X:%02X:%02X:%02X:%02X\n",
+         d->conn.btaddr[0], d->conn.btaddr[1], d->conn.btaddr[2],
+         d->conn.btaddr[3], d->conn.btaddr[4], d->conn.btaddr[5]);
+
     if (speed < left_y) {
         speed += 4;
     }
@@ -155,8 +190,7 @@ static void my_platform_on_controller_data(uni_hid_device_t* d, uni_controller_t
         motor(3, speed + (turn / 2));
         motor(2, 0);
     }
-    printf("speed: %4d | turn: %4d\n", speed, turn);
-    fflush(stdout);
+    logi("[GAMEPAD] speed: %4d | turn: %4d\n", speed, turn);
 }
 
 static const uni_property_t* my_platform_get_property(uni_property_idx_t idx) {
