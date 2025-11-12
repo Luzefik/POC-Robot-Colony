@@ -1,3 +1,7 @@
+#pragma once
+
+#include "esp_camera.h"
+
 // WROVER-KIT PIN Map
 #ifdef BOARD_WROVER_KIT
 
@@ -100,3 +104,5 @@
 // #define CAM_PIN_D6 11
 // #define CAM_PIN_D7 48
 // #endif
+
+esp_err_t camera_init_board(void);

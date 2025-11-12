@@ -8,6 +8,7 @@
 #include "jpeg_decoder.h"
 #include "esp_heap_caps.h"
 #include "esp_camera.h"
+
 static const char *TAG = "dots_algo";
 
 typedef struct {
@@ -17,31 +18,54 @@ typedef struct {
     size_t height;
 } jpg_scale_t;
 
+static detection_result_t g_detection_result = {0};
+static Point g_center_point = {0, 0};
+static Point g_dots[3] = {{0, 0}, {0, 0}, {0, 0}};
+static int g_dots_sizes[3] = {0, 0, 0};
+
 void detect_dots(camera_fb_t *fb) {
     if (!fb) {
-        ESP_LOGE(TAG, "Invalid frame buffer (NULL)");
         return;
     }
     if (fb->format != PIXFORMAT_JPEG) {
-        ESP_LOGE(TAG, "Frame is not JPEG format (format=%d)", fb->format);
         return;
     }
+    if (fb->len < 4 || fb->buf[0] != 0xFF || fb->buf[1] != 0xD8) {
+        return;
+    }
+
+    if (g_detection_result.rects) {
+        free(g_detection_result.rects);
+        g_detection_result.rects = NULL;
+        g_detection_result.count = 0;
+    }
+
     detect_dots_in_frame(fb->buf, fb->len, fb->width, fb->height);
 }
 
-// decode jpg image to rgb565 format with scaling
-static bool jpeg_to_rgb565(const uint8_t *jpeg, size_t jpeg_len, jpg_scale_t *out_img, esp_jpeg_image_scale_t scale)
-{
-    // Pre-allocate a large buffer (160x120 RGB565 = ~38.4KB for 1/4 scale)
-    // Use larger size for safety: 50KB
+detection_result_t* get_detection_result(void) {
+    return &g_detection_result;
+}
+
+Point get_center_point(void) {
+    return g_center_point;
+}
+
+Point* get_dots(void) {
+    return g_dots;
+}
+
+int* get_dots_sizes(void) {
+    return g_dots_sizes;
+}
+
+static bool jpeg_to_rgb565(const uint8_t *jpeg, size_t jpeg_len, jpg_scale_t *out_img, esp_jpeg_image_scale_t scale) {
     size_t output_size = 50 * 1024;
     out_img->buf = heap_caps_malloc(output_size, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
     if (!out_img->buf) {
-        ESP_LOGE(TAG, "Failed to allocate output buffer (%d bytes)", output_size);
         return false;
     }
 
-    // Decode JPEG directly with pre-allocated buffer
     esp_jpeg_image_cfg_t cfg = {
         .indata = (uint8_t *)jpeg,
         .indata_size = jpeg_len,
@@ -54,7 +78,6 @@ static bool jpeg_to_rgb565(const uint8_t *jpeg, size_t jpeg_len, jpg_scale_t *ou
     esp_jpeg_image_output_t img_output;
     esp_err_t err = esp_jpeg_decode(&cfg, &img_output);
     if (err != ESP_OK) {
-        ESP_LOGE(TAG, "JPEG decode failed: %s", esp_err_to_name(err));
         heap_caps_free(out_img->buf);
         out_img->buf = NULL;
         return false;
@@ -65,30 +88,26 @@ static bool jpeg_to_rgb565(const uint8_t *jpeg, size_t jpeg_len, jpg_scale_t *ou
     out_img->len = img_output.output_len;
 
     return true;
-}// Функція для розпакування 16-бітного кольору RGB565 в 24-бітний RGB
+}
+
 void rgb565_to_rgb(uint16_t rgb565, uint8_t* r, uint8_t* g, uint8_t* b) {
     *r = (uint8_t)(((rgb565 >> 11) & 0x1F) * 255 / 31);
     *g = (uint8_t)(((rgb565 >> 5) & 0x3F) * 255 / 63);
     *b = (uint8_t)((rgb565 & 0x1F) * 255 / 31);
 }
 
-// Функція для перевірки, чи є піксель "червоним"
 int is_red(uint8_t r, uint8_t g, uint8_t b) {
-    // Very relaxed thresholds for red-white LED detection
-    // The LEDs are red with white edges, so we need to be more permissive
-    return (r > 120 && g < 120 && b < 120 && r > g && r > b);
+    return (r > 120 && r > g + 50 && r > b + 50 && g < 120 && b < 120);
 }
 
-// Алгоритм пошуку в ширину (BFS) для знаходження зв'язаних компонентів (об'єктів)
-void find_blobs_bfs(int x, int y, uint16_t* image_data, int* visited, int current_blob_id, Blob* blob, int width, int height) {
+void find_blobs_bfs(int x, int y, uint16_t* image_data, int* visited, int current_blob_id,
+                    Blob* blob, int width, int height) {
     Point *queue = heap_caps_malloc(width * height * sizeof(Point), MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
     if (!queue) {
-        ESP_LOGE(TAG, "Failed to allocate queue");
         return;
     }
 
     int head = 0, tail = 0;
-
     queue[tail++] = (Point){x, y};
     visited[y * width + x] = current_blob_id;
 
@@ -133,50 +152,37 @@ void find_blobs_bfs(int x, int y, uint16_t* image_data, int* visited, int curren
     free(queue);
 }
 
-// Функція для обчислення квадрату відстані між двома точками
 double dist_sq(Point p1, Point p2) {
     return pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2);
 }
 
-// Функція для перевірки колінеарності трьох точок
-// Використовує площу трикутника. Якщо площа близька до нуля, точки колінеарні.
 int are_collinear(Point p1, Point p2, Point p3, double tolerance) {
     long area = p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y);
     return labs(area) < tolerance;
 }
 
-
-
-
-
-
-
 void detect_dots_in_frame(const uint8_t *jpeg_data, size_t jpeg_len, int orig_width, int orig_height) {
-    ESP_LOGI(TAG, "Starting detection: %dx%d JPEG (%d bytes)", orig_width, orig_height, jpeg_len);
-
     jpg_scale_t scaled_image = {0};
     if (!jpeg_to_rgb565(jpeg_data, jpeg_len, &scaled_image, JPEG_IMAGE_SCALE_1_4)) {
-        ESP_LOGE(TAG, "Failed to decode JPEG");
         return;
     }
 
     int width = scaled_image.width;
     int height = scaled_image.height;
     uint16_t* image_data = (uint16_t*)scaled_image.buf;
-    ESP_LOGI(TAG, "Decoded to %dx%d", width, height);
 
-    // Виділення пам'яті
+    int center_x = width / 2;
+    int center_y = height / 2;
+
     int* visited = heap_caps_calloc(width * height, sizeof(int), MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
     Blob* blobs = heap_caps_malloc(100 * sizeof(Blob), MALLOC_CAP_8BIT);
     if (!visited || !blobs) {
-        ESP_LOGE(TAG, "Failed to allocate memory");
         if (visited) free(visited);
         if (blobs) free(blobs);
-        free(scaled_image.buf);
+        heap_caps_free(scaled_image.buf);
         return;
     }
 
-    // Пошук червоних
     int blob_count = 0;
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
@@ -191,10 +197,7 @@ void detect_dots_in_frame(const uint8_t *jpeg_data, size_t jpeg_len, int orig_wi
                                        blob_count + 1, &blobs[blob_count],
                                        width, height);
 
-                        if (blobs[blob_count].size > 5 && blobs[blob_count].size < 500) {
-                            ESP_LOGI(TAG, "  Blob %d: center=(%d,%d) size=%d",
-                                     blob_count, blobs[blob_count].center.x,
-                                     blobs[blob_count].center.y, blobs[blob_count].size);
+                        if (blobs[blob_count].size > 10 && blobs[blob_count].size < 200) {
                             blob_count++;
                         }
                     }
@@ -202,15 +205,18 @@ void detect_dots_in_frame(const uint8_t *jpeg_data, size_t jpeg_len, int orig_wi
             }
         }
     }
-    ESP_LOGI(TAG, "Found %d red objects", blob_count);
 
-    // пошук трьох точок на одній лінії
-    int found = 0;
+    g_detection_result.count = 0;
+    g_center_point.x = 0;
+    g_center_point.y = 0;
+    memset(g_dots, 0, sizeof(g_dots));
+    memset(g_dots_sizes, 0, sizeof(g_dots_sizes));
+
     if (blob_count >= 3) {
-        for (int i = 0; i < blob_count && !found; i++) {
-            for (int j = i + 1; j < blob_count && !found; j++) {
-                for (int k = j + 1; k < blob_count && !found; k++) {
-                    double size_tolerance = 0.5;  // Increased from 0.2 to 0.5 (50% difference allowed)
+        for (int i = 0; i < blob_count; i++) {
+            for (int j = i + 1; j < blob_count; j++) {
+                for (int k = j + 1; k < blob_count; k++) {
+                    double size_tolerance = 0.5;
                     if (abs(blobs[i].size - blobs[j].size) / (double)blobs[i].size > size_tolerance ||
                         abs(blobs[j].size - blobs[k].size) / (double)blobs[j].size > size_tolerance) {
                         continue;
@@ -220,7 +226,7 @@ void detect_dots_in_frame(const uint8_t *jpeg_data, size_t jpeg_len, int orig_wi
                     Point p2 = blobs[j].center;
                     Point p3 = blobs[k].center;
 
-                    if (!are_collinear(p1, p2, p3, 100.0)) {
+                    if (!are_collinear(p1, p2, p3, 500.0)) {
                         continue;
                     }
 
@@ -229,22 +235,60 @@ void detect_dots_in_frame(const uint8_t *jpeg_data, size_t jpeg_len, int orig_wi
                     double dist_tolerance = 0.1;
 
                     if (fabs(sqrt(d12_sq) - sqrt(d23_sq)) < sqrt(d12_sq) * dist_tolerance) {
-                        ESP_LOGI(TAG, "\n______FOUND THREE DOTS______");
-                        ESP_LOGI(TAG, "Dot 1: (%d, %d) size=%d", p1.x, p1.y, blobs[i].size);
-                        ESP_LOGI(TAG, "Dot 2: (%d, %d) size=%d", p2.x, p2.y, blobs[j].size);
-                        ESP_LOGI(TAG, "Dot 3: (%d, %d) size=%d", p3.x, p3.y, blobs[k].size);
-                        found = 1;
+                        int center_abs_x = (p1.x + p3.x) / 2;
+                        int center_abs_y = (p1.y + p3.y) / 2;
+
+                        int center_rel_x = center_abs_x - center_x;
+                        int center_rel_y = center_abs_y - center_y;
+
+                        g_center_point.x = center_rel_x;
+                        g_center_point.y = center_rel_y;
+
+                        g_dots[0] = (Point){p1.x - center_x, p1.y - center_y};
+                        g_dots[1] = (Point){p2.x - center_x, p2.y - center_y};
+                        g_dots[2] = (Point){p3.x - center_x, p3.y - center_y};
+
+                        g_dots_sizes[0] = blobs[i].size;
+                        g_dots_sizes[1] = blobs[j].size;
+                        g_dots_sizes[2] = blobs[k].size;
+
+                        g_detection_result.count = 3;
+                        g_detection_result.rects = malloc(3 * sizeof(dot_rect_t));
+
+                        int radius = 10;
+                        g_detection_result.rects[0] = (dot_rect_t){
+                            .x = (p1.x - center_x) - radius,
+                            .y = (p1.y - center_y) - radius,
+                            .width = radius * 2,
+                            .height = radius * 2
+                        };
+                        g_detection_result.rects[1] = (dot_rect_t){
+                            .x = (p2.x - center_x) - radius,
+                            .y = (p2.y - center_y) - radius,
+                            .width = radius * 2,
+                            .height = radius * 2
+                        };
+                        g_detection_result.rects[2] = (dot_rect_t){
+                            .x = (p3.x - center_x) - radius,
+                            .y = (p3.y - center_y) - radius,
+                            .width = radius * 2,
+                            .height = radius * 2
+                        };
+
+                        ESP_LOGI(TAG, "3 dots: center=(%d,%d) dot1=(%d,%d,%d) dot2=(%d,%d,%d) dot3=(%d,%d,%d)",
+                                 center_rel_x, center_rel_y,
+                                 g_dots[0].x, g_dots[0].y, g_dots_sizes[0],
+                                 g_dots[1].x, g_dots[1].y, g_dots_sizes[1],
+                                 g_dots[2].x, g_dots[2].y, g_dots_sizes[2]);
+                        goto found_dots;
                     }
                 }
             }
         }
     }
 
-    if (!found) {
-        ESP_LOGI(TAG, "Could not find three dots matching criteria");
-    }
-
-    free(image_data);
+found_dots:
+    heap_caps_free(scaled_image.buf);
     free(visited);
     free(blobs);
 }
