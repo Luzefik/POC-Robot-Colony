@@ -40,7 +40,64 @@ void motor_init(void) {
     }
 }
 
+<<<<<<< HEAD
 void motor(int motor_id, int pwm) {
     ledc_set_duty(MOTOR_SPEED_MODE, motor_channels[motor_id], pwm);
     ledc_update_duty(MOTOR_SPEED_MODE, motor_channels[motor_id]);
+=======
+void motor_set_speed(int motor_id,
+                     float speed_percent) {
+    if (speed_percent < 0.0f) speed_percent = 0.0f;
+    if (speed_percent > 100.0f) speed_percent = 100.0f;
+
+
+    if (motor_id == 0 ) {
+        ledc_set_duty(MOTOR_SPEED_MODE, motor_channels[1], 0)
+        ledc_update_duty(MOTOR_SPEED_MODE, motor_channels[0])
+    }
+    if (motor_id == 1) {
+        ledc_set_duty(MOTOR_SPEED_MODE, motor_channels[0], 0)
+                ledc_update_duty(MOTOR_SPEED_MODE, motor_channels[1])
+
+    }
+
+    if (motor_id == 2) {
+        ledc_set_duty(MOTOR_SPEED_MODE, motor_channels[3], 0)
+                ledc_update_duty(MOTOR_SPEED_MODE, motor_channels[2])
+
+    }
+
+
+    if (motor_id == 3) {
+        ledc_set_duty(MOTOR_SPEED_MODE, motor_channels[2], 0)
+                ledc_update_duty(MOTOR_SPEED_MODE, motor_channels[3])
+
+    }
+
+    uint32_t duty = (uint32_t)((speed_percent / 100.0f) * MOTOR_MAX_DUTY);
+    ESP_ERROR_CHECK(ledc_set_duty(MOTOR_SPEED_MODE, motor_channels[motor_id], duty));
+    ESP_ERROR_CHECK(ledc_update_duty(MOTOR_SPEED_MODE, motor_channels[motor_id]));
+
+>>>>>>> ab6cc72a597933a6354417564e72cb6ec41b97a2
+}
+
+
+// void motor_set_speed(int x, int y
+//                     int motor_id_1, int motor_id_2,
+//                     float speed_percent_1, float speed_percent_2) {
+//     if (speed_percent_1 < 0.0f) speed_percent_1 = 0.0f;
+//     if (speed_percent_2 < 0.0f) speed_percent_2 = 0.0f;
+
+//     if (speed_percent_1 > 100.0f) speed_percent_1 = 100.0f;
+//     if (speed_percent_2 > 100.0f) speed_percent_2 = 100.0f;
+
+//     if y>0 {
+//         uint32_t duty_1 = (uint32_t)((speed_percent_1 / 100.0f) * MOTOR_MAX_DUTY);
+//         uint32_t duty_2 = (uint32_t)((speed_percent_2 / 100.0f) * MOTOR_MAX_DUTY);
+//         ESP_ERROR_CHECK(ledc_set_duty(MOTOR_SPEED_MODE, motor_channels[motor_id_1], duty1));
+//         ESP_ERROR_CHECK(ledc_set_duty(MOTOR_SPEED_MODE, motor_channels[motor_id_2], duty2));
+//     }
+
+
+
 }
