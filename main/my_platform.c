@@ -121,24 +121,26 @@ static void my_platform_on_controller_data(uni_hid_device_t* d, uni_controller_t
     const int16_t left_y = (gp->axis_y == 4) ? 0 : -gp->axis_y / 2;
     const int16_t right_x = (gp->axis_rx == 4) ? 0 : gp->axis_rx / 16;
 
-    
-    
-    if (speed < left_y) {
-        speed += 4;
+    if (left_y > 0 && left_y < 127) {
+        speed = 128;
     }
-    else if (speed > left_y) {
+
+    else if (left_y > speed) {
+        speed += 4;
+        }
+    
+    else if (left_y < speed) {
         speed -= 4;
     }
 
-    if (turn < right_x) {
+    speed = clamp(speed, -160, 159);
+
+    if (right_x > turn) {
         turn += 2;
     }
-    else if (turn > right_x) {
+    else if (right_x < turn) {
         turn -= 2;
     }
-
-    speed = clamp(left_y, -192, 191);
-    turn = clamp(right_x, -32, 31);
 
     if (speed > 0) {
         speed = abs(speed);
@@ -155,8 +157,28 @@ static void my_platform_on_controller_data(uni_hid_device_t* d, uni_controller_t
         motor(3, speed + (turn / 2));
         motor(2, 0);
     }
-    printf("speed: %4d | turn: %4d\n", speed, turn);
-    fflush(stdout);
+    // if (speed > left_y) {
+    //         speed -= 4;
+    //     }
+    // else if (speed == left_y) {}
+    // else if (left_y < 16) {
+    //     speed = 128;
+    // }
+    // else if (speed < left_y) {
+    //     speed += 4;
+    // }
+
+    // if (turn < right_x) {
+    //     turn += 2;
+    // }
+    // else if (turn > right_x) {
+    //     turn -= 2;
+    // } 
+
+    // speed = clamp(left_y, -160, 159);
+    // turn = clamp(right_x, -32, 31);
+    // printf("speed: %4d | turn: %4d\n", speed, turn);
+    // fflush(stdout);
 }
 
 static const uni_property_t* my_platform_get_property(uni_property_idx_t idx) {
