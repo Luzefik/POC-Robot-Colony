@@ -133,7 +133,7 @@ static void my_platform_on_controller_data(uni_hid_device_t* d, uni_controller_t
         speed -= 4;
     }
 
-    speed = clamp(speed, -160, 159);
+    speed = clamp(speed, -224, 223);
 
     if (right_x > turn) {
         turn += 2;
