@@ -4,6 +4,8 @@ set(srcs
     "driving.cpp"
     "take_picture.c"
     "dots_algo.c"
+    "web_stream.c"
+    "wifi_connect.c"
 )
 
 
@@ -18,6 +20,11 @@ set(priv_requires
     "esp_jpeg"
     "esp_driver_gpio"
     "esp_driver_ledc"
+    "lwip"
+    "esp_http_server"
+    "esp_wifi"
+    "esp_event"
+    "esp_netif"
 )
 
 idf_component_register(
