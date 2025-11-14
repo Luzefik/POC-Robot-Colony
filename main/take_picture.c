@@ -66,9 +66,9 @@ static camera_config_t camera_config = {
     .ledc_channel = LEDC_CHANNEL_0,
 
     // #ifdef DEBUG
-    // .pixel_format = PIXFORMAT_JPEG
+    // .pixel_format = PIXFORMAT_JPEG,
     // #else
-    .pixel_format = PIXFORMAT_RGB565,   // ← Без стиску! Прямо з камери
+    .pixel_format = PIXFORMAT_RGB565,   
     // #endif
 
     .frame_size = FRAMESIZE_VGA,

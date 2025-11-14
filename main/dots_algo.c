@@ -4,36 +4,192 @@
 #include <math.h>
 #include <string.h>
 #include <dots_algo.h>
-#include "jpeg_decoder.h"
 #include "esp_heap_caps.h"
 #include "esp_camera.h"
-
-typedef struct {
-    uint8_t *buf;
-    size_t len;
-    size_t width;
-    size_t height;
-} jpg_scale_t;
+#include "esp_log.h"
 
 static detection_result_t g_detection_result = {0};
 static Point g_center_point = {0, 0};
 static Point g_dots[3] = {{0, 0}, {0, 0}, {0, 0}};
 static int g_dots_sizes[3] = {0, 0, 0};
-
-static void detect_dots_in_frame(const uint8_t *jpeg_data, size_t jpeg_len, int orig_width, int orig_height);
+void rgb565_to_rgb(uint16_t rgb565, uint8_t* r, uint8_t* g, uint8_t* b);
+int is_red(uint8_t r, uint8_t g, uint8_t b);
+void find_blobs_bfs(int start_x, int start_y, uint16_t* image_data, int* visited, int current_blob_id,
+                    Blob* blob, int width, int height);
+double dist_sq(Point p1, Point p2);
+int are_collinear(Point p1, Point p2, Point p3, double tolerance);
 
 void detect_dots(camera_fb_t *fb) {
     if (!fb) {
-        return;
-    }
-    if (fb->format != PIXFORMAT_JPEG) {
-        return;
-    }
-    if (fb->len < 4 || fb->buf[0] != 0xFF || fb->buf[1] != 0xD8) {
+        ESP_LOGW("DOTS", "fb is NULL!");
         return;
     }
 
-    detect_dots_in_frame(fb->buf, fb->len, fb->width, fb->height);
+    if (fb->format != PIXFORMAT_RGB565) {
+        ESP_LOGW("DOTS", "Unsupported format=%d (need RGB565)", fb->format);
+        return;
+    }
+
+    ESP_LOGI("DOTS", "=== Processing RGB565: %d bytes, %dx%d ===", fb->len, fb->width, fb->height);
+
+    uint16_t *rgb_data = (uint16_t*)fb->buf;
+    int width = fb->width;
+    int height = fb->height;
+    int center_x = width / 2;
+    int center_y = height / 2;
+
+    int* visited = heap_caps_calloc(width * height, sizeof(int), MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
+    Blob* blobs = heap_caps_malloc(100 * sizeof(Blob), MALLOC_CAP_8BIT);
+    if (!visited || !blobs) {
+        ESP_LOGE("DOTS", "Memory allocation failed");
+        if (visited) free(visited);
+        if (blobs) free(blobs);
+        return;
+    }
+
+    int blob_count = 0;
+
+    // Шукаємо всі червоні об'єкти на зображенні
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            if (!visited[y * width + x]) {
+                uint16_t pixel = rgb_data[y * width + x];
+                uint8_t r, g, b;
+                rgb565_to_rgb(pixel, &r, &g, &b);
+
+                if (is_red(r, g, b)) {
+                    if (blob_count < 100) {
+                        find_blobs_bfs(x, y, rgb_data, visited,
+                                       blob_count + 1, &blobs[blob_count],
+                                       width, height);
+
+                        // Фільтруємо об'єкти за розміром
+                        if (blobs[blob_count].size > 10 && blobs[blob_count].size < 200) {
+                            blob_count++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    ESP_LOGI("DOTS", "Found %d blobs (after filtering)", blob_count);
+    for (int i = 0; i < blob_count && i < 5; i++) {
+        ESP_LOGI("DOTS", "  Blob %d: center(%d,%d) size=%d",
+                 i + 1, blobs[i].center.x, blobs[i].center.y, blobs[i].size);
+    }
+
+    // Скидаємо результат
+    g_detection_result.count = 0;
+    g_center_point.x = 0;
+    g_center_point.y = 0;
+    memset(g_dots, 0, sizeof(g_dots));
+    memset(g_dots_sizes, 0, sizeof(g_dots_sizes));
+
+    // Шукаємо три точки, що задовольняють умови
+    int found = 0;
+    if (blob_count >= 3) {
+        for (int i = 0; i < blob_count; i++) {
+            for (int j = i + 1; j < blob_count; j++) {
+                for (int k = j + 1; k < blob_count; k++) {
+
+                    // Перевірка на приблизно однаковий розмір (20%)
+                    double size_tolerance = 0.2;
+                    if (abs(blobs[i].size - blobs[j].size) / (double)blobs[i].size > size_tolerance ||
+                        abs(blobs[j].size - blobs[k].size) / (double)blobs[j].size > size_tolerance) {
+                        continue;
+                    }
+
+                    Point p1 = blobs[i].center;
+                    Point p2 = blobs[j].center;
+                    Point p3 = blobs[k].center;
+
+                    // Перевіряємо колінеарність (tolerance=100)
+                    if (!are_collinear(p1, p2, p3, 100.0)) {
+                        continue;
+                    }
+
+                    double d12_sq = dist_sq(p1, p2);
+                    double d23_sq = dist_sq(p2, p3);
+                    double d13_sq = dist_sq(p1, p3);
+
+                    // Перевіряємо рівновіддаленість (10%)
+                    double dist_tolerance = 0.1;
+
+                    // Три можливі комбінації порядку точок на лінії
+                    if (fabs(sqrt(d12_sq) - sqrt(d23_sq)) < sqrt(d12_sq) * dist_tolerance &&
+                        (p2.x - p1.x)*(p3.x - p2.x) >= 0) {
+                        ESP_LOGI("DOTS", "✓ Pattern #1: blobs[%d,%d,%d]", i, j, k);
+                        ESP_LOGI("DOTS", "   Points: (%d,%d) (%d,%d) (%d,%d)",
+                                 p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
+
+                        g_center_point.x = ((p1.x + p3.x) / 2) - center_x;
+                        g_center_point.y = ((p1.y + p3.y) / 2) - center_y;
+
+                        g_dots[0] = (Point){p1.x - center_x, p1.y - center_y};
+                        g_dots[1] = (Point){p2.x - center_x, p2.y - center_y};
+                        g_dots[2] = (Point){p3.x - center_x, p3.y - center_y};
+
+                        g_dots_sizes[0] = blobs[i].size;
+                        g_dots_sizes[1] = blobs[j].size;
+                        g_dots_sizes[2] = blobs[k].size;
+
+                        g_detection_result.count = 3;
+                        found = 1;
+                        goto cleanup;
+                    }
+
+                    if (fabs(sqrt(d13_sq) - sqrt(d23_sq)) < sqrt(d13_sq) * dist_tolerance &&
+                        (p3.x - p1.x)*(p2.x - p3.x) >= 0) {
+                        ESP_LOGI("DOTS", "✓ Pattern #2: blobs[%d,%d,%d]", i, j, k);
+
+                        g_center_point.x = ((p1.x + p2.x) / 2) - center_x;
+                        g_center_point.y = ((p1.y + p2.y) / 2) - center_y;
+
+                        g_dots[0] = (Point){p1.x - center_x, p1.y - center_y};
+                        g_dots[1] = (Point){p3.x - center_x, p3.y - center_y};
+                        g_dots[2] = (Point){p2.x - center_x, p2.y - center_y};
+
+                        g_dots_sizes[0] = blobs[i].size;
+                        g_dots_sizes[1] = blobs[k].size;
+                        g_dots_sizes[2] = blobs[j].size;
+
+                        g_detection_result.count = 3;
+                        found = 1;
+                        goto cleanup;
+                    }
+
+                    if (fabs(sqrt(d12_sq) - sqrt(d13_sq)) < sqrt(d12_sq) * dist_tolerance &&
+                        (p2.x - p1.x)*(p3.x - p2.x) <= 0) {
+                        ESP_LOGI("DOTS", "✓ Pattern #3: blobs[%d,%d,%d]", i, j, k);
+
+                        g_center_point.x = ((p3.x + p2.x) / 2) - center_x;
+                        g_center_point.y = ((p3.y + p2.y) / 2) - center_y;
+
+                        g_dots[0] = (Point){p3.x - center_x, p3.y - center_y};
+                        g_dots[1] = (Point){p1.x - center_x, p1.y - center_y};
+                        g_dots[2] = (Point){p2.x - center_x, p2.y - center_y};
+
+                        g_dots_sizes[0] = blobs[k].size;
+                        g_dots_sizes[1] = blobs[i].size;
+                        g_dots_sizes[2] = blobs[j].size;
+
+                        g_detection_result.count = 3;
+                        found = 1;
+                        goto cleanup;
+                    }
+                }
+            }
+        }
+    }
+
+cleanup:
+    if (!found) {
+        ESP_LOGW("DOTS", "No valid 3-dot pattern found");
+    }
+
+    free(visited);
+    free(blobs);
 }
 
 detection_result_t* get_detection_result(void) {
@@ -52,38 +208,17 @@ int* get_dots_sizes(void) {
     return g_dots_sizes;
 }
 
-/* Великі функції аналізу */
-static bool jpeg_to_rgb565(const uint8_t *jpeg, size_t jpeg_len, jpg_scale_t *out_img, esp_jpeg_image_scale_t scale) {
-    size_t output_size = 50 * 1024;
-    out_img->buf = heap_caps_malloc(output_size, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
-    if (!out_img->buf) {
-        return false;
+detection_data_t get_detection_data(void) {
+    detection_data_t result;
+    result.count = g_detection_result.count;
+    for (int i = 0; i < 3; i++) {
+        result.data[i] = g_dots[i];
+        result.sizes[i] = g_dots_sizes[i];
     }
-
-    esp_jpeg_image_cfg_t cfg = {
-        .indata = (uint8_t *)jpeg,
-        .indata_size = jpeg_len,
-        .outbuf = out_img->buf,
-        .outbuf_size = output_size,
-        .out_format = JPEG_IMAGE_FORMAT_RGB565,
-        .out_scale = scale,
-    };
-
-    esp_jpeg_image_output_t img_output;
-    esp_err_t err = esp_jpeg_decode(&cfg, &img_output);
-    if (err != ESP_OK) {
-        heap_caps_free(out_img->buf);
-        out_img->buf = NULL;
-        return false;
-    }
-
-    out_img->width = img_output.width;
-    out_img->height = img_output.height;
-    out_img->len = img_output.output_len;
-
-    return true;
+    return result;
 }
 
+// Функція для розпакування 16-бітного кольору RGB565 в 24-бітний RGB
 void rgb565_to_rgb(uint16_t rgb565, uint8_t* r, uint8_t* g, uint8_t* b) {
     *r = (uint8_t)(((rgb565 >> 11) & 0x1F) * 255 / 31);
     *g = (uint8_t)(((rgb565 >> 5) & 0x3F) * 255 / 63);
@@ -91,26 +226,27 @@ void rgb565_to_rgb(uint16_t rgb565, uint8_t* r, uint8_t* g, uint8_t* b) {
 }
 
 int is_red(uint8_t r, uint8_t g, uint8_t b) {
-    return (r > 120 && r > g + 50 && r > b + 50 && g < 120 && b < 120);
+    // СУВОРИЙ фільтр як у робочому алгоритмі:
+    // Червоний яскравий (>180), зелений і синій темні (<80)
+    return (r > 180 && g < 80 && b < 80);
 }
 
 /* Функція BFS для пошуку бліб */
-void find_blobs_bfs(int x, int y, uint16_t* image_data, int* visited, int current_blob_id,
+void find_blobs_bfs(int start_x, int start_y, uint16_t* image_data, int* visited, int current_blob_id,
                     Blob* blob, int width, int height) {
-    Point *queue = heap_caps_malloc(width * height * sizeof(Point), MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
-    if (!queue) {
-        return;
-    }
+    // Використовуємо фіксований розмір черги (достатньо для блобів розміром до 10000 пікселів)
+    #define MAX_QUEUE_SIZE 10000
+    static Point queue[MAX_QUEUE_SIZE];
 
     int head = 0, tail = 0;
-    queue[tail++] = (Point){x, y};
-    visited[y * width + x] = current_blob_id;
+    queue[tail++] = (Point){start_x, start_y};
+    visited[start_y * width + start_x] = current_blob_id;
 
     long sum_x = 0;
     long sum_y = 0;
     int pixel_count = 0;
 
-    while (head < tail) {
+    while (head < tail && tail < MAX_QUEUE_SIZE) {
         Point p = queue[head++];
         sum_x += p.x;
         sum_y += p.y;
@@ -128,7 +264,7 @@ void find_blobs_bfs(int x, int y, uint16_t* image_data, int* visited, int curren
                     uint8_t r, g, b;
                     rgb565_to_rgb(pixel, &r, &g, &b);
 
-                    if (is_red(r, g, b)) {
+                    if (is_red(r, g, b) && tail < MAX_QUEUE_SIZE) {
                         visited[ny * width + nx] = current_blob_id;
                         queue[tail++] = (Point){nx, ny};
                     }
@@ -144,7 +280,7 @@ void find_blobs_bfs(int x, int y, uint16_t* image_data, int* visited, int curren
         blob->id = current_blob_id;
     }
 
-    free(queue);
+    #undef MAX_QUEUE_SIZE
 }
 
 double dist_sq(Point p1, Point p2) {
@@ -154,111 +290,4 @@ double dist_sq(Point p1, Point p2) {
 int are_collinear(Point p1, Point p2, Point p3, double tolerance) {
     long area = p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y);
     return labs(area) < tolerance;
-}
-
-/* Основна функція детектування */
-static void detect_dots_in_frame(const uint8_t *jpeg_data, size_t jpeg_len, int orig_width, int orig_height) {
-    jpg_scale_t scaled_image = {0};
-    if (!jpeg_to_rgb565(jpeg_data, jpeg_len, &scaled_image, JPEG_IMAGE_SCALE_1_4)) {
-        return;
-    }
-
-    int width = scaled_image.width;
-    int height = scaled_image.height;
-    uint16_t* image_data = (uint16_t*)scaled_image.buf;
-
-    int center_x = width / 2;
-    int center_y = height / 2;
-
-    int* visited = heap_caps_calloc(width * height, sizeof(int), MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
-    Blob* blobs = heap_caps_malloc(100 * sizeof(Blob), MALLOC_CAP_8BIT);
-    if (!visited || !blobs) {
-        if (visited) free(visited);
-        if (blobs) free(blobs);
-        heap_caps_free(scaled_image.buf);
-        return;
-    }
-
-    int blob_count = 0;
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            if (!visited[y * width + x]) {
-                uint16_t pixel = image_data[y * width + x];
-                uint8_t r, g, b;
-                rgb565_to_rgb(pixel, &r, &g, &b);
-
-                if (is_red(r, g, b)) {
-                    if (blob_count < 100) {
-                        find_blobs_bfs(x, y, image_data, visited,
-                                       blob_count + 1, &blobs[blob_count],
-                                       width, height);
-
-                        if (blobs[blob_count].size > 10 && blobs[blob_count].size < 200) {
-                            blob_count++;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    g_detection_result.count = 0;
-    g_center_point.x = 0;
-    g_center_point.y = 0;
-    memset(g_dots, 0, sizeof(g_dots));
-    memset(g_dots_sizes, 0, sizeof(g_dots_sizes));
-
-    if (blob_count >= 3) {
-        for (int i = 0; i < blob_count; i++) {
-            for (int j = i + 1; j < blob_count; j++) {
-                for (int k = j + 1; k < blob_count; k++) {
-                    double size_tolerance = 0.5;
-                    if (abs(blobs[i].size - blobs[j].size) / (double)blobs[i].size > size_tolerance ||
-                        abs(blobs[j].size - blobs[k].size) / (double)blobs[j].size > size_tolerance) {
-                        continue;
-                    }
-
-                    Point p1 = blobs[i].center;
-                    Point p2 = blobs[j].center;
-                    Point p3 = blobs[k].center;
-
-                    if (!are_collinear(p1, p2, p3, 500.0)) {
-                        continue;
-                    }
-
-                    double d12_sq = dist_sq(p1, p2);
-                    double d23_sq = dist_sq(p2, p3);
-                    double dist_tolerance = 0.1;
-
-                    if (fabs(sqrt(d12_sq) - sqrt(d23_sq)) < sqrt(d12_sq) * dist_tolerance) {
-                        int center_abs_x = (p1.x + p3.x) / 2;
-                        int center_abs_y = (p1.y + p3.y) / 2;
-
-                        int center_rel_x = center_abs_x - center_x;
-                        int center_rel_y = center_abs_y - center_y;
-
-                        g_center_point.x = center_rel_x;
-                        g_center_point.y = center_rel_y;
-
-                        g_dots[0] = (Point){p1.x - center_x, p1.y - center_y};
-                        g_dots[1] = (Point){p2.x - center_x, p2.y - center_y};
-                        g_dots[2] = (Point){p3.x - center_x, p3.y - center_y};
-
-                        g_dots_sizes[0] = blobs[i].size;
-                        g_dots_sizes[1] = blobs[j].size;
-                        g_dots_sizes[2] = blobs[k].size;
-
-                        g_detection_result.count = 3;
-
-                        goto found_dots;
-                    }
-                }
-            }
-        }
-    }
-
-found_dots:
-    heap_caps_free(scaled_image.buf);
-    free(visited);
-    free(blobs);
 }

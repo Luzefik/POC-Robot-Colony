@@ -2,6 +2,7 @@ set(srcs
     "main.c"
     "my_platform.c"
     "driving.cpp"
+    "driving_dots.c"
     "take_picture.c"
     "dots_algo.c"
     "web_stream.c"
@@ -28,7 +29,7 @@ set(priv_requires
 )
 
 idf_component_register(
-    SRCS "driving_dots.c" "${srcs}"
+    SRCS "${srcs}"
     INCLUDE_DIRS "."
     REQUIRES "${requires}"
     PRIV_REQUIRES "${priv_requires}"
