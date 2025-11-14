@@ -6,7 +6,7 @@
 #define MOTOR_MAX_DUTY 255
 #define TAG "MOTOR"
 
-static const int motor_gpio_pins[4] = {4, 5, 18, 19};
+static const int motor_gpio_pins[4] = {12, 13, 14, 15};
 
 static const ledc_channel_t motor_channels[4] = {
     LEDC_CHANNEL_0, LEDC_CHANNEL_1, LEDC_CHANNEL_2, LEDC_CHANNEL_3

@@ -28,7 +28,7 @@ set(priv_requires
 )
 
 idf_component_register(
-    SRCS "${srcs}"
+    SRCS "driving_dots.c" "${srcs}"
     INCLUDE_DIRS "."
     REQUIRES "${requires}"
     PRIV_REQUIRES "${priv_requires}"

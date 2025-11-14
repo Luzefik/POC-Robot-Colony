@@ -15,7 +15,7 @@
 #define CAM_PIN_VSYNC 25
 #define CAM_PIN_HREF 23
 #define CAM_PIN_PCLK 22
-
+#define DEBUG 0
 
 
 
@@ -65,11 +65,34 @@ static camera_config_t camera_config = {
     .ledc_timer = LEDC_TIMER_0,
     .ledc_channel = LEDC_CHANNEL_0,
 
-    .pixel_format = PIXFORMAT_JPEG,
+    // #ifdef DEBUG
+    // .pixel_format = PIXFORMAT_JPEG
+    // #else
+    .pixel_format = PIXFORMAT_RGB565,   // ← Без стиску! Прямо з камери
+    // #endif
 
     .frame_size = FRAMESIZE_VGA,
-    
-    .jpeg_quality = 12,  // 0-63, higher = more compression (smaller files, faster stream)
+
+    /*
+    FRAMESIZE_QVGA (320x240)
+
+    FRAMESIZE_VGA (640x480)
+
+    FRAMESIZE_SVGA (800x600)
+
+    FRAMESIZE_XGA (1024x768)
+
+    FRAMESIZE_SXGA (1280x1024)
+
+    FRAMESIZE_UXGA (1600x1200)
+    */
+
+    //QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
+
+
+    #ifdef DEBUG
+        .jpeg_quality = 12,  // 0-63, higher = more compression (smaller files, faster stream)
+    #endif
     .fb_count = 3,       // Increased from 2 to 3 to prevent buffer overflow
     .fb_location = CAMERA_FB_IN_PSRAM,
     .grab_mode = CAMERA_GRAB_WHEN_EMPTY,
