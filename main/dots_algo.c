@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <math.h>
 #include <string.h>
 #include <dots_algo.h>
@@ -12,6 +13,9 @@ static detection_result_t g_detection_result = {0};
 static Point g_center_point = {0, 0};
 static Point g_dots[3] = {{0, 0}, {0, 0}, {0, 0}};
 static int g_dots_sizes[3] = {0, 0, 0};
+static double g_last_known_d_total = 0.0; 
+static bool g_is_tracking = false;
+static Point g_last_known_B = {0, 0}; // абсолютні координати останньої центральної точки (p_B)
 void rgb565_to_rgb(uint16_t rgb565, uint8_t* r, uint8_t* g, uint8_t* b);
 int is_red(uint8_t r, uint8_t g, uint8_t b);
 void find_blobs_bfs(int start_x, int start_y, uint16_t* image_data, int* visited, int current_blob_id,
@@ -48,10 +52,30 @@ void detect_dots(camera_fb_t *fb) {
     }
 
     int blob_count = 0;
+    int x_start = 0, y_start = 0, x_end = width, y_end = height;
+    const int SEARCH_WINDOW_SIZE = 150; // Розмір вікна 150x150
 
-    // Шукаємо всі червоні об'єкти на зображенні
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
+    if (g_is_tracking) {
+        ESP_LOGI("DOTS", "Режим ВІДСТЕЖЕННЯ навколо (%d, %d)", g_last_known_B.x, g_last_known_B.y);
+
+        x_start = g_last_known_B.x - SEARCH_WINDOW_SIZE / 2;
+        y_start = g_last_known_B.y - SEARCH_WINDOW_SIZE / 2;
+        x_end = x_start + SEARCH_WINDOW_SIZE;
+        y_end = y_start + SEARCH_WINDOW_SIZE;
+
+        // Обмежуємо вікно, щоб не вийти за межі кадру
+        if (x_start < 0) x_start = 0;
+        if (y_start < 0) y_start = 0;
+        if (x_end > width) x_end = width;
+        if (y_end > height) y_end = height;
+    } else {
+        ESP_LOGI("DOTS", "Режим ПОШУКУ (повний кадр)");
+    }
+    // ------------------------------------
+
+    // Шукаємо всі червоні об'єкти у визначеному вікні
+    for (int y = y_start; y < y_end; y++) {
+        for (int x = x_start; x < x_end; x++) {
             if (!visited[y * width + x]) {
                 uint16_t pixel = rgb_data[y * width + x];
                 uint8_t r, g, b;
@@ -79,14 +103,6 @@ void detect_dots(camera_fb_t *fb) {
                  i + 1, blobs[i].center.x, blobs[i].center.y, blobs[i].size);
     }
 
-    // Скидаємо результат
-    g_detection_result.count = 0;
-    g_center_point.x = 0;
-    g_center_point.y = 0;
-    memset(g_dots, 0, sizeof(g_dots));
-    memset(g_dots_sizes, 0, sizeof(g_dots_sizes));
-
-    // Шукаємо три точки, що задовольняють умови
     int found = 0;
     if (blob_count >= 3) {
         for (int i = 0; i < blob_count; i++) {
@@ -104,75 +120,111 @@ void detect_dots(camera_fb_t *fb) {
                     Point p2 = blobs[j].center;
                     Point p3 = blobs[k].center;
 
-                    // Перевіряємо колінеарність (tolerance=100)
-                    if (!are_collinear(p1, p2, p3, 100.0)) {
-                        continue;
-                    }
-
+                    // 1. Рахуємо квадрати відстаней (швидко)
                     double d12_sq = dist_sq(p1, p2);
                     double d23_sq = dist_sq(p2, p3);
                     double d13_sq = dist_sq(p1, p3);
 
-                    // Перевіряємо рівновіддаленість (10%)
-                    double dist_tolerance = 0.1;
+                    // 2. Рахуємо реальні відстані (повільно, але потрібно для порівняння)
+                    double d12 = sqrt(d12_sq);
+                    double d23 = sqrt(d23_sq);
+                    double d13 = sqrt(d13_sq);
 
-                    // Три можливі комбінації порядку точок на лінії
-                    if (fabs(sqrt(d12_sq) - sqrt(d23_sq)) < sqrt(d12_sq) * dist_tolerance &&
-                        (p2.x - p1.x)*(p3.x - p2.x) >= 0) {
-                        ESP_LOGI("DOTS", "✓ Pattern #1: blobs[%d,%d,%d]", i, j, k);
-                        ESP_LOGI("DOTS", "   Points: (%d,%d) (%d,%d) (%d,%d)",
-                                 p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
-
-                        g_center_point.x = ((p1.x + p3.x) / 2) - center_x;
-                        g_center_point.y = ((p1.y + p3.y) / 2) - center_y;
-
-                        g_dots[0] = (Point){p1.x - center_x, p1.y - center_y};
-                        g_dots[1] = (Point){p2.x - center_x, p2.y - center_y};
-                        g_dots[2] = (Point){p3.x - center_x, p3.y - center_y};
-
-                        g_dots_sizes[0] = blobs[i].size;
-                        g_dots_sizes[1] = blobs[j].size;
-                        g_dots_sizes[2] = blobs[k].size;
-
-                        g_detection_result.count = 3;
-                        found = 1;
-                        goto cleanup;
+                    // 3. Сортуємо відстані, щоб знайти дві менші (d_side1, d_side2)
+                    //    і одну найбільшу (d_total)
+                    double d_side1, d_side2, d_total;
+                    if (d12 > d23 && d12 > d13) { // d12 - найбільша
+                        d_total = d12; d_side1 = d23; d_side2 = d13;
+                    } else if (d23 > d12 && d23 > d13) { // d23 - найбільша
+                        d_total = d23; d_side1 = d12; d_side2 = d13;
+                    } else { // d13 - найбільша
+                        d_total = d13; d_side1 = d12; d_side2 = d23;
                     }
 
-                    if (fabs(sqrt(d13_sq) - sqrt(d23_sq)) < sqrt(d13_sq) * dist_tolerance &&
-                        (p3.x - p1.x)*(p2.x - p3.x) >= 0) {
-                        ESP_LOGI("DOTS", "✓ Pattern #2: blobs[%d,%d,%d]", i, j, k);
+                    // 4. Встановлюємо похибку (3% - суворіше, менше хибних)
+                    double tolerance = 0.03;
+                    bool sides_are_equal = fabs(d_side1 - d_side2) < (d_side1 * tolerance);
 
-                        g_center_point.x = ((p1.x + p2.x) / 2) - center_x;
-                        g_center_point.y = ((p1.y + p2.y) / 2) - center_y;
+                    bool are_collinear_geo = fabs(d_total - (d_side1 + d_side2)) < (d_total * tolerance);
 
-                        g_dots[0] = (Point){p1.x - center_x, p1.y - center_y};
-                        g_dots[1] = (Point){p3.x - center_x, p3.y - center_y};
-                        g_dots[2] = (Point){p2.x - center_x, p2.y - center_y};
+                    if (sides_are_equal && are_collinear_geo) {
 
-                        g_dots_sizes[0] = blobs[i].size;
-                        g_dots_sizes[1] = blobs[k].size;
-                        g_dots_sizes[2] = blobs[j].size;
+                        // --- ДОДАНО: Фільтр за розміром (Scale Gating) ---
+                        if (g_last_known_d_total > 0.0) {
+                            double size_change_ratio = d_total / g_last_known_d_total;
+                            if (size_change_ratio > 1.3 || size_change_ratio < 0.7) {
+                                ESP_LOGW("DOTS", "Розкид великий. відхилено: new_total=%.1f, old_total=%.1f", d_total, g_last_known_d_total);
+                                continue;
+                            }
+                        }
 
-                        g_detection_result.count = 3;
-                        found = 1;
-                        goto cleanup;
-                    }
+                        ESP_LOGI("DOTS", " Знайдено патерн 1:1 Блоби [%d, %d, %d]", i, j, k);
+                        ESP_LOGI("DOTS", "   d_side1=%.1f, d_side2=%.1f, d_total=%.1f",
+                                 d_side1, d_side2, d_total);
 
-                    if (fabs(sqrt(d12_sq) - sqrt(d13_sq)) < sqrt(d12_sq) * dist_tolerance &&
-                        (p2.x - p1.x)*(p3.x - p2.x) <= 0) {
-                        ESP_LOGI("DOTS", "✓ Pattern #3: blobs[%d,%d,%d]", i, j, k);
+                        Point p_A, p_B, p_C;
 
-                        g_center_point.x = ((p3.x + p2.x) / 2) - center_x;
-                        g_center_point.y = ((p3.y + p2.y) / 2) - center_y;
+                        if (d_total == d12) {
+                            p_B = p3; p_A = p1; p_C = p2;
+                        } else if (d_total == d23) {
+                            p_B = p1; p_A = p2; p_C = p3;
+                        } else {
+                            p_B = p2; p_A = p1; p_C = p3;
+                        }
 
-                        g_dots[0] = (Point){p3.x - center_x, p3.y - center_y};
-                        g_dots[1] = (Point){p1.x - center_x, p1.y - center_y};
-                        g_dots[2] = (Point){p2.x - center_x, p2.y - center_y};
+                        if (p_A.x > p_C.x) {
+                            Point temp = p_A;
+                            p_A = p_C;
+                            p_C = temp;
+                        }
 
-                        g_dots_sizes[0] = blobs[k].size;
-                        g_dots_sizes[1] = blobs[i].size;
-                        g_dots_sizes[2] = blobs[j].size;
+                        ESP_LOGI("DOTS", "   A(%d,%d) B(%d,%d) C(%d,%d)",
+                                 p_A.x, p_A.y, p_B.x, p_B.y, p_C.x, p_C.y);
+
+                        // Зберігаємо АБСОЛЮТНУ позицію p_B для наступного кадру
+                        g_last_known_B = p_B;
+                        g_is_tracking = true; // Ми "захопили" ціль
+
+                        // Центральна точка патерну - це p_B
+                        g_center_point.x = p_B.x - center_x;
+                        g_center_point.y = p_B.y - center_y;
+
+                        g_dots[0] = (Point){p_A.x - center_x, p_A.y - center_y};
+                        g_dots[1] = (Point){p_B.x - center_x, p_B.y - center_y};
+                        g_dots[2] = (Point){p_C.x - center_x, p_C.y - center_y};
+
+                        // Зберігаємо розміри (потрібно знайти правильні індекси)
+                        if (p_B.x == blobs[i].center.x && p_B.y == blobs[i].center.y) {
+                            g_dots_sizes[1] = blobs[i].size;
+                            if (p_A.x == blobs[j].center.x) {
+                                g_dots_sizes[0] = blobs[j].size;
+                                g_dots_sizes[2] = blobs[k].size;
+                            } else {
+                                g_dots_sizes[0] = blobs[k].size;
+                                g_dots_sizes[2] = blobs[j].size;
+                            }
+                        } else if (p_B.x == blobs[j].center.x && p_B.y == blobs[j].center.y) {
+                            g_dots_sizes[1] = blobs[j].size;
+                            if (p_A.x == blobs[i].center.x) {
+                                g_dots_sizes[0] = blobs[i].size;
+                                g_dots_sizes[2] = blobs[k].size;
+                            } else {
+                                g_dots_sizes[0] = blobs[k].size;
+                                g_dots_sizes[2] = blobs[i].size;
+                            }
+                        } else {
+                            g_dots_sizes[1] = blobs[k].size;
+                            if (p_A.x == blobs[i].center.x) {
+                                g_dots_sizes[0] = blobs[i].size;
+                                g_dots_sizes[2] = blobs[j].size;
+                            } else {
+                                g_dots_sizes[0] = blobs[j].size;
+                                g_dots_sizes[2] = blobs[i].size;
+                            }
+                        }
+
+                        // Оновлюємо останній підтверджений розмір
+                        g_last_known_d_total = d_total;
 
                         g_detection_result.count = 3;
                         found = 1;
@@ -186,6 +238,10 @@ void detect_dots(camera_fb_t *fb) {
 cleanup:
     if (!found) {
         ESP_LOGW("DOTS", "No valid 3-dot pattern found");
+        // Повільно "забуваємо" старий розмір для можливості перезахоплення
+        g_last_known_d_total *= 0.9;
+        // Втратили ціль - на наступному кадрі шукаємо по всьому екрану
+        g_is_tracking = false;
     }
 
     free(visited);

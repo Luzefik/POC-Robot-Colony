@@ -27,13 +27,13 @@ void mov(detection_data_t *data) {
     }
 
     // Центр зображення (640x480 VGA)
-    const int FRAME_CENTER_X = 320;
+    // const int FRAME_CENTER_X = 320;
 
     // Обчислюємо відхилення від центру
-    int error_x = central_point.x - FRAME_CENTER_X;
+    // int error_x = central_point.x - FRAME_CENTER_X;
 
-    ESP_LOGI(TAG, "count=%d, center_x=%d, error_x=%d",
-             data->count, central_point.x, error_x);
+    // ESP_LOGI(TAG, "count=%d, center_x=%d, error_x=%d",
+    //          data->count, central_point.x, error_x);
 
     static int16_t turn = 0;
     int16_t speed = 150;
