@@ -15,6 +15,11 @@
 #include <hci_dump_embedded_stdout.h>
 #include <uni.h>
 
+#include <stdio.h>
+#include <string.h>
+#include "driver/i2c.h"
+#include "i2c_lcd.h"
+
 #include "sdkconfig.h"
 
 // Sanity check
@@ -104,7 +109,29 @@ static void motor_control_task(void *arg) {
 
 }
 
+static void lcd_status_print(void)
+{
+    lcd_init();
+    lcd_clear();
+
+    char *role;
+
+    if (LEADER)
+    {
+        role = "leader";
+    }
+    else
+    {
+        role = "follower";
+    }
+
+    int col = (16 - strlen(role)) / 2;
+    lcd_put_cursor(0, col);
+    lcd_send_string(role);
+}
+
 void app_main(void) {
+    lcd_status_print();
 
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {

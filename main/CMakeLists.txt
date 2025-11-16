@@ -1,5 +1,6 @@
 set(srcs
     "main.c"
+    "i2c_lcd.c"
     "my_platform.c"
     "driving.cpp"
     "driving_dots.c"
