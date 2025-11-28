@@ -1,10 +1,5 @@
-/**
- * This example takes a picture every 5s and print its size on serial monitor.
- */
-
-// =============================== SETUP ======================================
-
 // 1. Board setup (Uncomment):
+#include "sensor.h"
 #define BOARD_WROVER_KIT 1
 // #define BOARD_ESP32CAM_AITHINKER
 // #define BOARD_ESP32S3_WROOM
@@ -51,6 +46,7 @@
 
 #include "esp_camera.h"
 #include "camera_pinout.h"
+#include "new_algo.h"  // Додайте на початку файла
 
 static const char *TAG = "example:take_picture";
 
@@ -79,21 +75,17 @@ static camera_config_t camera_config = {
     .ledc_timer = LEDC_TIMER_0,
     .ledc_channel = LEDC_CHANNEL_0,
 
-    .pixel_format = PIXFORMAT_JPEG,
+    .pixel_format = PIXFORMAT_YUV422,
 
-    .frame_size = FRAMESIZE_VGA,
+    .frame_size = FRAMESIZE_QVGA,
     /*
-    FRAMESIZE_QVGA (320x240)
-
-    FRAMESIZE_VGA (640x480)
-
-    FRAMESIZE_SVGA (800x600)
-
-    FRAMESIZE_XGA (1024x768)
-
-    FRAMESIZE_SXGA (1280x1024)
-
-    FRAMESIZE_UXGA (1600x1200)
+    FRAMESIZE_UXGA (1600 x 1200)
+    FRAMESIZE_QVGA (320 x 240)
+    FRAMESIZE_CIF (352 x 288)
+    FRAMESIZE_VGA (640 x 480)
+    FRAMESIZE_SVGA (800 x 600)
+    FRAMESIZE_XGA (1024 x 768)
+    FRAMESIZE_SXGA (1280 x 1024)
     */
 
     //QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
@@ -106,6 +98,9 @@ static camera_config_t camera_config = {
 
 esp_err_t camera_init_board(void)
 {
+
+
+
     esp_err_t err = esp_camera_init(&camera_config);
     if (err != ESP_OK)
     {
@@ -113,5 +108,53 @@ esp_err_t camera_init_board(void)
         return err;
     }
 
+    sensor_t * s = esp_camera_sensor_get();
+    s->set_brightness(s, 0);     // -2 to 2
+    s->set_contrast(s, 0);       // -2 to 2
+    s->set_saturation(s, 0);     // -2 to 2
+    s->set_special_effect(s, 0); // 0 to 6 (0 - No Effect, 1 - Negative, 2 - Grayscale, 3 - Red Tint, 4 - Green Tint, 5 - Blue Tint, 6 - Sepia)
+    s->set_whitebal(s, 0);       // 0 = disable , 1 = enable
+    s->set_awb_gain(s, 0);       // 0 = disable , 1 = enable
+    s->set_wb_mode(s, 0);        // 0 to 4 - if awb_gain enabled (0 - Auto, 1 - Sunny, 2 - Cloudy, 3 - Office, 4 - Home)
+    s->set_exposure_ctrl(s, 0);  // 0 = disable , 1 = enable
+    s->set_aec2(s, 0);           // 0 = disable , 1 = enable
+    s->set_ae_level(s, 0);       // -2 to 2
+    s->set_aec_value(s, 300);    // 0 to 1200
+    s->set_gain_ctrl(s, 0);      // 0 = disable , 1 = enable
+    s->set_agc_gain(s, 0);       // 0 to 30
+    s->set_gainceiling(s, (gainceiling_t)0);  // 0 to 6
+    s->set_bpc(s, 0);            // 0 = disable , 1 = enable
+    s->set_wpc(s, 1);            // 0 = disable , 1 = enable
+    s->set_raw_gma(s, 1);        // 0 = disable , 1 = enable
+    s->set_lenc(s, 1);           // 0 = disable , 1 = enable
+    s->set_hmirror(s, 0);        // 0 = disable , 1 = enable
+    s->set_vflip(s, 0);          // 0 = disable , 1 = enable
+    s->set_dcw(s, 1);            // 0 = disable , 1 = enable
+    s->set_colorbar(s, 0);       // 0 = disable , 1 = enable
+
+
     return ESP_OK;
+}
+
+void process_camera_stream() {
+    if (!camera_init_board()) {
+        ESP_LOGE(TAG, "Camera Init Failed");
+        return;
+    }
+
+    while (true) {
+        camera_fb_t * fb = esp_camera_fb_get();
+        if (!fb) {
+            ESP_LOGE(TAG, "Failed to take picture");
+            continue;
+        }
+
+        ESP_LOGI(TAG, "Picture taken! Its size was: %zu bytes", fb->len);
+
+        process_image(fb);
+
+        esp_camera_fb_return(fb);
+
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
 }

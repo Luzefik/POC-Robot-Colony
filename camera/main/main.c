@@ -2,7 +2,8 @@
 #include "nvs_flash.h"
 #include "wifi_connect.h"
 #include "esp_camera.h"
-#include "dots_algo.h"
+#include "new_algo.h"
+#include "take_picture.h"
 #include "web_stream.h"
 #include "camera_pinout.h"
 #include "freertos/FreeRTOS.h"
@@ -23,7 +24,7 @@ static void detection_task(void *arg) {
             continue;
         }
 
-        detect_dots(fb);
+        process_image(fb);
         esp_camera_fb_return(fb);
         vTaskDelay(50 / portTICK_PERIOD_MS);
     }
