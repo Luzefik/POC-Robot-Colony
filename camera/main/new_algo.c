@@ -1,4 +1,5 @@
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -81,7 +82,7 @@ void process_image(camera_fb_t * fb) {
                     blobs[best_blob_idx].sum_x += x;
                     blobs[best_blob_idx].sum_y += y;
                     blobs[best_blob_idx].count += 1;
-                    blobs[best_blob_idx].cord_x = (float_t)blobs[best_blob_idx].sum_x / blobs[best_blob_idx].count;
+                    blobs[best_blob_idx].cord_x = ((float_t)blobs[best_blob_idx].sum_x / blobs[best_blob_idx].count);
                     blobs[best_blob_idx].cord_y = (float_t)blobs[best_blob_idx].sum_y / blobs[best_blob_idx].count;
                 } else if (active_blobs < MAX_BLOBS) {
                     // Create new blob
@@ -95,34 +96,99 @@ void process_image(camera_fb_t * fb) {
             }
         }
     }
-// sorting blobs by size (count)
-for (int i = 0; i < active_blobs - 1; i++) {
-    for (int j = i + 1; j < active_blobs; j++) {
-        if (blobs[j].count > blobs[i].count) {
-            struct Blob temp = blobs[i];
-            blobs[i] = blobs[j];
-            blobs[j] = temp;
-        }
+// // sorting blobs by size (count)
+// for (int i = 0; i < active_blobs - 1; i++) {
+//     for (int j = i + 1; j < active_blobs; j++) {
+//         if (blobs[j].count > blobs[i].count) {
+//             struct Blob temp = blobs[i];
+//             blobs[i] = blobs[j];
+//             blobs[j] = temp;
+//         }
+//     }
+// }
+
+int candidates_count = 0;
+int candidate_indices[MAX_BLOBS];
+int best_triplet[3] = {-1, -1, -1};
+
+bool found_triplet = false;
+
+for (int i = 0; i < active_blobs; i ++) {
+    if (blobs[i].count > 10) {
+        candidate_indices[candidates_count] = i;
+            candidates_count++;
     }
 }
+
+int min_y_diff = 10000;
+for (int i=0; i < candidates_count; i++) {
+    for (int j = i+1; j< candidates_count; j++){
+        for (int k = j + 1; k < candidates_count; k++) {
+            int idx1 = candidate_indices[i];
+            int idx2 = candidate_indices[j];
+            int idx3 = candidate_indices[k];
+
+            float y1 = blobs[idx1].cord_y;
+            float y2 = blobs[idx2].cord_y;
+            float y3 = blobs[idx3].cord_y;
+
+            float min_y = fminf(y1, fminf(y2, y3));
+            float max_y = fmaxf(y1, fmaxf(y2, y3));
+            float diff = max_y - min_y;
+            if (diff < min_y_diff) {
+                min_y_diff = diff;
+                best_triplet[0] = idx1;
+                best_triplet[1] = idx2;
+                best_triplet[2] = idx3;
+                found_triplet = true;
+        }
+    }
+}}
+
+if (found_triplet) {
+    struct Blob final_blobs[3];
+    final_blobs[0] = blobs[best_triplet[0]];
+    final_blobs[1] = blobs[best_triplet[1]];
+    final_blobs[2] = blobs[best_triplet[2]];
+
+    blobs[0] = final_blobs[0];
+    blobs[1] = final_blobs[1];
+    blobs[2] = final_blobs[2];
+    active_blobs = 3;
+    } else {
+        if (candidates_count < 3) active_blobs = 0;
+    }
+
 
 //sorting by x coordinate top 3 blobs
-for (int i = 0; i < 2; i++) {
-    for (int j = i+1; j < 3; j++) {
-        if (blobs[j].cord_x < blobs[i].cord_x) {
-            struct Blob temp = blobs[i];
-            blobs[i] = blobs[j];
-            blobs[j] = temp;
+// for (int i = 0; i < 3; i++) {
+//     for (int j = i+1; j < 3; j++) {
+//         if (blobs[j].cord_x < blobs[i].cord_x) {
+//             struct Blob temp = blobs[i];
+//             blobs[i] = blobs[j];
+//             blobs[j] = temp;
+//         }
+//     }
+// }
+
+if (active_blobs >= 3) {
+        for (int i = 0; i < 2; i++) {
+            for (int j = i + 1; j < 3; j++) {
+                if (blobs[j].cord_x < blobs[i].cord_x) {
+                    struct Blob temp = blobs[i];
+                    blobs[i] = blobs[j];
+                    blobs[j] = temp;
+                }
+            }
         }
     }
+
+
+// centring the blobs
+for (int i = 0; i < 3; i ++) {
+    blobs[i].cord_x = blobs[i].cord_x - central_of_img_x;
+    blobs[i].cord_y = central_of_img_y - blobs[i].cord_y;
 }
-
-    static int64_t last_log_time = 0;
-    int64_t current_time = esp_timer_get_time() / 1000;
-
-
-    if (current_time - last_log_time > 500) {
-    last_log_time = current_time;
 if (active_blobs >= 3) {
     ESP_LOGI(TAG, "LEFT DOT:   X=%.1f, Y=%.1f", blobs[0].cord_x, blobs[0].cord_y);
     ESP_LOGI(TAG, "CENTER DOT: X=%.1f, Y=%.1f", blobs[1].cord_x, blobs[1].cord_y);
@@ -134,4 +200,4 @@ if (active_blobs >= 3) {
 } else {
     ESP_LOGW(TAG, "NOT ENOUGH DOTS (Need 3, found %d)", active_blobs);
 }
-}}
+}
