@@ -1,8 +1,17 @@
-#ifndef NEW_ALGO_H
-#define NEW_ALGO_H
 
 #include "esp_camera.h"
+#include <stdbool.h>
 
-void process_image(camera_fb_t * fb);
+struct Blob {
+    float cord_x;
+    float cord_y;
+    int sum_x;
+    int sum_y;
+    int count;
+};
 
-#endif
+typedef struct {
+    struct Blob blobs[3];
+}BlobResult;
+
+BlobResult process_image(camera_fb_t * fb);
