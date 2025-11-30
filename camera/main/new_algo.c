@@ -6,6 +6,7 @@
 #include <string.h>
 #include "new_algo.h"
 #include "esp_log.h"
+#include "esp_log_timestamp.h"
 #include "esp_timer.h"
 #include "esp_camera.h"
 #include "take_picture.h"
@@ -179,6 +180,7 @@ for (int i=0; i < candidates_count-1; i ++) {
                         float min_y = fminf(y1, fminf(y2, y3));
                         float max_y = fmaxf(y1, fmaxf(y2, y3));
                         float error_y = max_y - min_y;
+                        if (error_y > 20) continue; // too much y error
 
                         float gap_x_1 = p[1].cord_x - p[0].cord_x;
                         float gap_x_2 = p[2].cord_x - p[1].cord_x;
@@ -214,7 +216,8 @@ if (found_triplet && min_penalty < 45) {
 
     active_blobs = 3;
 } else {
- if (candidates_count < 3) active_blobs = 0;
+    active_blobs = 0;
+    ESP_LOGW(TAG, "Pattern failed validation. Penalty: %.2f", min_penalty);
 }
 
 //sorting by x coordinate top 3 blobs
@@ -270,13 +273,16 @@ if (active_blobs >= 3) {
     ESP_LOGI(TAG, "CENTER DOT: X=%.1f, Y=%.1f", blobs[1].cord_x, blobs[1].cord_y);
     ESP_LOGI(TAG, "RIGHT DOT:  X=%.1f, Y=%.1f", blobs[2].cord_x, blobs[2].cord_y);
 
+    int16_t gap_1_y = sqrt(pow(blobs[0].cord_x - blobs[1].cord_x, 2) + pow(blobs[0].cord_y - blobs[1].cord_y, 2));
+    int16_t gap_2_y = sqrt(pow(blobs[1].cord_x - blobs[2].cord_x, 2) + pow(blobs[1].cord_y - blobs[2].cord_y, 2));
+    int16_t gap_y = (gap_1_y + gap_2_y) / 2;
+
+    ESP_LOGI(TAG, "Gap Y : %d", gap_y);
+    ESP_LOGI(TAG, "Turn: %d", (int16_t)blobs[1].cord_x);
     float slope = blobs[2].cord_y - blobs[0].cord_y;
     ESP_LOGI(TAG, "Angle Slope: %.2f", slope);
-        return result;
-
 } else {
     ESP_LOGW(TAG, "NOT ENOUGH DOTS (Need 3, found %d)", active_blobs);
-return result;
 }
-    }
+   return result; }
 // }

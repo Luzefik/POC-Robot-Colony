@@ -90,10 +90,11 @@ static camera_config_t camera_config = {
 
     //QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
 
-    .jpeg_quality = 12,  // 0-63, higher = more compression (smaller files, faster stream)
+    .jpeg_quality = 20,  // 0-63, higher = more compression (smaller files, faster stream)
     .fb_count = 3,       // Increased from 2 to 3 to prevent buffer overflow
     .fb_location = CAMERA_FB_IN_PSRAM,
-    .grab_mode = CAMERA_GRAB_WHEN_EMPTY,
+    .grab_mode = CAMERA_GRAB_LATEST,
+    // CAMERA_GRAB_WHEN_EMPTY,
 };
 
 esp_err_t camera_init_board(void)
@@ -119,7 +120,7 @@ esp_err_t camera_init_board(void)
     s->set_exposure_ctrl(s, 0);  // 0 = disable , 1 = enable
     s->set_aec2(s, 0);           // 0 = disable , 1 = enable
     s->set_ae_level(s, 0);       // -2 to 2
-    s->set_aec_value(s, 300);    // 0 to 1200
+    s->set_aec_value(s, 50);    // 0 to 1200
     s->set_gain_ctrl(s, 0);      // 0 = disable , 1 = enable
     s->set_agc_gain(s, 0);       // 0 to 30
     s->set_gainceiling(s, (gainceiling_t)0);  // 0 to 6
@@ -155,6 +156,6 @@ void process_camera_stream() {
 
         esp_camera_fb_return(fb);
 
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        vTaskDelay(500 / portTICK_PERIOD_MS);
     }
 }
