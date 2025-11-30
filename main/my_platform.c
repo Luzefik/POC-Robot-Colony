@@ -123,6 +123,8 @@ int16_t clamp(int x, int min, int max) {
     return x;
 }
 
+
+
 static void my_platform_on_controller_data(uni_hid_device_t* d, uni_controller_t* ctl) {
     static uni_controller_t prev = {0};
     uni_gamepad_t* gp;
@@ -136,25 +138,23 @@ static void my_platform_on_controller_data(uni_hid_device_t* d, uni_controller_t
     prev = *ctl;
     gp = &ctl->gamepad;
 
-    const int16_t left_y = (gp->axis_y == 4) ? 0 : -gp->axis_y / 2;
-    const int16_t right_x = (gp->axis_rx == 4) ? 0 : gp->axis_rx / 16;
+    int16_t left_y = (gp->axis_y == 4) ? 0 : (-gp->axis_y / 8)*1.125;
+    int16_t right_x = (gp->axis_rx == 4) ? 0 : gp->axis_rx / 8;
 
-    if (speed < left_y) {
-        speed += 4;
-    }
-    else if (speed > left_y) {
-        speed -= 4;
-    }
+    if (left_y > 0) {left_y += 335;}
+    else if (left_y < 0) { left_y -= 336;}
+    
+    if (left_y > speed) {speed += (left_y - speed);}
+    else if (left_y < speed) {speed -= (speed - left_y);}
 
-    if (turn < right_x) {
-        turn += 2;
-    }
-    else if (turn > right_x) {
-        turn -= 2;
-    }
+    if (0 < speed && speed < 319) {speed = 319;}
+    else if (-320 < speed && speed < 0) {speed = -320;}
 
-    speed = clamp(left_y, -192, 191);
-    turn = clamp(right_x, -32, 31);
+
+    right_x = clamp(right_x, -32, 31);
+    if (right_x > turn) {turn += 2;}
+    else if (right_x < turn) {turn -= 2;}
+
 
     if (speed > 0) {
         speed = abs(speed);
