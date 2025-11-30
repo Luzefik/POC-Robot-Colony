@@ -1,4 +1,22 @@
 idf_component_register(
-    SRCS "new_algo.c" "main.c" "wifi_connect.c" "take_picture.c" "web_capture.c" "web_stream.c" "dots_algo.c"
+    SRCS
+        "new_algo.c"
+        "main.c"
+        "wifi_connect.c"
+        "take_picture.c"
+        "web_capture.c"
+        "web_stream.c"
+        "dots_algo.c"
+        "driving.cpp"
     INCLUDE_DIRS "."
-    PRIV_REQUIRES esp_wifi esp_event esp_netif esp_http_server nvs_flash esp_timer esp_psram esp_jpeg)
+    PRIV_REQUIRES
+        esp_wifi
+        esp_event
+        esp_netif
+        esp_http_server
+        nvs_flash
+        esp_timer
+        esp_psram
+        esp_jpeg
+        espressif__esp32-camera
+        driver)

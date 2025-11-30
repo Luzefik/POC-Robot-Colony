@@ -7,10 +7,8 @@
 #include "web_stream.h"
 #include "camera_pinout.h"
 #include "freertos/task.h"
-#include <cmath>
 #include <driving.h>
 #include <stdint.h>
-#include "new_algo.h"
 #include "math.h"
 
 
@@ -43,11 +41,12 @@ Conv getData() {
 
     int16_t gap_y = (gap_1_y + gap_2_y) / 2;
 
+    // ESP_LOGI(TAG, "gap_1_y: %.1f, gap_2_y: %.1f, gap_y %.1f", gap_1_y,gap_2_y,gap_y);
+
     result.acc = THRESH_HOLD_FOR_ACC - gap_y;
 
     return result;
 }
-
 
 
 
@@ -80,22 +79,23 @@ void app_main(void) {
 
     ESP_LOGI(TAG, "Camera initialized");
 
-    xTaskCreate(detection_task, "detection", 4096, NULL, 5, NULL);
+    xTaskCreate(detection_task, "detection", 8192, NULL, 5, NULL);
 
-    wifi_register_got_ip_cb(on_wifi_ready);
-    wifi_init_sta();
-
-    vTaskDelay(portMAX_DELAY);
-
+    // wifi_register_got_ip_cb(on_wifi_ready);
+    // wifi_init_sta();
 
     motor_init();
+     motor_init();
     for (;;) {
         Conv data = getData();
-        int16_t x = data.turn;
+        int16_t x = data.turn * 1.6 / 4;
         int16_t y = data.acc;
 
-        static uint8_t turn = 0;
-        static uint8_t speed = 0;
+        if (y > 0) {y += 120;}
+        else if (y < 0) {y -= 120;}
+
+        static int8_t turn = 0;
+        static int8_t speed = 0;
 
         if (speed > y) {speed -= 2;}
         else if (speed < y) {speed += 2;}
@@ -109,22 +109,18 @@ void app_main(void) {
         motor(3, 0);
 
         if (speed > 0) {
-            speed = abs(speed);
             motor(0, speed - (turn / 2));
             motor(1, 0);
 
             motor(2, speed + (turn / 2));
             motor(3, 0);
         } else {
-            speed = abs(speed);
-            motor(1, speed - (turn / 2));
+            motor(1, abs(speed) - (turn / 2));
             motor(0, 0);
 
-            motor(3, speed + (turn / 2));
+            motor(3, abs(speed) + (turn / 2));
             motor(2, 0);
         }
+        vTaskDelay(20 / portTICK_PERIOD_MS);
     }
 }
-
-
-

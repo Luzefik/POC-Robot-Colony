@@ -6,7 +6,7 @@
 #include <string.h>
 #include "new_algo.h"
 #include "esp_log.h"
-// #include "esp_timer.h"
+#include "esp_timer.h"
 #include "esp_camera.h"
 #include "take_picture.h"
 
@@ -259,22 +259,24 @@ for (int i = 0; i < 3; i ++) {
 //     int64_t current_time = esp_timer_get_time() / 1000;
 
 
-//     if (current_time - last_log_time > 500) {
-//     last_log_time = current_time;
+    // if (current_time - last_log_time > 500) {
+    // last_log_time = current_time;
 if (active_blobs >= 3) {
     for (int i = 0; i < 3; i++) {
             result.blobs[i] = blobs[i];
         }
-    return result;
 
-//     ESP_LOGI(TAG, "LEFT DOT:   X=%.1f, Y=%.1f", blobs[0].cord_x, blobs[0].cord_y);
-//     ESP_LOGI(TAG, "CENTER DOT: X=%.1f, Y=%.1f", blobs[1].cord_x, blobs[1].cord_y);
-//     ESP_LOGI(TAG, "RIGHT DOT:  X=%.1f, Y=%.1f", blobs[2].cord_x, blobs[2].cord_y);
+    ESP_LOGI(TAG, "LEFT DOT:   X=%.1f, Y=%.1f", blobs[0].cord_x, blobs[0].cord_y);
+    ESP_LOGI(TAG, "CENTER DOT: X=%.1f, Y=%.1f", blobs[1].cord_x, blobs[1].cord_y);
+    ESP_LOGI(TAG, "RIGHT DOT:  X=%.1f, Y=%.1f", blobs[2].cord_x, blobs[2].cord_y);
 
-//     float slope = blobs[2].cord_y - blobs[0].cord_y;
-//     ESP_LOGI(TAG, "Angle Slope: %.2f", slope);
-// } else {
-//     ESP_LOGW(TAG, "NOT ENOUGH DOTS (Need 3, found %d)", active_blobs);
+    float slope = blobs[2].cord_y - blobs[0].cord_y;
+    ESP_LOGI(TAG, "Angle Slope: %.2f", slope);
+        return result;
+
+} else {
+    ESP_LOGW(TAG, "NOT ENOUGH DOTS (Need 3, found %d)", active_blobs);
+return result;
+}
+    }
 // }
-}
-}
