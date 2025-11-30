@@ -1,9 +1,36 @@
-set(srcs)
+set(srcs
+    "main.c"
+    "my_platform.c"
+    "driving.cpp"
+    "driving_dots.c"
+    "take_picture.c"
+    "dots_algo.c"
+    "web_stream.c"
+    "wifi_connect.c"
+)
 
-set(requires "bluepad32" "btstack")
 
-idf_component_register(SRCS "my_platform.c" "main.c" "driving.cpp"
-                    INCLUDE_DIRS "."
-                    REQUIRES "${requires}")
+set(requires
+    "bluepad32"
+    "btstack"
+)
 
-target_compile_definitions(${COMPONENT_LIB} PRIVATE BLUEPAD32_PLATFORM_CUSTOM)
+set(priv_requires
+    "esp_timer"
+    "esp32-camera"
+    "esp_jpeg"
+    "esp_driver_gpio"
+    "esp_driver_ledc"
+    "lwip"
+    "esp_http_server"
+    "esp_wifi"
+    "esp_event"
+    "esp_netif"
+)
+
+idf_component_register(
+    SRCS "${srcs}"
+    INCLUDE_DIRS "."
+    REQUIRES "${requires}"
+    PRIV_REQUIRES "${priv_requires}"
+)

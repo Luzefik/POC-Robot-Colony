@@ -2,11 +2,14 @@
 // Need help? https://tinyurl.com/bluepad32-help
 
 #include <string.h>
+#include <stdbool.h>
 #include <driving.h>
-#include <uni.h>
+#include "esp_log.h"
 
+#include "../src/components/bluepad32/include/uni.h"
 
-#include <driving.h> //for controlls
+// External function declared in main.c
+extern void set_gamepad_connected(bool connected);
 
 // Custom "instance"
 typedef struct my_platform_instance_s {
@@ -25,6 +28,7 @@ static void my_platform_init(int argc, const char** argv) {
     ARG_UNUSED(argv);
 
     logi("custom: init()\n");
+    logi("[GAMEPAD] Initializing gamepad platform...\n");
 
 #if 0
     uni_gamepad_mappings_t mappings = GAMEPAD_DEFAULT_MAPPINGS;
@@ -47,12 +51,15 @@ static void my_platform_init(int argc, const char** argv) {
 
 static void my_platform_on_init_complete(void) {
     logi("custom: on_init_complete()\n");
+    logi("[GAMEPAD] Initialization complete - Starting BT scanning...\n");
+    logi("[GAMEPAD] IMPORTANT: Put your gamepad in PAIRING/DISCOVERY MODE!\n");
 
     // Safe to call "unsafe" functions since they are called from BT thread
 
     // Start scanning
     uni_bt_start_scanning_and_autoconnect_unsafe();
     uni_bt_allow_incoming_connections(true);
+    logi("[GAMEPAD] Bluetooth scanning started - waiting for gamepad connection...\n");
 
     // Based on runtime condition, you can delete or list the stored BT keys.
     if (1)
@@ -69,9 +76,9 @@ static uni_error_t my_platform_on_device_discovered(bd_addr_t addr, const char* 
     // @param cod: Class of Device. See "uni_bt_defines.h" for possible values.
     // @param rssi: Received Signal Strength Indicator (RSSI) measured in dBms. The higher (255) the better.
 
+
     // As an example, if you want to filter out keyboards, do:
     if (((cod & UNI_BT_COD_MINOR_MASK) & UNI_BT_COD_MINOR_KEYBOARD) == UNI_BT_COD_MINOR_KEYBOARD) {
-        logi("Ignoring keyboard\n");
         return UNI_ERROR_IGNORE_DEVICE;
     }
 
@@ -84,6 +91,13 @@ static void my_platform_on_device_connected(uni_hid_device_t* d) {
 
 static void my_platform_on_device_disconnected(uni_hid_device_t* d) {
     logi("custom: device disconnected: %p\n", d);
+    logi("[GAMEPAD] Disconnected - Device address: %02X:%02X:%02X:%02X:%02X:%02X\n",
+         d->conn.btaddr[0], d->conn.btaddr[1], d->conn.btaddr[2],
+         d->conn.btaddr[3], d->conn.btaddr[4], d->conn.btaddr[5]);
+    logi("[GAMEPAD] Waiting for new connection...\n");
+
+    // Signal that gamepad is no longer connected
+    set_gamepad_connected(false);
 }
 
 static uni_error_t my_platform_on_device_ready(uni_hid_device_t* d) {
@@ -92,6 +106,10 @@ static uni_error_t my_platform_on_device_ready(uni_hid_device_t* d) {
     ins->gamepad_seat = GAMEPAD_SEAT_A;
 
     trigger_event_on_gamepad(d);
+
+    // Signal that gamepad is now connected and ready
+    set_gamepad_connected(true);
+
     return UNI_ERROR_SUCCESS;
 }
 
@@ -153,28 +171,6 @@ static void my_platform_on_controller_data(uni_hid_device_t* d, uni_controller_t
         motor(3, speed + (turn / 2));
         motor(2, 0);
     }
-    // if (speed > left_y) {
-    //         speed -= 4;
-    //     }
-    // else if (speed == left_y) {}
-    // else if (left_y < 16) {
-    //     speed = 128;
-    // }
-    // else if (speed < left_y) {
-    //     speed += 4;
-    // }
-
-    // if (turn < right_x) {
-    //     turn += 2;
-    // }
-    // else if (turn > right_x) {
-    //     turn -= 2;
-    // } 
-
-    // speed = clamp(left_y, -160, 159);
-    // turn = clamp(right_x, -32, 31);
-    // printf("speed: %4d | turn: %4d\n", speed, turn);
-    // fflush(stdout);
 }
 
 static const uni_property_t* my_platform_get_property(uni_property_idx_t idx) {
@@ -225,16 +221,6 @@ static void trigger_event_on_gamepad(uni_hid_device_t* d) {
                                           40 /* strong magnitude */);
     }
 
-    if (d->report_parser.set_player_leds != NULL) {
-        d->report_parser.set_player_leds(d, ins->gamepad_seat);
-    }
-
-    if (d->report_parser.set_lightbar_color != NULL) {
-        uint8_t red = (ins->gamepad_seat & 0x01) ? 0xff : 0;
-        uint8_t green = (ins->gamepad_seat & 0x02) ? 0xff : 0;
-        uint8_t blue = (ins->gamepad_seat & 0x04) ? 0xff : 0;
-        d->report_parser.set_lightbar_color(d, red, green, blue);
-    }
 }
 
 //
