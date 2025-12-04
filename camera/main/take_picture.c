@@ -77,7 +77,7 @@ static camera_config_t camera_config = {
 
     .pixel_format = PIXFORMAT_YUV422,
 
-    .frame_size = FRAMESIZE_QVGA,
+    .frame_size = FRAMESIZE_CIF,
     /*
     FRAMESIZE_UXGA (1600 x 1200)
     FRAMESIZE_QVGA (320 x 240)

@@ -23,7 +23,8 @@ BlobResult process_image(camera_fb_t * fb) {
     BlobResult result = {0};
     float central_of_img_x = fb->width/2.0;
     float central_of_img_y = fb->height/2.0;
-
+    float_t alpha = 0.4;  // coefficient for smoothing
+    static bool first_time_found = false;
 
     struct Blob blobs[MAX_BLOBS];
     int active_blobs = 0;
@@ -215,6 +216,21 @@ if (found_triplet && min_penalty < 45) {
     blobs[2] = sorted_blobs[2];
 
     active_blobs = 3;
+    if (first_time_found == true) {
+        for (int i = 0; i < 3; i ++) {
+            first_time_found = false;
+            for (int i = 0; i < 3; i ++) {
+                result.blobs[i] = blobs[i];
+            }
+        }
+    } else {
+        for (int i = 0; i < 3; i++) {
+            blobs[i].cord_x = alpha * blobs[i].cord_x + (1 - alpha) * result.blobs[i].cord_x;
+            blobs[i].cord_y = alpha * blobs[i].cord_y + (1 - alpha) * result.blobs[i].cord_y;
+    }
+}
+
+
 } else {
     active_blobs = 0;
     ESP_LOGW(TAG, "Pattern failed validation. Penalty: %.2f", min_penalty);
@@ -273,11 +289,11 @@ if (active_blobs >= 3) {
     ESP_LOGI(TAG, "CENTER DOT: X=%.1f, Y=%.1f", blobs[1].cord_x, blobs[1].cord_y);
     ESP_LOGI(TAG, "RIGHT DOT:  X=%.1f, Y=%.1f", blobs[2].cord_x, blobs[2].cord_y);
 
-    int16_t gap_1_y = sqrt(pow(blobs[0].cord_x - blobs[1].cord_x, 2) + pow(blobs[0].cord_y - blobs[1].cord_y, 2));
-    int16_t gap_2_y = sqrt(pow(blobs[1].cord_x - blobs[2].cord_x, 2) + pow(blobs[1].cord_y - blobs[2].cord_y, 2));
-    int16_t gap_y = (gap_1_y + gap_2_y) / 2;
+    float_t gap_1 = sqrt(pow(blobs[0].cord_x - blobs[1].cord_x, 2) + pow(blobs[0].cord_y - blobs[1].cord_y, 2));
+    float_t gap_2 = sqrt(pow(blobs[1].cord_x - blobs[2].cord_x, 2) + pow(blobs[1].cord_y - blobs[2].cord_y, 2));
+    float_t gap_y = (gap_1 + gap_2) / 2;
 
-    ESP_LOGI(TAG, "Gap Y : %d", gap_y);
+    ESP_LOGI(TAG, "Gap Y : %1f", gap_y * 10 );
     ESP_LOGI(TAG, "Turn: %d", (int16_t)blobs[1].cord_x);
     float slope = blobs[2].cord_y - blobs[0].cord_y;
     ESP_LOGI(TAG, "Angle Slope: %.2f", slope);
