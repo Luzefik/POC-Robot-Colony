@@ -2,18 +2,20 @@
 #include "driver/ledc.h"
 
 #define MOTOR_PWM_FREQ_HZ 5000
-#define MOTOR_PWM_RESOLUTION LEDC_TIMER_8_BIT
-#define MOTOR_MAX_DUTY 255
+#define MOTOR_PWM_RESOLUTION LEDC_TIMER_10_BIT
+#define MOTOR_MAX_DUTY 1023
 #define TAG "MOTOR"
+#define MAX_PWM 1023
+#define MIN_PWM 350  // Мінімальна сила, щоб колеса крутились (підбирай: 300-400)
 
 static const int motor_gpio_pins[4] = {12, 13, 14, 15};
 
 static const ledc_channel_t motor_channels[4] = {
-    LEDC_CHANNEL_0, LEDC_CHANNEL_1, LEDC_CHANNEL_2, LEDC_CHANNEL_3
+    LEDC_CHANNEL_4, LEDC_CHANNEL_5, LEDC_CHANNEL_6, LEDC_CHANNEL_7
 };
 
-#define MOTOR_LEDC_TIMER LEDC_TIMER_0
-#define MOTOR_SPEED_MODE LEDC_HIGH_SPEED_MODE
+#define MOTOR_LEDC_TIMER LEDC_TIMER_1
+#define MOTOR_SPEED_MODE LEDC_LOW_SPEED_MODE
 
 void motor_init(void) {
     ledc_timer_config_t ledc_timer = {};
