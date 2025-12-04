@@ -50,6 +50,20 @@ Conv getData() {
 
 
 
+
+int16_t clamp(int x, int min, int max) {
+    if (x < min) {
+        return min;
+    } else if (x >= max) {
+        return max;
+    }
+
+    return x;
+}
+
+
+
+
 static void detection_task(void *arg) {
     while (1) {
         camera_fb_t *fb = esp_camera_fb_get();
@@ -85,42 +99,30 @@ void app_main(void) {
     // wifi_init_sta();
 
     motor_init();
-     motor_init();
     for (;;) {
+        static int16_t turn = 0;
+        static uint16_t speed = 0;
+
         Conv data = getData();
-        int16_t x = data.turn * 1.6 / 4;
-        int16_t y = data.acc;
+        int16_t px = data.turn * 3.2 / 16;
+        int16_t pacc = 144 - (data.acc - 244)*0.5625;
 
-        if (y > 0) {y += 120;}
-        else if (y < 0) {y -= 120;}
+        if (pacc > 0) {pacc += 335;}
 
-        static int8_t turn = 0;
-        static int8_t speed = 0;
+        if (speed < pacc) {speed += abs(pacc - speed);}
 
-        if (speed > y) {speed -= 2;}
-        else if (speed < y) {speed += 2;}
+        if (0 < speed && speed < 335) {speed = 335;}
 
-        if (turn > x) {turn -= 2;}
-        else if (turn < x) {turn += 2;}
+        px = clamp(px, -32, 31);
+        if (px > turn) {turn += abs(px - turn);}
+        else if (px < turn) {turn -= abs(px -turn);}
 
-        motor(0, speed);
+        motor(0, speed - (turn / 2));
         motor(1, 0);
-        motor(2, speed);
+
+        motor(2, speed + (turn / 2));
         motor(3, 0);
-
-        if (speed > 0) {
-            motor(0, speed - (turn / 2));
-            motor(1, 0);
-
-            motor(2, speed + (turn / 2));
-            motor(3, 0);
-        } else {
-            motor(1, abs(speed) - (turn / 2));
-            motor(0, 0);
-
-            motor(3, abs(speed) + (turn / 2));
-            motor(2, 0);
-        }
+        ESP_LOGI(TAG, "TURN: %d, SPEED: %d", turn, speed);
         vTaskDelay(20 / portTICK_PERIOD_MS);
     }
 }
