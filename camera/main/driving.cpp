@@ -3,10 +3,9 @@
 
 #define MOTOR_PWM_FREQ_HZ 5000
 #define MOTOR_PWM_RESOLUTION LEDC_TIMER_10_BIT
-#define MOTOR_MAX_DUTY 1023
+#define MOTOR_MAX_DUTY 511
 #define TAG "MOTOR"
-#define MAX_PWM 1023
-#define MIN_PWM 350  // Мінімальна сила, щоб колеса крутились (підбирай: 300-400)
+
 
 static const int motor_gpio_pins[4] = {12, 13, 14, 15};
 

@@ -12,8 +12,6 @@
 #include "math.h"
 
 
-#define MAX_PWM 1023
-#define MIN_PWM 350  
 static const char *TAG = "app";
 
 static void on_wifi_ready(void) {
@@ -30,28 +28,27 @@ typedef struct {
 
 static BlobResult dots = {0};
 
-BlobResult global_dots = {0};
-SemaphoreHandle_t dots_mutex;
 Conv getData() {
     int THRESH_HOLD_FOR_ACC  = 10;
 
     Conv result = {0,0};
 
-    result.turn = (int16_t)global_dots.blobs[1].cord_x;
+    result.turn = (int16_t)dots.blobs[1].cord_x;
 
 
-    int16_t gap_1_y = sqrt(pow(global_dots.blobs[0].cord_x - global_dots.blobs[1].cord_x, 2) + pow(global_dots.blobs[0].cord_y - global_dots.blobs[1].cord_y, 2));
-    int16_t gap_2_y = sqrt(pow(global_dots.blobs[1].cord_x - global_dots.blobs[2].cord_x, 2) + pow(global_dots.blobs[1].cord_y - global_dots.blobs[2].cord_y, 2));
+    int16_t gap_1_y = sqrt(pow(dots.blobs[0].cord_x - dots.blobs[1].cord_x, 2) + pow(dots.blobs[0].cord_y - dots.blobs[1].cord_y, 2));
+    int16_t gap_2_y = sqrt(pow(dots.blobs[1].cord_x - dots.blobs[2].cord_x, 2) + pow(dots.blobs[1].cord_y - dots.blobs[2].cord_y, 2));
+
+    // ESP_LOGI(TAG, "LEFT DOT:   X=%.1f, Y=%.1f", dots.blobs[0].cord_x, dots.blobs[0].cord_y);
+    // ESP_LOGI(TAG, "CENTER DOT: X=%.1f, Y=%.1f", dots.blobs[1].cord_x, dots.blobs[1].cord_y);
+    // ESP_LOGI(TAG, "RIGHT DOT:  X=%.1f, Y=%.1f", dots.blobs[2].cord_x, dots.blobs[2].cord_y);
+
+
     int16_t gap_y = (gap_1_y + gap_2_y) / 2;
 
     ESP_LOGI(TAG, "gap_1_y: %.1f, gap_2_y: %.1f, gap_y %.1f", gap_1_y,gap_2_y,gap_y);
 
-
-    ESP_LOGI(TAG, "LEFT DOT:   X=%.1f, Y=%.1f", global_dots.blobs[0].cord_x, global_dots.blobs[0].cord_y);
-    ESP_LOGI(TAG, "CENTER DOT: X=%.1f, Y=%.1f", global_dots.blobs[1].cord_x, global_dots.blobs[1].cord_y);
-    ESP_LOGI(TAG, "RIGHT DOT:  X=%.1f, Y=%.1f", global_dots.blobs[2].cord_x, global_dots.blobs[2].cord_y);
-
-    result.acc = gap_y;
+    result.acc = THRESH_HOLD_FOR_ACC - gap_y;
 
     return result;
 }
@@ -70,31 +67,19 @@ int16_t clamp(int x, int min, int max) {
 }
 
 
-
-
-
 static void detection_task(void *arg) {
     while (1) {
         camera_fb_t *fb = esp_camera_fb_get();
-        if (!fb) { vTaskDelay(10); continue; }
-
-        BlobResult local_res = process_image(fb);
-        esp_camera_fb_return(fb);
-
-        if (local_res.blobs[0].count > 0) {
-            // Захищений запис
-            xSemaphoreTake(dots_mutex, portMAX_DELAY);
-            global_dots = local_res;
-            xSemaphoreGive(dots_mutex);
+        if (!fb) {
+            vTaskDelay(100 / portTICK_PERIOD_MS);
+            continue;
         }
 
-        vTaskDelay(20 / portTICK_PERIOD_MS);
+        dots = process_image(fb);
+        esp_camera_fb_return(fb);
+        vTaskDelay(50 / portTICK_PERIOD_MS);
     }
 }
-
-
-
-
 
 void app_main(void) {
     esp_err_t ret = nvs_flash_init();
@@ -111,61 +96,36 @@ void app_main(void) {
 
     ESP_LOGI(TAG, "Camera initialized");
 
-    dots_mutex = xSemaphoreCreateMutex();
-
     xTaskCreate(detection_task, "detection", 8192, NULL, 5, NULL);
 
     // wifi_register_got_ip_cb(on_wifi_ready);
     // wifi_init_sta();
 
-    motor_init();
-
-    float speed = 0;
-    float turn = 0;
-
+    // motor_init();
     for (;;) {
+        static int16_t turn = 0;
+        static uint16_t speed = 0;
+
         Conv data = getData();
+        int16_t px = data.turn * 3.2 / 16;
+        int16_t pacc = 144 - (data.acc - 244)*0.5625;
 
-        int target_speed = 0;
+        if (pacc > 0) {pacc += 335;}
 
-        if (data.acc > 20) {
-            target_speed = (data.acc - 20) * 25;
+        if (speed < pacc) {speed += abs(pacc - speed);}
 
-            if (target_speed > MAX_PWM) target_speed = MAX_PWM;
+        if (0 < speed && speed < 335) {speed = 335;}
 
-            if (target_speed < MIN_PWM) target_speed = MIN_PWM;
-        } else {
-            target_speed = 0;
-        }
+        px = clamp(px, -32, 31);
+        if (px > turn) {turn += abs(px - turn);}
+        else if (px < turn) {turn -= abs(px -turn);}
 
-        int target_turn = data.turn * 4;
+    //     motor(0, speed - (turn / 2));
+    //     motor(1, 0);
 
-        if (speed < target_speed) speed += 80;
-        else if (speed > target_speed) speed -= 100;
-
-        if (turn < target_turn) turn += 40;
-        else if (turn > target_turn) turn -= 40;
-
-        int left_pwm  = speed + turn - 10;
-        int right_pwm = speed - turn;
-
-        // 5. Обмеження (Clamp)
-        if (left_pwm > MAX_PWM) left_pwm = MAX_PWM;
-        if (left_pwm < -MAX_PWM) left_pwm = -MAX_PWM;
-
-        if (right_pwm > MAX_PWM) right_pwm = MAX_PWM;
-        if (right_pwm < -MAX_PWM) right_pwm = -MAX_PWM;
-
-        if (left_pwm < 0) left_pwm = 0;
-        if (right_pwm < 0) right_pwm = 0;
-
-        motor(0, left_pwm);
-        motor(1, 0);
-
-        motor(2, right_pwm);
-        motor(3, 0);
-
-        ESP_LOGI(TAG, "Dist:%d -> L:%d R:%d", data.acc, left_pwm, right_pwm);
+    //     motor(2, speed + (turn / 2));
+    //     motor(3, 0);
+        ESP_LOGI(TAG, "TURN: %d, SPEED: %d", turn, speed);
         vTaskDelay(20 / portTICK_PERIOD_MS);
     }
 }

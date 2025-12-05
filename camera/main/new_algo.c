@@ -6,8 +6,6 @@
 #include <string.h>
 #include "new_algo.h"
 #include "esp_log.h"
-#include "esp_log_timestamp.h"
-#include "esp_timer.h"
 #include "esp_camera.h"
 #include "take_picture.h"
 
@@ -24,7 +22,6 @@ BlobResult process_image(camera_fb_t * fb) {
     float central_of_img_x = fb->width/2.0;
     float central_of_img_y = fb->height/2.0;
     float_t alpha = 0.4;  // coefficient for smoothing
-    static bool first_time_found = false;
 
     struct Blob blobs[MAX_BLOBS];
     int active_blobs = 0;
@@ -60,8 +57,7 @@ BlobResult process_image(camera_fb_t * fb) {
                     int dx = x - blobs[k].cord_x;
                     int dy = y - blobs[k].cord_y;
                     int dist_sq = dx * dx + dy * dy;
-
-                    if (dist_sq < 100) { // within 10 pixels
+                    if (dist_sq < 100) {
                         if (dist_sq < min_dist_sq) {
                             min_dist_sq = dist_sq;
                             best_blob_idx = k;
@@ -87,7 +83,7 @@ BlobResult process_image(camera_fb_t * fb) {
             }
         }
     }
-// // sorting blobs by size (count)
+// sorting blobs by size (count)
 // for (int i = 0; i < active_blobs - 1; i++) {
 //     for (int j = i + 1; j < active_blobs; j++) {
 //         if (blobs[j].count > blobs[i].count) {
@@ -115,43 +111,6 @@ for (int i = 0; i < active_blobs; i ++) {
 }
 
 
-// for (int i=0; i < candidates_count; i++) {
-//     for (int j = i+1; j< candidates_count; j++){
-//         for (int k = j + 1; k < candidates_count; k++) {
-//             int idx1 = candidate_indices[i];
-//             int idx2 = candidate_indices[j];
-//             int idx3 = candidate_indices[k];
-
-//             float y1 = blobs[idx1].cord_y;
-//             float y2 = blobs[idx2].cord_y;
-//             float y3 = blobs[idx3].cord_y;
-
-//             float min_y = fminf(y1, fminf(y2, y3));
-//             float max_y = fmaxf(y1, fmaxf(y2, y3));
-//             float diff = max_y - min_y;
-//             if (diff < min_y_diff) {
-//                 min_y_diff = diff;
-//                 best_triplet[0] = idx1;
-//                 best_triplet[1] = idx2;
-//                 best_triplet[2] = idx3;
-//                 found_triplet = true;
-//         }
-//     }
-// }}
-
-// if (found_triplet) {
-//     struct Blob final_blobs[3];
-//     final_blobs[0] = blobs[best_triplet[0]];
-//     final_blobs[1] = blobs[best_triplet[1]];
-//     final_blobs[2] = blobs[best_triplet[2]];
-
-//     blobs[0] = final_blobs[0];
-//     blobs[1] = final_blobs[1];
-//     blobs[2] = final_blobs[2];
-//     active_blobs = 3;
-//     } else {
-//         if (candidates_count < 3) active_blobs = 0;
-//     }
 
 
 for (int i=0; i < candidates_count-1; i ++) {
@@ -170,9 +129,6 @@ for (int i=0; i < candidates_count-1; i ++) {
                         }
                     }
 
-                        // int idx1 = candidate_indices[i];
-                        // int idx2 = candidate_indices[j];
-                        // int idx3 = candidate_indices[k];
 
                         float y1 = p[0]. cord_y;
                         float y2 = p[1].cord_y;
@@ -215,26 +171,35 @@ if (found_triplet && min_penalty < 45) {
     blobs[1] = sorted_blobs[1];
     blobs[2] = sorted_blobs[2];
 
+    for (int i = 0; i < 3; i++) {
+        blobs[i].cord_x = blobs[i].cord_x - central_of_img_x;
+        blobs[i].cord_y = central_of_img_y - blobs[i].cord_y;
+    }
+
     active_blobs = 3;
-    if (first_time_found == true) {
-        for (int i = 0; i < 3; i ++) {
-            first_time_found = false;
-            for (int i = 0; i < 3; i ++) {
-                result.blobs[i] = blobs[i];
-            }
+    static struct Blob prev_blobs[3];
+    static bool is_initialized = false;
+
+
+    if (!is_initialized) {
+        for (int i = 0; i < 3; i++) {
+            prev_blobs[i] = blobs[i];
         }
+        is_initialized = true;
     } else {
         for (int i = 0; i < 3; i++) {
-            blobs[i].cord_x = alpha * blobs[i].cord_x + (1 - alpha) * result.blobs[i].cord_x;
-            blobs[i].cord_y = alpha * blobs[i].cord_y + (1 - alpha) * result.blobs[i].cord_y;
+            blobs[i].cord_x = (blobs[i].cord_x * alpha) + (prev_blobs[i].cord_x * (1.0 - alpha));
+            blobs[i].cord_y = (blobs[i].cord_y * alpha) + (prev_blobs[i].cord_y * (1.0 - alpha));
+
+
+            prev_blobs[i] = blobs[i];
+        }
     }
-}
-
-
-} else {
+    }else
+    {
     active_blobs = 0;
     ESP_LOGW(TAG, "Pattern failed validation. Penalty: %.2f", min_penalty);
-}
+    }
 
 //sorting by x coordinate top 3 blobs
 // for (int i = 0; i < 3; i++) {
@@ -300,5 +265,5 @@ if (active_blobs >= 3) {
 } else {
     ESP_LOGW(TAG, "NOT ENOUGH DOTS (Need 3, found %d)", active_blobs);
 }
-   return result; }
-// }
+   return result;
+}
