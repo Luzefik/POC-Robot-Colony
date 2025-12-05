@@ -2,111 +2,72 @@
 #include "nvs_flash.h"
 #include "wifi_connect.h"
 #include "esp_camera.h"
-#include "dots_algo.h"
+#include "new_algo.h"
+#include "take_picture.h"
 #include "web_stream.h"
-#include "freertos/FreeRTOS.h"
+#include "camera_pinout.h"
 #include "freertos/task.h"
-#include <stdlib.h>
-#include "driving.h"
-#include <btstack_port_esp32.h>
-#include <btstack_run_loop.h>
-#include <btstack_stdio_esp32.h>
-#include <hci_dump.h>
-#include <hci_dump_embedded_stdout.h>
-#include <uni.h>
+#include <driving.h>
+#include <stdint.h>
+#include "math.h"
 
 #include <stdio.h>
 #include <string.h>
 #include "driver/i2c.h"
 #include "i2c_lcd.h"
 
-#include "sdkconfig.h"
-
-// Sanity check
-#ifndef CONFIG_BLUEPAD32_PLATFORM_CUSTOM
-#error "Must use BLUEPAD32_PLATFORM_CUSTOM"
-#endif
-
-// #define LEADER 1
-
 static const char *TAG = "app";
+#define LEADER 0
 
-
-QueueHandle_t camera_to_motor_queue;
-
-#ifdef LEADER
-struct uni_platform* get_my_platform(void);
-
-int app_main(void) {
-    motor_init();
-    // If you enable HCI Dump better to disable "Bluepad32 USB Console" from "idf.py menuconfig".
-    // hci_dump_init(hci_dump_embedded_stdout_get_instance());
-
-    // Don't use BTstack buffered UART. It conflicts with the console.
-#ifdef CONFIG_ESP_CONSOLE_UART
-#ifndef CONFIG_BLUEPAD32_USB_CONSOLE_ENABLE
-    btstack_stdio_init();
-#endif  // CONFIG_BLUEPAD32_USB_CONSOLE_ENABLE
-#endif  // CONFIG_ESP_CONSOLE_UART
-
-    // Configure BTstack for ESP32 VHCI Controller
-    btstack_init();
-
-    // Must be called before uni_init()
-    uni_platform_set_custom(get_my_platform());
-
-    // Init Bluepad32.
-    uni_init(0 /* argc */, NULL /* argv */);
-
-    // Does not return.
-    btstack_run_loop_execute();
-
-    return 0;
-}
-#else
-
-esp_err_t camera_init_board(void);
-
-static void on_wifi_ready(void) {
+static void on_wifi_ready(void)
+{
     ESP_LOGI(TAG, "Wi-Fi ready → starting WEB STREAM");
     web_stream_start();
 }
 
-static void camera_detection_task(void *arg) {
-    int frame_count = 0;
-    while (1) {
+typedef struct
+{
+    int16_t turn;
+    int16_t acc;
+} Conv;
+
+static BlobResult dots = {0};
+
+Conv getData()
+{
+    int THRESH_HOLD_FOR_ACC = 10;
+
+    Conv result = {0, 0};
+
+    result.turn = (int16_t)dots.blobs[1].cord_x;
+
+    int16_t gap_1_y = sqrt(pow(dots.blobs[0].cord_x - dots.blobs[1].cord_x, 2) + pow(dots.blobs[0].cord_y - dots.blobs[1].cord_y, 2));
+    int16_t gap_2_y = sqrt(pow(dots.blobs[1].cord_x - dots.blobs[2].cord_x, 2) + pow(dots.blobs[1].cord_y - dots.blobs[2].cord_y, 2));
+
+    int16_t gap_y = (gap_1_y + gap_2_y) / 2;
+
+    // ESP_LOGI(TAG, "gap_1_y: %.1f, gap_2_y: %.1f, gap_y %.1f", gap_1_y,gap_2_y,gap_y);
+
+    result.acc = THRESH_HOLD_FOR_ACC - gap_y;
+
+    return result;
+}
+
+static void detection_task(void *arg)
+{
+    while (1)
+    {
         camera_fb_t *fb = esp_camera_fb_get();
-        if (!fb) {
-            ESP_LOGW(TAG, "Failed to get camera frame!");
+        if (!fb)
+        {
             vTaskDelay(100 / portTICK_PERIOD_MS);
             continue;
         }
 
-        frame_count++;
-        ESP_LOGI(TAG, "Frame %d: format=%d, len=%d, w=%d, h=%d",
-                 frame_count, fb->format, fb->len, fb->width, fb->height);
-
-        detect_dots(fb);
-        detection_data_t dots_data = get_detection_data();
-
-        ESP_LOGI(TAG, "Detection result: count=%d", dots_data.count);
-
-        xQueueSend(camera_to_motor_queue, &dots_data, pdMS_TO_TICKS(10));
-
+        dots = process_image(fb);
         esp_camera_fb_return(fb);
         vTaskDelay(50 / portTICK_PERIOD_MS);
     }
-}
-
-static void motor_control_task(void *arg) {
-    while (1)
-    {
-        detection_data_t latest_dot_data;
-        xQueueReceive(camera_to_motor_queue, &latest_dot_data, pdMS_TO_TICKS(10));
-
-        mov(&latest_dot_data);
-    }
-
 }
 
 static void lcd_status_print(void)
@@ -118,11 +79,11 @@ static void lcd_status_print(void)
 
     if (LEADER)
     {
-        role = "leader";
+        role = "LEADER";
     }
     else
     {
-        role = "follower";
+        role = "FOLLOWER";
     }
 
     int col = (16 - strlen(role)) / 2;
@@ -130,80 +91,91 @@ static void lcd_status_print(void)
     lcd_send_string(role);
 }
 
-void app_main(void) {
-    lcd_status_print();
-
+void app_main(void)
+{
+    // 1. Спочатку ініціалізуємо NVS (системна пам'ять)
     esp_err_t ret = nvs_flash_init();
-    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND)
+    {
         ESP_ERROR_CHECK(nvs_flash_erase());
         ESP_ERROR_CHECK(nvs_flash_init());
     }
     ESP_ERROR_CHECK(ret);
 
-    if (camera_init_board() != ESP_OK) {
+    if (camera_init_board() != ESP_OK)
+    {
         ESP_LOGE(TAG, "Camera init failed");
         return;
     }
-
     ESP_LOGI(TAG, "Camera initialized");
 
+    // 3. Запускаємо задачу детекції
+    xTaskCreate(detection_task, "detection", 8192, NULL, 5, NULL);
+
+    // 4. І тільки ТЕПЕР ініціалізуємо LCD
+    // Це важливо: камера вже забрала свої переривання, LCD візьме те, що лишилося.
+    lcd_status_print();
+
     motor_init();
-    ESP_LOGI(TAG, "Motors initialized");
+    motor_init(); // До речі, у тебе тут дублюється motor_init()
 
-    camera_to_motor_queue = xQueueCreate(3, sizeof(detection_data_t));
+    for (;;)
+    {
+        Conv data = getData();
+        int16_t x = data.turn * 1.6 / 4;
+        int16_t y = data.acc;
 
-    xTaskCreate(camera_detection_task, "detection", 4096, NULL, 5, NULL);
-    xTaskCreate(motor_control_task, "motor_brain", 4096, NULL, 10, NULL);
+        if (y > 0)
+        {
+            y += 120;
+        }
+        else if (y < 0)
+        {
+            y -= 120;
+        }
 
-    ESP_LOGI(TAG, "Всі завдання запущені. app_main завершує роботу.");
+        static int8_t turn = 0;
+        static int8_t speed = 0;
 
-    // wifi_register_got_ip_cb(on_wifi_ready);
-    // wifi_init_sta();
+        if (speed > y)
+        {
+            speed -= 2;
+        }
+        else if (speed < y)
+        {
+            speed += 2;
+        }
 
-    // vTaskDelay(portMAX_DELAY);
+        if (turn > x)
+        {
+            turn -= 2;
+        }
+        else if (turn < x)
+        {
+            turn += 2;
+        }
+
+        motor(0, speed);
+        motor(1, 0);
+        motor(2, speed);
+        motor(3, 0);
+
+        if (speed > 0)
+        {
+            motor(0, speed - (turn / 2));
+            motor(1, 0);
+
+            motor(2, speed + (turn / 2));
+            motor(3, 0);
+        }
+        else
+        {
+            motor(1, abs(speed) - (turn / 2));
+            motor(0, 0);
+
+            motor(3, abs(speed) + (turn / 2));
+            motor(2, 0);
+        }
+        vTaskDelay(20 / portTICK_PERIOD_MS);
+    }
 }
-#endif
-// #else  // НЕ-ЛІДЕР --- IGNORE ---
-// esp_err_t camera_init_board(void);
-
-// static void on_wifi_ready(void) {
-//     ESP_LOGI(TAG, "Wi-Fi ready → starting WEB STREAM");
-//     web_stream_start();
-// }
-
-// static void detection_task(void *arg) {
-//     while (1) {
-//         camera_fb_t *fb = esp_camera_fb_get();
-//         if (!fb) {
-//             vTaskDelay(100 / portTICK_PERIOD_MS);
-//             continue;
-//         }
-
-//         detect_dots(fb);
-//         esp_camera_fb_return(fb);
-//         vTaskDelay(50 / portTICK_PERIOD_MS);
-//     }
-// }
-
-// void app_main(void) {
-//     esp_err_t ret = nvs_flash_init();
-//     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-//         ESP_ERROR_CHECK(nvs_flash_erase());
-//         ESP_ERROR_CHECK(nvs_flash_init());
-//     }
-//     ESP_ERROR_CHECK(ret);
-
-//     if (camera_init_board() != ESP_OK) {
-//         ESP_LOGE(TAG, "Camera init failed");
-//         return;
-//     }
-
-//     ESP_LOGI(TAG, "Camera initialized");
-
-//     xTaskCreate(detection_task, "detection", 4096, NULL, 5, NULL);
-
-//     wifi_register_got_ip_cb(on_wifi_ready);
-//     wifi_init_sta();
-
-//     vTaskDelay(portMAX_DELAY);
-// }

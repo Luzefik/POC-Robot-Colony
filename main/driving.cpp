@@ -44,23 +44,3 @@ void motor(int motor_id, int pwm) {
     ledc_set_duty(MOTOR_SPEED_MODE, motor_channels[motor_id], pwm);
     ledc_update_duty(MOTOR_SPEED_MODE, motor_channels[motor_id]);
 }
-
-
-// void motor_set_speed(int x, int y
-//                     int motor_id_1, int motor_id_2,
-//                     float speed_percent_1, float speed_percent_2) {
-//     if (speed_percent_1 < 0.0f) speed_percent_1 = 0.0f;
-//     if (speed_percent_2 < 0.0f) speed_percent_2 = 0.0f;
-
-//     if (speed_percent_1 > 100.0f) speed_percent_1 = 100.0f;
-//     if (speed_percent_2 > 100.0f) speed_percent_2 = 100.0f;
-
-//     if y>0 {
-//         uint32_t duty_1 = (uint32_t)((speed_percent_1 / 100.0f) * MOTOR_MAX_DUTY);
-//         uint32_t duty_2 = (uint32_t)((speed_percent_2 / 100.0f) * MOTOR_MAX_DUTY);
-//         ESP_ERROR_CHECK(ledc_set_duty(MOTOR_SPEED_MODE, motor_channels[motor_id_1], duty1));
-//         ESP_ERROR_CHECK(ledc_set_duty(MOTOR_SPEED_MODE, motor_channels[motor_id_2], duty2));
-//     }
-
-
-

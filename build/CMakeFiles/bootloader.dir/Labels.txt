@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/bootloader
+/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/bootloader.rule
+/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/bootloader-complete.rule
+/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
