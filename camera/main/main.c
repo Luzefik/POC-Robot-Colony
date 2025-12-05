@@ -98,34 +98,34 @@ void app_main(void) {
 
     xTaskCreate(detection_task, "detection", 8192, NULL, 5, NULL);
 
-    // wifi_register_got_ip_cb(on_wifi_ready);
-    // wifi_init_sta();
+    wifi_register_got_ip_cb(on_wifi_ready);
+    wifi_init_sta();
 
     // motor_init();
-    for (;;) {
-        static int16_t turn = 0;
-        static uint16_t speed = 0;
+    // for (;;) {
+    //     static int16_t turn = 0;
+    //     static uint16_t speed = 0;
 
-        Conv data = getData();
-        int16_t px = data.turn * 3.2 / 16;
-        int16_t pacc = 144 - (data.acc - 244)*0.5625;
+    //     Conv data = getData();
+    //     int16_t px = data.turn * 3.2 / 16;
+    //     int16_t pacc = 144 - (data.acc - 244)*0.5625;
 
-        if (pacc > 0) {pacc += 335;}
+    //     if (pacc > 0) {pacc += 335;}
 
-        if (speed < pacc) {speed += abs(pacc - speed);}
+    //     if (speed < pacc) {speed += abs(pacc - speed);}
 
-        if (0 < speed && speed < 335) {speed = 335;}
+    //     if (0 < speed && speed < 335) {speed = 335;}
 
-        px = clamp(px, -32, 31);
-        if (px > turn) {turn += abs(px - turn);}
-        else if (px < turn) {turn -= abs(px -turn);}
+    //     px = clamp(px, -32, 31);
+    //     if (px > turn) {turn += abs(px - turn);}
+    //     else if (px < turn) {turn -= abs(px -turn);}
 
     //     motor(0, speed - (turn / 2));
     //     motor(1, 0);
 
     //     motor(2, speed + (turn / 2));
     //     motor(3, 0);
-        ESP_LOGI(TAG, "TURN: %d, SPEED: %d", turn, speed);
-        vTaskDelay(20 / portTICK_PERIOD_MS);
-    }
+    //     ESP_LOGI(TAG, "TURN: %d, SPEED: %d", turn, speed);
+    //     vTaskDelay(20 / portTICK_PERIOD_MS);
+    // }
 }

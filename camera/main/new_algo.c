@@ -11,7 +11,7 @@
 
 static const char *TAG = "dots_algo";
 
-#define RED_V_THRESH 160
+#define RED_V_THRESH 150
 #define LUMA_THRESH 40
 #define CHROMA_U_LOW 100
 #define MAX_BLOBS 10
@@ -160,7 +160,7 @@ for (int i=0; i < candidates_count-1; i ++) {
                 }
             }
 
-if (found_triplet && min_penalty < 45) {
+if (found_triplet && min_penalty < 120) {
     struct Blob sorted_blobs[3];
 
     sorted_blobs[0] = blobs[best_triplet[0]];
