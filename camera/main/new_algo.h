@@ -1,6 +1,8 @@
 
 #include "esp_camera.h"
 #include <stdbool.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/queue.h"
 
 struct Blob {
     float cord_x;

@@ -2,7 +2,7 @@
 #include "driver/ledc.h"
 
 #define MOTOR_PWM_FREQ_HZ 5000
-#define MOTOR_PWM_RESOLUTION LEDC_TIMER_10_BIT
+#define MOTOR_PWM_RESOLUTION LEDC_TIMER_9_BIT
 #define MOTOR_MAX_DUTY 511
 #define TAG "MOTOR"
 

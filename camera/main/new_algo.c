@@ -7,9 +7,12 @@
 #include "new_algo.h"
 #include "esp_log.h"
 #include "esp_camera.h"
+#include "freertos/idf_additions.h"
 #include "take_picture.h"
 
 static const char *TAG = "dots_algo";
+
+extern QueueHandle_t dots_detection_queue;
 
 #define RED_V_THRESH 150
 #define LUMA_THRESH 40
@@ -21,7 +24,7 @@ BlobResult process_image(camera_fb_t * fb) {
     BlobResult result = {0};
     float central_of_img_x = fb->width/2.0;
     float central_of_img_y = fb->height/2.0;
-    float_t alpha = 0.4;  // coefficient for smoothing
+    float_t alpha = 0.8;  // coefficient for smoothing
 
     struct Blob blobs[MAX_BLOBS];
     int active_blobs = 0;
@@ -30,6 +33,8 @@ BlobResult process_image(camera_fb_t * fb) {
 
     if (!fb) {
         ESP_LOGE(TAG, "No frame buffer provided");
+        xQueueSend(dots_detection_queue, &result, portMAX_DELAY);
+        return result;
     }
 
     for ( int i = 0; i < fb->len; i +=4) {
@@ -160,7 +165,7 @@ for (int i=0; i < candidates_count-1; i ++) {
                 }
             }
 
-if (found_triplet && min_penalty < 120) {
+if (found_triplet && min_penalty < 45) {
     struct Blob sorted_blobs[3];
 
     sorted_blobs[0] = blobs[best_triplet[0]];
@@ -229,10 +234,10 @@ if (found_triplet && min_penalty < 120) {
 
 
 // centring the blobs
-for (int i = 0; i < 3; i ++) {
-    blobs[i].cord_x = blobs[i].cord_x - central_of_img_x;
-    blobs[i].cord_y = central_of_img_y - blobs[i].cord_y;
-}
+// for (int i = 0; i < 3; i ++) {
+//     blobs[i].cord_x = blobs[i].cord_x - central_of_img_x;
+//     blobs[i].cord_y = central_of_img_y - blobs[i].cord_y;
+// }
 
 
 
@@ -265,5 +270,12 @@ if (active_blobs >= 3) {
 } else {
     ESP_LOGW(TAG, "NOT ENOUGH DOTS (Need 3, found %d)", active_blobs);
 }
-   return result;
+
+    // Always send to queue
+    if (xQueueSend(dots_detection_queue, &result, portMAX_DELAY) == pdTRUE) {
+        ESP_LOGI(TAG, "Data sent to queue successfully");
+    } else {
+        ESP_LOGE(TAG, "Failed to send data to queue");
+    }
+    return result;
 }
