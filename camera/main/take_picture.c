@@ -90,7 +90,7 @@ static camera_config_t camera_config = {
 
     //QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
 
-    .jpeg_quality = 15,  // 0-63, higher = more compression (smaller files, faster stream)
+    .jpeg_quality = 10,  // 0-63, higher = more compression (smaller files, faster stream)
     .fb_count = 3,       // Increased from 2 to 3 to prevent buffer overflow
     .fb_location = CAMERA_FB_IN_PSRAM,
     .grab_mode = CAMERA_GRAB_LATEST,

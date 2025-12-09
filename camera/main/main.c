@@ -8,10 +8,12 @@
 #include "camera_pinout.h"
 #include "freertos/task.h"
 #include <driving.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include "math.h"
 #include "freertos/queue.h"
+#include "freertos/semphr.h"
 
 
 static const char *TAG = "app";
@@ -25,20 +27,24 @@ QueueHandle_t dots_detection_queue;
 typedef struct {
     int16_t turn;
     int16_t acc;
+    bool valid;
 } Conv;
-
 
 
 
 Conv getData() {
     BlobResult dots = {0};
-    int THRESH_HOLD_FOR_ACC  = 10;
+    // int THRESH_HOLD_FOR_ACC  = 10;
+    Conv result = {0,0 ,false};
     if (xQueueReceive(dots_detection_queue, &dots, pdMS_TO_TICKS(100))) {
         ESP_LOGI(TAG, "Data received from queue");
+        result.valid = true;
     } else {
         ESP_LOGW(TAG, "No data received from queue, using default values");
+        result.valid = false;
+        return result;
     }
-    Conv result = {0,0};
+
 
     result.turn = (int16_t)dots.blobs[1].cord_x;
 
@@ -55,7 +61,7 @@ Conv getData() {
 
     ESP_LOGI(TAG, "gap_1_y: %.1f, gap_2_y: %.1f, gap_y %.1f", gap_1_y,gap_2_y,gap_y);
 
-    result.acc = THRESH_HOLD_FOR_ACC - gap_y;
+    result.acc =  gap_y;
 
     return result;
 }
@@ -85,6 +91,7 @@ static void detection_task(void *arg) {
         // Process image and send to queue
         process_image(fb);
         esp_camera_fb_return(fb);
+
         vTaskDelay(50 / portTICK_PERIOD_MS);
     }
 }
@@ -120,29 +127,55 @@ void app_main(void) {
     // wifi_register_got_ip_cb(on_wifi_ready);
     // wifi_init_sta();
 
-    for (;;) {
+
+
+        for (;;) {
         static int16_t turn = 0;
-        static uint16_t speed = 0;
+        static int16_t speed = 0;
+
+        // -512 <-> 512
+        // 508 бо джойстик у нульовій позиціє для X та Y маюьть по 4 одиниці
+
 
         Conv data = getData();
-        int16_t pacc = clamp(data.acc, -508, 508) / 4 * 0.78125;
-        turn = clamp(data.turn, -64, 63);
+        int16_t pacc = clamp(data.acc, -508, 508) / 4;
+        int16_t px = clamp(data.turn, -508, 508) / 16;
 
-        if (pacc > 0) {pacc += 341;}
+        if (!data.valid) {
+            if (turn >= 0) {
+                motor(0, 350);
+                motor(1, 0);
+                motor(3, 0);
+                motor(2, 0);
+            } else {
+                motor(0, 0);
+                motor(1, 0);
+                motor(2, 350);
+                motor(3, 0);
+            }
 
-        if (speed < pacc) {speed += abs(pacc - speed);}
-        if (speed > pacc) {speed -= abs(speed - pacc);}
+        } else {
+            if (pacc > 0) {pacc += 351;}
 
-        if (0 < speed && speed < 341) {speed = 341;}
+            if (speed < pacc) {speed += 4;}
+            if (speed > pacc) {speed -= 4;}
 
-        // Uncomment these lines when motor_init() is enabled
-        motor(0, speed - (turn / 2));
-        motor(1, 0);
-        motor(2, speed + (turn / 2));
-        motor(3, 0);
+            if (0 < speed && speed < 351) {speed = 351;}
+            px = clamp(px,-32, 31);
+            if (px > turn) {turn += 2;}
+            if (px < turn) {turn -= 2;}
 
-        ESP_LOGI(TAG, "CONTROL - Turn: %d, Speed: %d, Acc: %d", turn, speed, data.acc);
-        vTaskDelay(20 / portTICK_PERIOD_MS);  // CRITICAL: Don't remove this delay!
+            motor(0, speed + (turn ));
+            motor(1, 0);
+            motor(2, speed - (turn ));
+            motor(3, 0);
+
+        ESP_LOGI(TAG, "CONTROL - Turn: %d, Speed: %d, Acc: %d pacc: %d", turn, speed, data.acc, pacc);
+        if (data.acc == 0) {
+            speed = 0;
+            ESP_LOGI(TAG, "Robot stopped");
+        }
     }
-
+    vTaskDelay( 50 / portTICK_PERIOD_MS);
+}
 }
