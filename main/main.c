@@ -22,7 +22,7 @@
 #error "Must use BLUEPAD32_PLATFORM_CUSTOM"
 #endif
 
-// #define LEADER 1
+#define LEADER 1
 
 static const char *TAG = "app";
 
