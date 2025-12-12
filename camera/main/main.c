@@ -1,4 +1,8 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
+
 #include "esp_log.h"
+#include "esp_timer.h"
 #include "nvs_flash.h"
 #include "wifi_connect.h"
 #include "esp_camera.h"
@@ -34,13 +38,20 @@ typedef struct {
 
 Conv getData() {
     BlobResult dots = {0};
-    // int THRESH_HOLD_FOR_ACC  = 10;
-    Conv result = {0,0 ,false};
-    if (xQueueReceive(dots_detection_queue, &dots, pdMS_TO_TICKS(100))) {
-        ESP_LOGI(TAG, "Data received from queue");
-        result.valid = true;
+    Conv result = {0, 0, false};
+
+
+    if (xQueueReceive(dots_detection_queue, &dots, 0)) {
+        if (dots.blobs[0].count > 0 && dots.blobs[1].count > 0 && dots.blobs[2].count > 0) {
+            ESP_LOGI(TAG, "Valid data from queue");
+            result.valid = true;
+        } else {
+            ESP_LOGW(TAG, "Invalid data - blobs have zero count");
+            result.valid = false;
+            return result;
+        }
     } else {
-        ESP_LOGW(TAG, "No data received from queue, using default values");
+        ESP_LOGW(TAG, "Queue empty");
         result.valid = false;
         return result;
     }
@@ -82,15 +93,26 @@ int16_t clamp(int x, int min, int max) {
 
 static void detection_task(void *arg) {
     while (1) {
+        int64_t start_camera = esp_timer_get_time();
+
         camera_fb_t *fb = esp_camera_fb_get();
         if (!fb) {
             vTaskDelay(100 / portTICK_PERIOD_MS);
             continue;
         }
 
-        // Process image and send to queue
+        int64_t start_algo = esp_timer_get_time();
         process_image(fb);
+        int64_t end_algo = esp_timer_get_time();
+
         esp_camera_fb_return(fb);
+
+        int64_t end_camera = esp_timer_get_time();
+
+        ESP_LOGI(TAG, "CAMERA TIMING - Total: %lld ms, Algo: %lld ms, Get+Return: %lld ms",
+                 (end_camera - start_camera) / 1000,
+                 (end_algo - start_algo) / 1000,
+                 (end_camera - start_camera - (end_algo - start_algo)) / 1000);
 
         vTaskDelay(50 / portTICK_PERIOD_MS);
     }
@@ -127,19 +149,25 @@ void app_main(void) {
     // wifi_register_got_ip_cb(on_wifi_ready);
     // wifi_init_sta();
 
+    static int16_t turn = 0;
+    static int16_t speed = 0;
+    int64_t start_loop = esp_timer_get_time();
 
-
-        for (;;) {
-        static int16_t turn = 0;
-        static int16_t speed = 0;
+    for (;;) {
 
         // -512 <-> 512
         // 508 бо джойстик у нульовій позиціє для X та Y маюьть по 4 одиниці
 
-
         Conv data = getData();
+        int64_t after_getData = esp_timer_get_time();
+
         int16_t pacc = clamp(data.acc, -508, 508) / 4;
         int16_t px = clamp(data.turn, -508, 508) / 16;
+
+        int64_t curr_timer =  esp_timer_get_time();
+        if (curr_timer - start_loop > 50) {
+            ESP_LOGW(TAG, "LOOP TIME EXCEEDED: %lld ms", (curr_timer - start_loop) / 1000);
+            ESP_LOGW(TAG, "Data: %lld", curr_timer - start_loop);
 
         if (!data.valid) {
             if (turn >= 0) {
@@ -153,7 +181,6 @@ void app_main(void) {
                 motor(2, 350);
                 motor(3, 0);
             }
-
         } else {
             if (pacc > 0) {pacc += 351;}
 
@@ -169,13 +196,17 @@ void app_main(void) {
             motor(1, 0);
             motor(2, speed - (turn ));
             motor(3, 0);
-
-        ESP_LOGI(TAG, "CONTROL - Turn: %d, Speed: %d, Acc: %d pacc: %d", turn, speed, data.acc, pacc);
-        if (data.acc == 0) {
-            speed = 0;
-            ESP_LOGI(TAG, "Robot stopped");
         }
+
+        int64_t end_loop = esp_timer_get_time();
+        int64_t loop_duration = (end_loop - start_loop) / 1000;
+        int64_t getData_time = (after_getData - start_loop) / 1000;
+
+        ESP_LOGI(TAG, "MOTOR LOOP - Total: %lld ms, getData: %lld ms, Turn: %d, Speed: %d, Valid: %d",
+                 loop_duration, getData_time, turn, speed, data.valid);
+
+        start_loop = esp_timer_get_time();
+        vTaskDelay(50 / portTICK_PERIOD_MS);
     }
-    vTaskDelay( 50 / portTICK_PERIOD_MS);
 }
 }

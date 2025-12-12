@@ -1,3 +1,6 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
+
 #include "esp_camera.h"
 #include "esp_http_server.h"
 #include "esp_timer.h"
@@ -22,6 +25,7 @@ static const char *TAG = "web_stream";
 #define PART_BOUNDARY "123456789000000000000987654321"
 static const char* _STREAM_CONTENT_TYPE = "multipart/x-mixed-replace;boundary=" PART_BOUNDARY;
 static const char* _STREAM_BOUNDARY = "\r\n--" PART_BOUNDARY "\r\n";
+#define LEN_STREAM_BOUNDARY (sizeof("\r\n--" PART_BOUNDARY "\r\n") - 1)
 static const char* _STREAM_PART = "Content-Type: image/jpeg\r\nContent-Length: %zu\r\n\r\n";
 
 esp_err_t jpg_stream_httpd_handler(httpd_req_t *req) {
@@ -78,7 +82,7 @@ esp_err_t jpg_stream_httpd_handler(httpd_req_t *req) {
         }
 
         if (res == ESP_OK) {
-            res = httpd_resp_send_chunk(req, _STREAM_BOUNDARY, strlen(_STREAM_BOUNDARY));
+            res = httpd_resp_send_chunk(req, _STREAM_BOUNDARY, LEN_STREAM_BOUNDARY);
         }
         if (res == ESP_OK) {
             int hlen = snprintf(part_buf, sizeof(part_buf), _STREAM_PART, jpg_buf_len);

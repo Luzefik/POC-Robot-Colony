@@ -1,3 +1,6 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
+
 // 1. Board setup (Uncomment):
 #include "sensor.h"
 #define BOARD_WROVER_KIT 1
