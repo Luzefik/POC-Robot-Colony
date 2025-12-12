@@ -41,7 +41,7 @@ Conv getData() {
     Conv result = {0, 0, false};
 
 
-    if (xQueueReceive(dots_detection_queue, &dots, 0)) {
+    if (xQueueReceive(dots_detection_queue, &dots, portMAX_DELAY)) {
         if (dots.blobs[0].count > 0 && dots.blobs[1].count > 0 && dots.blobs[2].count > 0) {
             ESP_LOGI(TAG, "Valid data from queue");
             result.valid = true;
@@ -114,7 +114,7 @@ static void detection_task(void *arg) {
                  (end_algo - start_algo) / 1000,
                  (end_camera - start_camera - (end_algo - start_algo)) / 1000);
 
-        vTaskDelay(50 / portTICK_PERIOD_MS);
+        vTaskDelay(1);
     }
 }
 
@@ -154,32 +154,42 @@ void app_main(void) {
     int64_t start_loop = esp_timer_get_time();
 
     for (;;) {
-
         // -512 <-> 512
         // 508 бо джойстик у нульовій позиціє для X та Y маюьть по 4 одиниці
-
         Conv data = getData();
         int64_t after_getData = esp_timer_get_time();
 
         int16_t pacc = clamp(data.acc, -508, 508) / 4;
         int16_t px = clamp(data.turn, -508, 508) / 16;
-
+        static int16_t lastc;
+        if (data.valid) {lastc = px/66.7;}
         int64_t curr_timer =  esp_timer_get_time();
         if (curr_timer - start_loop > 50) {
             ESP_LOGW(TAG, "LOOP TIME EXCEEDED: %lld ms", (curr_timer - start_loop) / 1000);
             ESP_LOGW(TAG, "Data: %lld", curr_timer - start_loop);
-
+        }
+        static uint8_t flag = 4;
         if (!data.valid) {
-            if (turn >= 0) {
-                motor(0, 350);
-                motor(1, 0);
-                motor(3, 0);
-                motor(2, 0);
-            } else {
+            if (flag > 2) {
                 motor(0, 0);
                 motor(1, 0);
-                motor(2, 350);
+                motor(2, 0);
                 motor(3, 0);
+                flag--;
+            } else {
+                // flag += abs(lastc);
+                if (lastc <= 0) {
+                    motor(0, 350);
+                    motor(1, 0);
+                    motor(2, 0);
+                    motor(3, 0);
+                } else {
+                    motor(0, 0);
+                    motor(1, 0);
+                    motor(2, 350);
+                    motor(3, 0);
+                }
+                flag = (flag == 0) ? 8 : flag - 1;
             }
         } else {
             if (pacc > 0) {pacc += 351;}
@@ -203,10 +213,9 @@ void app_main(void) {
         int64_t getData_time = (after_getData - start_loop) / 1000;
 
         ESP_LOGI(TAG, "MOTOR LOOP - Total: %lld ms, getData: %lld ms, Turn: %d, Speed: %d, Valid: %d",
-                 loop_duration, getData_time, turn, speed, data.valid);
+        loop_duration, getData_time, turn, speed, data.valid);
 
         start_loop = esp_timer_get_time();
-        vTaskDelay(50 / portTICK_PERIOD_MS);
+        // vTaskDelay(50 / portTICK_PERIOD_MS);
     }
-}
 }

@@ -8,8 +8,8 @@
 #include "esp_netif.h"
 
 
-#define WIFI_SSID "AndyCarver"
-#define WIFI_PASS "0677975057"
+#define WIFI_SSID "(*******)"
+#define WIFI_PASS "********"
 
 static const char *TAG = "wifi_init";
 static void (*g_got_ip_cb)(void) = NULL;
