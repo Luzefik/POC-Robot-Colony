@@ -6,7 +6,6 @@ idf_component_register(
         "take_picture.c"
         "web_capture.c"
         "web_stream.c"
-        "dots_algo.c"
         "driving.cpp"
     INCLUDE_DIRS "."
     PRIV_REQUIRES

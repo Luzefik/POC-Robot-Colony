@@ -133,7 +133,7 @@ void app_main(void) {
 
     ESP_LOGI(TAG, "Camera initialized");
 
-    dots_detection_queue = xQueueCreate(5, sizeof(BlobResult));
+    dots_detection_queue = xQueueCreate(1, sizeof(BlobResult));
     if (dots_detection_queue == NULL) {
         ESP_LOGE(TAG, "Failed to create dots_detection_queue");
         return;
@@ -152,45 +152,58 @@ void app_main(void) {
     static int16_t turn = 0;
     static int16_t speed = 0;
     int64_t start_loop = esp_timer_get_time();
-
+    // float Kp_turn = 1.5;
+    // float Kp_speed = 1.0;
     for (;;) {
         // -512 <-> 512
         // 508 бо джойстик у нульовій позиціє для X та Y маюьть по 4 одиниці
         Conv data = getData();
         int64_t after_getData = esp_timer_get_time();
 
-        int16_t pacc = clamp(data.acc, -508, 508) / 4;
-        int16_t px = clamp(data.turn, -508, 508) / 16;
+        int16_t pacc = clamp(data.acc, -508, 508) / 8;
+        int16_t px = clamp(data.turn, -508, 508) / 8;
         static int16_t lastc;
-        if (data.valid) {lastc = px/66.7;}
+        if (data.valid) {lastc = px/25;}
         int64_t curr_timer =  esp_timer_get_time();
         if (curr_timer - start_loop > 50) {
             ESP_LOGW(TAG, "LOOP TIME EXCEEDED: %lld ms", (curr_timer - start_loop) / 1000);
             ESP_LOGW(TAG, "Data: %lld", curr_timer - start_loop);
         }
-        static uint8_t flag = 4;
+        static int8_t flag = -1;
         if (!data.valid) {
-            if (flag > 2) {
+            // if (flag < 3) {
+            //     motor(0, 0);
+            //     motor(1, 0);
+            //     motor(2, 0);
+            //     motor(3, 0);
+            //     flag++;
+            // } else {
+            //     // flag += abs(lastc);
+            if (turn <= 0) {
                 motor(0, 0);
+                motor(1, 0);
+                motor(2, 370);
+                motor(3, 0);
+            } else {
+                motor(0, 370);
                 motor(1, 0);
                 motor(2, 0);
                 motor(3, 0);
-                flag--;
-            } else {
-                // flag += abs(lastc);
-                if (lastc <= 0) {
-                    motor(0, 350);
-                    motor(1, 0);
-                    motor(2, 0);
-                    motor(3, 0);
-                } else {
-                    motor(0, 0);
-                    motor(1, 0);
-                    motor(2, 350);
-                    motor(3, 0);
-                }
-                flag = (flag == 0) ? 8 : flag - 1;
             }
+            flag = (flag >= 3+abs(lastc)) ? -1 : flag + 1;
+        if (flag != -1) {
+            if (turn <= 0) {
+                motor(0, 370);
+                motor(1, 0);
+                motor(2, 0);
+                motor(3, 0);
+            } else {
+                motor(0, 0);
+                motor(1, 0);
+                motor(2, 370);
+                motor(3, 0);
+            }
+            flag = -1;
         } else {
             if (pacc > 0) {pacc += 351;}
 
@@ -198,13 +211,16 @@ void app_main(void) {
             if (speed > pacc) {speed -= 4;}
 
             if (0 < speed && speed < 351) {speed = 351;}
-            px = clamp(px,-32, 31);
-            if (px > turn) {turn += 2;}
-            if (px < turn) {turn -= 2;}
+            px = clamp(px,-64, 63);
+            if (px > turn) {turn += 4;}
+            if (px < turn) {turn -= 4;}
 
-            motor(0, speed + (turn ));
+            // turn = px * Kp_turn;
+            // speed = pacc * Kp_speed;
+            // turn = clamp(turn, -255, 255);
+            motor(0, speed + (turn));
             motor(1, 0);
-            motor(2, speed - (turn ));
+            motor(2, speed - (turn));
             motor(3, 0);
         }
 
@@ -218,4 +234,4 @@ void app_main(void) {
         start_loop = esp_timer_get_time();
         // vTaskDelay(50 / portTICK_PERIOD_MS);
     }
-}
+}}

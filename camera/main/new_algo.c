@@ -1,6 +1,3 @@
-// This is a personal academic project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
-
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -30,16 +27,24 @@ static BlobResult last_good_result = {0};
 static bool found_blobs = false;
 
 
+/*
+  Replaced process_image with a faster scanning/clustering implementation.
+  Uses a small integer FastBlob accumulator to reduce float ops during scan,
+  then converts to Blob (float) for pattern matching / queue send.
+*/
+
+typedef struct {
+    long sum_x;
+    long sum_y;
+    int count;
+    int id;
+} FastBlob;
+
+#define SCAN_STEP 2        // 1 = every pixel, 2 = skip every other (faster)
+#define FAST_MIN_COUNT 5   // min pixels for a fast blob to be considered
+
 BlobResult process_image(camera_fb_t * fb) {
     BlobResult result = {0};
-    float central_of_img_x = fb->width/2.0;
-    float central_of_img_y = fb->height/2.0;
-    float_t alpha = 0.8;  // coefficient for smoothing
-
-    struct Blob blobs[MAX_BLOBS];
-    int active_blobs = 0;
-
-    for(int k=0; k<MAX_BLOBS; k++) blobs[k].count = 0;
 
     if (!fb) {
         ESP_LOGE(TAG, "No frame buffer provided");
@@ -47,301 +52,132 @@ BlobResult process_image(camera_fb_t * fb) {
         return result;
     }
 
+    int width = fb->width;
+    int height = fb->height;
+    uint8_t *buf = fb->buf;
 
-    for ( int i = 0; i < fb->len; i += 4) {
+    FastBlob fast_blobs[MAX_BLOBS];
+    for (int k = 0; k < MAX_BLOBS; k++) {
+        fast_blobs[k].sum_x = 0;
+        fast_blobs[k].sum_y = 0;
+        fast_blobs[k].count = 0;
+        fast_blobs[k].id = k;
+    }
+    int active_fast = 0;
 
-        uint8_t Y0 = fb->buf[i];
-        uint8_t U  = fb->buf[i+1];
-        uint8_t Y1 = fb->buf[i+2];
-        uint8_t V  = fb->buf[i+3];
 
-        // ONE condition check for shared U,V values
-        if (V >= RED_V_THRESH && U < CHROMA_U_LOW) {
+    for (int y = 0; y < height; y += SCAN_STEP) {
+        int row_offset = y * width * 2; // YUV422: 2 bytes per pixel (4 bytes per 2 pixels)
 
-            // Process Y0 pixel
-            if (Y0 > LUMA_THRESH) {
-                int pixel_index = i / 2;  // Simpler math
-                int x = pixel_index % fb->width;
-                int y = pixel_index / fb->width;
+        for (int x = 0; x < width; x += SCAN_STEP) {
+            int i = row_offset + (x * 2);
+            if (i + 3 >= fb->len) break;
 
-                // Check if it belongs to an existing blob
+            uint8_t Y = buf[i];       // Y for pixel x (when x is even this is correct for Y0)
+            uint8_t U = buf[i + 1];
+            uint8_t V = buf[i + 3];
 
-                int best_blob_idx = -1;
-                int min_dist_sq = 999999;
+            if (V >= RED_V_THRESH && U < CHROMA_U_LOW && Y > LUMA_THRESH) {
+                // cluster into fast_blobs
+                int best_idx = -1;
+                long best_dist = 2500; // 50^2 default threshold
 
-                for (int k = 0; k < active_blobs; k++) {
-                    int dx = x - blobs[k].cord_x;
-                    int dy = y - blobs[k].cord_y;
-                    int dist_sq = dx * dx + dy * dy;
-                    if (dist_sq < 100) {
-                        if (dist_sq < min_dist_sq) {
-                            min_dist_sq = dist_sq;
-                            best_blob_idx = k;
-                        }
+                for (int b = 0; b < active_fast; b++) {
+                    int cx = fast_blobs[b].sum_x / fast_blobs[b].count;
+                    int cy = fast_blobs[b].sum_y / fast_blobs[b].count;
+                    int dx = x - cx;
+                    int dy = y - cy;
+                    if (abs(dx) > 50 || abs(dy) > 50) continue;
+                    long d2 = dx*dx + dy*dy;
+                    if (d2 < best_dist) {
+                        best_dist = d2;
+                        best_idx = b;
                     }
                 }
-                if (best_blob_idx != -1) {
-                    // Add to existing blob
-                    blobs[best_blob_idx].sum_x += x;
-                    blobs[best_blob_idx].sum_y += y;
-                    blobs[best_blob_idx].count += 1;
-                    blobs[best_blob_idx].cord_x = ((float_t)blobs[best_blob_idx].sum_x / blobs[best_blob_idx].count);
-                    blobs[best_blob_idx].cord_y = (float_t)blobs[best_blob_idx].sum_y / blobs[best_blob_idx].count;
-                } else if (active_blobs < MAX_BLOBS) {
-                    // Create new blob
-                    blobs[active_blobs].cord_x = x;
-                    blobs[active_blobs].cord_y = y;
-                    blobs[active_blobs].sum_x = x;
-                    blobs[active_blobs].sum_y = y;
-                    blobs[active_blobs].count = 1;
-                    active_blobs++;
-                }
-            }
 
-            // Process Y1 pixel
-            if (Y1 > LUMA_THRESH) {
-                int pixel_index = (i / 2) + 1;
-                int x = pixel_index % fb->width;
-                int y = pixel_index / fb->width;
-
-                // Check if it belongs to an existing blob
-
-                int best_blob_idx = -1;
-                int min_dist_sq = 999999;
-
-                for (int k = 0; k < active_blobs; k++) {
-                    int dx = x - blobs[k].cord_x;
-                    int dy = y - blobs[k].cord_y;
-                    int dist_sq = dx * dx + dy * dy;
-                    if (dist_sq < 100) {
-                        if (dist_sq < min_dist_sq) {
-                            min_dist_sq = dist_sq;
-                            best_blob_idx = k;
-                        }
-                    }
-                }
-                if (best_blob_idx != -1) {
-                    // Add to existing blob
-                    blobs[best_blob_idx].sum_x += x;
-                    blobs[best_blob_idx].sum_y += y;
-                    blobs[best_blob_idx].count += 1;
-                    blobs[best_blob_idx].cord_x = ((float_t)blobs[best_blob_idx].sum_x / blobs[best_blob_idx].count);
-                    blobs[best_blob_idx].cord_y = (float_t)blobs[best_blob_idx].sum_y / blobs[best_blob_idx].count;
-                } else if (active_blobs < MAX_BLOBS) {
-                    // Create new blob
-                    blobs[active_blobs].cord_x = x;
-                    blobs[active_blobs].cord_y = y;
-                    blobs[active_blobs].sum_x = x;
-                    blobs[active_blobs].sum_y = y;
-                    blobs[active_blobs].count = 1;
-                    active_blobs++;
+                if (best_idx != -1) {
+                    fast_blobs[best_idx].sum_x += x;
+                    fast_blobs[best_idx].sum_y += y;
+                    fast_blobs[best_idx].count += 1;
+                } else if (active_fast < MAX_BLOBS) {
+                    fast_blobs[active_fast].sum_x = x;
+                    fast_blobs[active_fast].sum_y = y;
+                    fast_blobs[active_fast].count = 1;
+                    active_fast++;
                 }
             }
         }
     }
-    /*
-sorting blobs by size (count)
-for (int i = 0; i < active_blobs - 1; i++) {
-    for (int j = i + 1; j < active_blobs; j++) {
-        if (blobs[j].count > blobs[i].count) {
-            struct Blob temp = blobs[i];
-            blobs[i] = blobs[j];
-            blobs[j] = temp;
+
+
+    struct Blob candidates[MAX_BLOBS];
+    int cand_count = 0;
+    for (int b = 0; b < active_fast; b++) {
+        if (fast_blobs[b].count > FAST_MIN_COUNT) {
+            candidates[cand_count].cord_x = (float)fast_blobs[b].sum_x / fast_blobs[b].count;
+            candidates[cand_count].cord_y = (float)fast_blobs[b].sum_y / fast_blobs[b].count;
+            candidates[cand_count].count = fast_blobs[b].count;
+            cand_count++;
         }
     }
-}
-*/
 
-// sorting to have min(diff(y)) to gurantee the line
-int candidates_count = 0;
-int candidate_indices[MAX_BLOBS];
-int best_triplet[3] = {-1, -1, -1};
-// int min_y_diff = 10000;
-bool found_triplet = false;
-float min_penalty = 10000.0;
 
-for (int i = 0; i < active_blobs; i ++) {
-    if (blobs[i].count > 10) {
-        candidate_indices[candidates_count] = i;
-            candidates_count++;
+    if (cand_count < 3) {
+
+        if (found_blobs && blind_frame_counter < MAX_BLIND_FRAMES) {
+            blind_frame_counter++;
+            result = last_good_result;
+            xQueueOverwrite(dots_detection_queue, &result);
+            ESP_LOGW(TAG, "Using predicted positions (blind frame %d)", blind_frame_counter);
+            return result;
+        } else {
+            blind_frame_counter = 0;
+            found_blobs = false;
+            memset(&result, 0, sizeof(result));
+            xQueueOverwrite(dots_detection_queue, &result);
+            ESP_LOGW(TAG, "NOT ENOUGH DOTS (Need 3, found %d)", cand_count);
+            return result;
+        }
     }
-}
 
 
-
-
-for (int i=0; i < candidates_count-1; i ++) {
-    for (int j = i + 1; j < candidates_count - 1; j++){
-        for (int k = j+1; k < candidates_count; k ++){
-            int indices[3] = { candidate_indices[i], candidate_indices[j], candidate_indices[k] };
-            struct Blob p[3];
-            for(int z=0; z<3; z++) p[z] = blobs[indices[z]];
-
-            for (int a = 0; a <2; a ++) {
-                for (int b = a+1; b < 3; b++) {
-                    if (p[b].cord_x < p[a].cord_x) {
-                                struct Blob temp = p[a]; p[a] = p[b]; p[b] = temp;
-                                int temp_idx = indices[a]; indices[a] = indices[b]; indices[b] = temp_idx;
-                            }
-                        }
-                    }
-
-
-                        float y1 = p[0]. cord_y;
-                        float y2 = p[1].cord_y;
-                        float y3 = p[2].cord_y;
-
-                        float min_y = fminf(y1, fminf(y2, y3));
-                        float max_y = fmaxf(y1, fmaxf(y2, y3));
-                        float error_y = max_y - min_y;
-                        if (error_y > 20) continue; // too much y error
-
-                        float gap_x_1 = p[1].cord_x - p[0].cord_x;
-                        float gap_x_2 = p[2].cord_x - p[1].cord_x;
-                        float symmetry_error = fabsf(gap_x_1 - gap_x_2);
-
-                        // rating the triplet
-                        float current_penalty = error_y + (symmetry_error * 1.5);
-
-                        float total_width = p[2].cord_x - p[0].cord_x;
-                        if (total_width < 20) current_penalty += 1000;
-
-                        if (current_penalty < min_penalty){
-                        min_penalty = current_penalty;
-                        best_triplet[0] = indices[0];
-                        best_triplet[1] = indices[1];
-                        best_triplet[2] = indices[2];
-                        found_triplet = true;
-                        }
-                    }
-                }
+    for (int i = 0; i < cand_count - 1; i++) {
+        for (int j = i + 1; j < cand_count; j++) {
+            if (candidates[j].cord_x < candidates[i].cord_x) {
+                struct Blob tmp = candidates[i];
+                candidates[i] = candidates[j];
+                candidates[j] = tmp;
             }
-
-if (found_triplet && min_penalty < 55) {
-    struct Blob sorted_blobs[3];
-
-    sorted_blobs[0] = blobs[best_triplet[0]];
-    sorted_blobs[1] = blobs[best_triplet[1]];
-    sorted_blobs[2] = blobs[best_triplet[2]];
-
-    blobs[0] = sorted_blobs[0];
-    blobs[1] = sorted_blobs[1];
-    blobs[2] = sorted_blobs[2];
+        }
+    }
 
     for (int i = 0; i < 3; i++) {
-        blobs[i].cord_x = blobs[i].cord_x - central_of_img_x;
-        blobs[i].cord_y = central_of_img_y - blobs[i].cord_y;
+        result.blobs[i] = candidates[i];
     }
 
-    active_blobs = 3;
-    static struct Blob prev_blobs[3];
-    static bool is_initialized = false;
 
-
-    if (!is_initialized) {
-        for (int i = 0; i < 3; i++) {
-            prev_blobs[i] = blobs[i];
-        }
-        is_initialized = true;
-    } else {
-        for (int i = 0; i < 3; i++) {
-            blobs[i].cord_x = (blobs[i].cord_x * alpha) + (prev_blobs[i].cord_x * (1.0 - alpha));
-            blobs[i].cord_y = (blobs[i].cord_y * alpha) + (prev_blobs[i].cord_y * (1.0 - alpha));
-
-
-            prev_blobs[i] = blobs[i];
-        }
-    }
-    }else
-    {
-    active_blobs = 0;
-    ESP_LOGW(TAG, "Pattern failed validation. Penalty: %.2f", min_penalty);
-}
-
-/*
-sorting by x coordinate top 3 blobs
-for (int i = 0; i < 3; i++) {
-    for (int j = i+1; j < 3; j++) {
-        if (blobs[j].cord_x < blobs[i].cord_x) {
-            struct Blob temp = blobs[i];
-            blobs[i] = blobs[j];
-            blobs[j] = temp;
-        }
-    }
-}
-*/
-
-/*
-if (active_blobs >= 3) {
-        for (int i = 0; i < 2; i++) {
-            for (int j = i + 1; j < 3; j++) {
-                if (blobs[j].cord_x < blobs[i].cord_x) {
-                    struct Blob temp = blobs[i];
-                    blobs[i] = blobs[j];
-                    blobs[j] = temp;
-                }
-            }
-        }
-    }
-centring the blobs
-for (int i = 0; i < 3; i ++) {
-    blobs[i].cord_x = blobs[i].cord_x - central_of_img_x;
-    blobs[i].cord_y = central_of_img_y - blobs[i].cord_y;
-}
-static int64_t last_log_time = 0;
-    int64_t current_time = esp_timer_get_time() / 1000;
-    if (current_time - last_log_time > 500) {
-    last_log_time = current_time;
-*/
-
-
-if (active_blobs >= 3) {
-
+    float cx = width / 2.0f;
+    float cy = height / 2.0f;
     for (int i = 0; i < 3; i++) {
-            result.blobs[i] = blobs[i];
-        }
+        result.blobs[i].cord_x -= cx;
+        result.blobs[i].cord_y = cy - result.blobs[i].cord_y;
+    }
 
 
     blind_frame_counter = 0;
-
     last_good_result = result;
     found_blobs = true;
 
-    xQueueReset(dots_detection_queue);
 
-    if (xQueueSend(dots_detection_queue, &result, 0) == pdTRUE) {
-            ESP_LOGI(TAG, "NEW DATA sent to queue");
-        }
-
-    ESP_LOGI(TAG, "LEFT DOT:   X=%.1f, Y=%.1f", blobs[0].cord_x, blobs[0].cord_y);
-    ESP_LOGI(TAG, "CENTER DOT: X=%.1f, Y=%.1f", blobs[1].cord_x, blobs[1].cord_y);
-    ESP_LOGI(TAG, "RIGHT DOT:  X=%.1f, Y=%.1f", blobs[2].cord_x, blobs[2].cord_y);
-
-} else {
-    if (found_blobs) {
-        ESP_LOGI(TAG, "LOST DOTS!");
-        if (found_blobs && blind_frame_counter < MAX_BLIND_FRAMES) {
-            blind_frame_counter++;
-            ESP_LOGI(TAG, "Using predicted positions (blind frame %d)", blind_frame_counter);
-            blind_frame_counter++;
-            result = last_good_result;
-
-        } else {
-            ESP_LOGW(TAG, "Max blind frames reached or tracking disabled. Stopping prediction.");
-            found_blobs = false;
-            memset(&result, 0, sizeof(BlobResult));
-            ESP_LOGE(TAG, "LOST TARGET");
-        }
-
-    }
-    ESP_LOGW(TAG, "NOT ENOUGH DOTS (Need 3, found %d)", active_blobs);
-}
-
-
-    if (xQueueSend(dots_detection_queue, &result, portMAX_DELAY) == pdTRUE) {
-        ESP_LOGI(TAG, "Data sent to queue successfully");
+    if (xQueueOverwrite(dots_detection_queue, &result) == pdTRUE) {
+        ESP_LOGI(TAG, "Data sent to queue successfully (fast path)");
     } else {
-        ESP_LOGE(TAG, "Failed to send data to queue");
+        ESP_LOGE(TAG, "Failed to send data to queue (fast path)");
     }
+
+    ESP_LOGI(TAG, "LEFT DOT:   X=%.1f, Y=%.1f", result.blobs[0].cord_x, result.blobs[0].cord_y);
+    ESP_LOGI(TAG, "CENTER DOT: X=%.1f, Y=%.1f", result.blobs[1].cord_x, result.blobs[1].cord_y);
+    ESP_LOGI(TAG, "RIGHT DOT:  X=%.1f, Y=%.1f", result.blobs[2].cord_x, result.blobs[2].cord_y);
+
     return result;
 }

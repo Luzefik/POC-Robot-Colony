@@ -6,7 +6,6 @@
 #include "esp_timer.h"
 #include "esp_log.h"
 #include "esp_heap_caps.h"
-#include "dots_algo.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -74,12 +73,6 @@ esp_err_t jpg_stream_httpd_handler(httpd_req_t *req) {
             jpg_buf = fb->buf;
         }
 
-        if (ENABLE_DETECTION) {
-            detect_counter++;
-            if ((detect_counter % detect_every_n) == 0) {
-                detect_dots(fb);
-            }
-        }
 
         if (res == ESP_OK) {
             res = httpd_resp_send_chunk(req, _STREAM_BOUNDARY, LEN_STREAM_BOUNDARY);
@@ -129,30 +122,7 @@ esp_err_t jpg_stream_httpd_handler(httpd_req_t *req) {
     return res;
 }
 
-static esp_err_t detection_handler(httpd_req_t *req) {
-    detection_result_t *detection = get_detection_result();
-    Point center = get_center_point();
-    Point *dots = get_dots();
-    int *sizes = get_dots_sizes();
 
-    char response[512];
-    int len = snprintf(response, sizeof(response),
-        "{\"count\":%d,\"center\":{\"x\":%d,\"y\":%d},\"dots\":[",
-        detection->count, center.x, center.y);
-
-    for (int i = 0; i < detection->count; i++) {
-        len += snprintf(response + len, sizeof(response) - len,
-            "{\"id\":%d,\"x\":%d,\"y\":%d,\"size\":%d}%s",
-            i, dots[i].x * 4, dots[i].y * 4, sizes[i],
-            (i < detection->count - 1) ? "," : "");
-    }
-
-    snprintf(response + len, sizeof(response) - len, "]}");
-
-    httpd_resp_set_type(req, "application/json");
-    httpd_resp_send(req, response, strlen(response));
-    return ESP_OK;
-}
 
 static httpd_handle_t start_webserver(void) {
     httpd_handle_t server = NULL;
@@ -172,7 +142,6 @@ static httpd_handle_t start_webserver(void) {
         httpd_uri_t detection_uri = {
             .uri = "/api/detection",
             .method = HTTP_GET,
-            .handler = detection_handler,
             .user_ctx = NULL
         };
         httpd_register_uri_handler(server, &detection_uri);
