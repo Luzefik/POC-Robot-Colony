@@ -541,7 +541,7 @@ CONFIG_ADC_CAL_LUT_ENABLE=y
 #
 # Legacy I2C Driver Configurations
 #
-# CONFIG_I2C_SKIP_LEGACY_CONFLICT_CHECK is not set
+CONFIG_I2C_SKIP_LEGACY_CONFLICT_CHECK=y
 # end of Legacy I2C Driver Configurations
 
 #

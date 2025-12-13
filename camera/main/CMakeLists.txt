@@ -7,6 +7,7 @@ idf_component_register(
         "web_capture.c"
         "web_stream.c"
         "driving.cpp"
+        "i2c_lcd.c"
     INCLUDE_DIRS "."
     PRIV_REQUIRES
         esp_wifi
