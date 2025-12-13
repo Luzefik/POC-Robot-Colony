@@ -83,7 +83,7 @@ static void lcd_status_print(void)
     }
     else
     {
-        role = "PUSSY";
+        role = "FOLLOWER";
     }
 
     int col = (16 - strlen(role)) / 2;
