@@ -1243,7 +1243,7 @@ rule C_STATIC_LIBRARY_LINKER____idf_main_
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /opt/homebrew/bin/cmake --regenerate-during-build -S/Users/maryna_ohinska/Desktop/lcd -B/Users/maryna_ohinska/Desktop/lcd/build
+  command = /opt/homebrew/bin/cmake --regenerate-during-build -S/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony -B/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build
   description = Re-running CMake...
   generator = 1
 

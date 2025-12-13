@@ -1,13 +1,13 @@
 {
     "version":            "1.2",
     "project_name":       "camera_example",
-    "project_version":    "1",
-    "project_path":       "/Users/maryna_ohinska/Desktop/lcd",
+    "project_version":    "49d8fc1-dirty",
+    "project_path":       "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony",
     "idf_path":           "/Users/maryna_ohinska/esp/esp-idf",
-    "build_dir":          "/Users/maryna_ohinska/Desktop/lcd/build",
-    "config_file":        "/Users/maryna_ohinska/Desktop/lcd/sdkconfig",
+    "build_dir":          "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build",
+    "config_file":        "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/sdkconfig",
     "config_defaults":    "",
-    "bootloader_elf":     "/Users/maryna_ohinska/Desktop/lcd/build/bootloader/bootloader.elf",
+    "bootloader_elf":     "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader/bootloader.elf",
     "app_elf":            "camera_example.elf",
     "app_bin":            "camera_example.bin",
     "build_type":         "flash_app",
@@ -21,12 +21,12 @@
     "monitor_toolprefix": "xtensa-esp32-elf-",
     "c_compiler":         "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc",
     "config_environment" : {
-        "COMPONENT_KCONFIGS" : "/Users/maryna_ohinska/esp/esp-idf/components/driver/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/efuse/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_common/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_ana_cmpr/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_bitscrambler/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_dac/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_gpio/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_gptimer/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2c/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2s/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_ledc/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_mcpwm/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_parlio/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_pcnt/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_rmt/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdm/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_spi/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_tsens/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_twai/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_uart/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_usb_serial_jtag/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_event/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_http_server/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_mm/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_partition/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_pm/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_ringbuf/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_rom/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_security/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_system/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_timer/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/freertos/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/hal/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/heap/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/log/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/lwip/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/mbedtls/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/newlib/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/pthread/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/soc/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/vfs/Kconfig;/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/Kconfig;/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp_jpeg/Kconfig",
+        "COMPONENT_KCONFIGS" : "/Users/maryna_ohinska/esp/esp-idf/components/driver/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/efuse/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_common/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_ana_cmpr/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_bitscrambler/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_dac/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_gpio/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_gptimer/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2c/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2s/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_ledc/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_mcpwm/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_parlio/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_pcnt/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_rmt/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdm/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_spi/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_tsens/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_twai/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_uart/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_usb_serial_jtag/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_event/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_http_server/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_mm/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_partition/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_pm/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_ringbuf/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_rom/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_security/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_system/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/esp_timer/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/freertos/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/hal/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/heap/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/log/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/lwip/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/mbedtls/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/newlib/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/pthread/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/soc/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/Kconfig;/Users/maryna_ohinska/esp/esp-idf/components/vfs/Kconfig;/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/Kconfig;/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp_jpeg/Kconfig",
         "COMPONENT_KCONFIGS_PROJBUILD" : "/Users/maryna_ohinska/esp/esp-idf/components/bootloader/Kconfig.projbuild;/Users/maryna_ohinska/esp/esp-idf/components/esp_app_format/Kconfig.projbuild;/Users/maryna_ohinska/esp/esp-idf/components/esp_rom/Kconfig.projbuild;/Users/maryna_ohinska/esp/esp-idf/components/esptool_py/Kconfig.projbuild;/Users/maryna_ohinska/esp/esp-idf/components/partition_table/Kconfig.projbuild"
     },
     "common_component_reqs": [ "cxx", "newlib", "freertos", "esp_hw_support", "heap", "log", "soc", "hal", "esp_rom", "esp_common", "esp_system", "xtensa" ],
     "build_components" : [ "app_update", "bootloader", "bootloader_support", "cxx", "driver", "efuse", "esp_app_format", "esp_bootloader_format", "esp_common", "esp_driver_ana_cmpr", "esp_driver_bitscrambler", "esp_driver_dac", "esp_driver_gpio", "esp_driver_gptimer", "esp_driver_i2c", "esp_driver_i2s", "esp_driver_ledc", "esp_driver_mcpwm", "esp_driver_parlio", "esp_driver_pcnt", "esp_driver_rmt", "esp_driver_sdio", "esp_driver_sdm", "esp_driver_sdmmc", "esp_driver_sdspi", "esp_driver_spi", "esp_driver_tsens", "esp_driver_twai", "esp_driver_uart", "esp_driver_usb_serial_jtag", "esp_event", "esp_http_server", "esp_hw_support", "esp_mm", "esp_partition", "esp_pm", "esp_ringbuf", "esp_rom", "esp_security", "esp_system", "esp_timer", "esp_vfs_console", "espressif__esp32-camera", "espressif__esp_jpeg", "esptool_py", "freertos", "hal", "heap", "http_parser", "log", "lwip", "main", "mbedtls", "newlib", "nvs_flash", "partition_table", "pthread", "sdmmc", "soc", "spi_flash", "vfs", "xtensa", "" ],
-    "build_component_paths" : [ "/Users/maryna_ohinska/esp/esp-idf/components/app_update", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support", "/Users/maryna_ohinska/esp/esp-idf/components/cxx", "/Users/maryna_ohinska/esp/esp-idf/components/driver", "/Users/maryna_ohinska/esp/esp-idf/components/efuse", "/Users/maryna_ohinska/esp/esp-idf/components/esp_app_format", "/Users/maryna_ohinska/esp/esp-idf/components/esp_bootloader_format", "/Users/maryna_ohinska/esp/esp-idf/components/esp_common", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_ana_cmpr", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_bitscrambler", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_dac", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_gpio", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_gptimer", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2s", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_ledc", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_mcpwm", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_parlio", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_pcnt", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_rmt", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdio", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdm", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdmmc", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdspi", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_spi", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_tsens", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_twai", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_uart", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_usb_serial_jtag", "/Users/maryna_ohinska/esp/esp-idf/components/esp_event", "/Users/maryna_ohinska/esp/esp-idf/components/esp_http_server", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support", "/Users/maryna_ohinska/esp/esp-idf/components/esp_mm", "/Users/maryna_ohinska/esp/esp-idf/components/esp_partition", "/Users/maryna_ohinska/esp/esp-idf/components/esp_pm", "/Users/maryna_ohinska/esp/esp-idf/components/esp_ringbuf", "/Users/maryna_ohinska/esp/esp-idf/components/esp_rom", "/Users/maryna_ohinska/esp/esp-idf/components/esp_security", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system", "/Users/maryna_ohinska/esp/esp-idf/components/esp_timer", "/Users/maryna_ohinska/esp/esp-idf/components/esp_vfs_console", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp_jpeg", "/Users/maryna_ohinska/esp/esp-idf/components/esptool_py", "/Users/maryna_ohinska/esp/esp-idf/components/freertos", "/Users/maryna_ohinska/esp/esp-idf/components/hal", "/Users/maryna_ohinska/esp/esp-idf/components/heap", "/Users/maryna_ohinska/esp/esp-idf/components/http_parser", "/Users/maryna_ohinska/esp/esp-idf/components/log", "/Users/maryna_ohinska/esp/esp-idf/components/lwip", "/Users/maryna_ohinska/Desktop/lcd/main", "/Users/maryna_ohinska/esp/esp-idf/components/mbedtls", "/Users/maryna_ohinska/esp/esp-idf/components/newlib", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash", "/Users/maryna_ohinska/esp/esp-idf/components/partition_table", "/Users/maryna_ohinska/esp/esp-idf/components/pthread", "/Users/maryna_ohinska/esp/esp-idf/components/sdmmc", "/Users/maryna_ohinska/esp/esp-idf/components/soc", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash", "/Users/maryna_ohinska/esp/esp-idf/components/vfs", "/Users/maryna_ohinska/esp/esp-idf/components/xtensa", "" ],
+    "build_component_paths" : [ "/Users/maryna_ohinska/esp/esp-idf/components/app_update", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support", "/Users/maryna_ohinska/esp/esp-idf/components/cxx", "/Users/maryna_ohinska/esp/esp-idf/components/driver", "/Users/maryna_ohinska/esp/esp-idf/components/efuse", "/Users/maryna_ohinska/esp/esp-idf/components/esp_app_format", "/Users/maryna_ohinska/esp/esp-idf/components/esp_bootloader_format", "/Users/maryna_ohinska/esp/esp-idf/components/esp_common", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_ana_cmpr", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_bitscrambler", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_dac", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_gpio", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_gptimer", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2s", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_ledc", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_mcpwm", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_parlio", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_pcnt", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_rmt", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdio", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdm", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdmmc", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdspi", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_spi", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_tsens", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_twai", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_uart", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_usb_serial_jtag", "/Users/maryna_ohinska/esp/esp-idf/components/esp_event", "/Users/maryna_ohinska/esp/esp-idf/components/esp_http_server", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support", "/Users/maryna_ohinska/esp/esp-idf/components/esp_mm", "/Users/maryna_ohinska/esp/esp-idf/components/esp_partition", "/Users/maryna_ohinska/esp/esp-idf/components/esp_pm", "/Users/maryna_ohinska/esp/esp-idf/components/esp_ringbuf", "/Users/maryna_ohinska/esp/esp-idf/components/esp_rom", "/Users/maryna_ohinska/esp/esp-idf/components/esp_security", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system", "/Users/maryna_ohinska/esp/esp-idf/components/esp_timer", "/Users/maryna_ohinska/esp/esp-idf/components/esp_vfs_console", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp_jpeg", "/Users/maryna_ohinska/esp/esp-idf/components/esptool_py", "/Users/maryna_ohinska/esp/esp-idf/components/freertos", "/Users/maryna_ohinska/esp/esp-idf/components/hal", "/Users/maryna_ohinska/esp/esp-idf/components/heap", "/Users/maryna_ohinska/esp/esp-idf/components/http_parser", "/Users/maryna_ohinska/esp/esp-idf/components/log", "/Users/maryna_ohinska/esp/esp-idf/components/lwip", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/main", "/Users/maryna_ohinska/esp/esp-idf/components/mbedtls", "/Users/maryna_ohinska/esp/esp-idf/components/newlib", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash", "/Users/maryna_ohinska/esp/esp-idf/components/partition_table", "/Users/maryna_ohinska/esp/esp-idf/components/pthread", "/Users/maryna_ohinska/esp/esp-idf/components/sdmmc", "/Users/maryna_ohinska/esp/esp-idf/components/soc", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash", "/Users/maryna_ohinska/esp/esp-idf/components/vfs", "/Users/maryna_ohinska/esp/esp-idf/components/xtensa", "" ],
     "build_component_info" : {
         "app_update": {
             "alias": "idf::app_update",
@@ -39,7 +39,7 @@
             "priv_reqs": [ "esptool_py", "efuse", "spi_flash" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/app_update/libapp_update.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/app_update/libapp_update.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/app_update/esp_ota_ops.c", "/Users/maryna_ohinska/esp/esp-idf/components/app_update/esp_ota_app_desc.c" ],
             "include_dirs": [ "include" ]
         },
@@ -69,7 +69,7 @@
             "priv_reqs": [ "spi_flash", "mbedtls", "efuse", "heap", "esp_bootloader_format", "esp_app_format" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/bootloader_support/libbootloader_support.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/bootloader_support/libbootloader_support.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/src/bootloader_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/src/bootloader_common_loader.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/src/bootloader_clock_init.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/src/bootloader_mem.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/src/bootloader_random.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/src/bootloader_efuse.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/src/flash_encrypt.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/src/secure_boot.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/src/bootloader_random_esp32.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/bootloader_flash/src/bootloader_flash.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/bootloader_flash/src/flash_qio_mode.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/bootloader_flash/src/bootloader_flash_config_esp32.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/src/bootloader_utility.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/src/flash_partitions.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/src/esp_image_format.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/src/bootloader_sha.c", "/Users/maryna_ohinska/esp/esp-idf/components/bootloader_support/src/esp32/secure_boot_secure_features.c" ],
             "include_dirs": [ "include", "bootloader_flash/include" ]
         },
@@ -84,7 +84,7 @@
             "priv_reqs": [ "esp_system", "pthread" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/cxx/libcxx.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/cxx/libcxx.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/cxx/cxx_exception_stubs.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/cxx/cxx_guards.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/cxx/cxx_init.cpp" ],
             "include_dirs": []
         },
@@ -99,7 +99,7 @@
             "priv_reqs": [ "efuse", "esp_timer", "esp_mm" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/driver/libdriver.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/driver/libdriver.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/driver/deprecated/adc_legacy.c", "/Users/maryna_ohinska/esp/esp-idf/components/driver/deprecated/adc_dma_legacy.c", "/Users/maryna_ohinska/esp/esp-idf/components/driver/deprecated/dac_common_legacy.c", "/Users/maryna_ohinska/esp/esp-idf/components/driver/deprecated/esp32/dac_legacy.c", "/Users/maryna_ohinska/esp/esp-idf/components/driver/deprecated/timer_legacy.c", "/Users/maryna_ohinska/esp/esp-idf/components/driver/i2c/i2c.c", "/Users/maryna_ohinska/esp/esp-idf/components/driver/deprecated/i2s_legacy.c", "/Users/maryna_ohinska/esp/esp-idf/components/driver/deprecated/mcpwm_legacy.c", "/Users/maryna_ohinska/esp/esp-idf/components/driver/deprecated/pcnt_legacy.c", "/Users/maryna_ohinska/esp/esp-idf/components/driver/deprecated/rmt_legacy.c", "/Users/maryna_ohinska/esp/esp-idf/components/driver/deprecated/sigma_delta_legacy.c", "/Users/maryna_ohinska/esp/esp-idf/components/driver/touch_sensor/touch_sensor_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/driver/touch_sensor/esp32/touch_sensor.c", "/Users/maryna_ohinska/esp/esp-idf/components/driver/twai/twai.c", "/Users/maryna_ohinska/esp/esp-idf/components/driver/deprecated/adc_i2s_deprecated.c" ],
             "include_dirs": [ "deprecated", "i2c/include", "touch_sensor/include", "twai/include", "touch_sensor/esp32/include" ]
         },
@@ -114,7 +114,7 @@
             "priv_reqs": [ "bootloader_support", "soc", "spi_flash", "esp_system", "esp_partition", "esp_app_format" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/efuse/libefuse.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/efuse/libefuse.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/efuse/esp32/esp_efuse_table.c", "/Users/maryna_ohinska/esp/esp-idf/components/efuse/esp32/esp_efuse_fields.c", "/Users/maryna_ohinska/esp/esp-idf/components/efuse/esp32/esp_efuse_utility.c", "/Users/maryna_ohinska/esp/esp-idf/components/efuse/src/esp_efuse_api.c", "/Users/maryna_ohinska/esp/esp-idf/components/efuse/src/esp_efuse_fields.c", "/Users/maryna_ohinska/esp/esp-idf/components/efuse/src/esp_efuse_utility.c", "/Users/maryna_ohinska/esp/esp-idf/components/efuse/src/efuse_controller/keys/without_key_purposes/three_key_blocks/esp_efuse_api_key.c", "/Users/maryna_ohinska/esp/esp-idf/components/efuse/src/esp_efuse_startup.c" ],
             "include_dirs": [ "include", "esp32/include" ]
         },
@@ -129,7 +129,7 @@
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_app_format/libesp_app_format.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_app_format/libesp_app_format.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_app_format/esp_app_desc.c" ],
             "include_dirs": [ "include" ]
         },
@@ -144,7 +144,7 @@
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_bootloader_format/libesp_bootloader_format.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_bootloader_format/libesp_bootloader_format.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_bootloader_format/esp_bootloader_desc.c" ],
             "include_dirs": [ "include" ]
         },
@@ -159,7 +159,7 @@
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_common/libesp_common.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_common/libesp_common.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_common/src/esp_err_to_name.c" ],
             "include_dirs": [ "include" ]
         },
@@ -204,7 +204,7 @@
             "priv_reqs": [ "esp_pm", "esp_driver_gpio", "esp_driver_i2s" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_dac/libesp_driver_dac.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_dac/libesp_driver_dac.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_dac/dac_oneshot.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_dac/dac_cosine.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_dac/dac_continuous.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_dac/dac_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_dac/esp32/dac_dma.c" ],
             "include_dirs": [ "./include" ]
         },
@@ -219,7 +219,7 @@
             "priv_reqs": [ "esp_pm" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_gpio/libesp_driver_gpio.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_gpio/libesp_driver_gpio.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_gpio/src/gpio.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_gpio/src/gpio_glitch_filter_ops.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_gpio/src/rtc_io.c" ],
             "include_dirs": [ "include" ]
         },
@@ -234,7 +234,7 @@
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_gptimer/libesp_driver_gptimer.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_gptimer/libesp_driver_gptimer.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_gptimer/src/gptimer.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_gptimer/src/gptimer_common.c" ],
             "include_dirs": [ "include" ]
         },
@@ -249,7 +249,7 @@
             "priv_reqs": [ "esp_driver_gpio", "esp_pm", "esp_ringbuf" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_i2c/libesp_driver_i2c.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_i2c/libesp_driver_i2c.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2c/i2c_master.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2c/i2c_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2c/i2c_slave.c" ],
             "include_dirs": [ "include" ]
         },
@@ -264,7 +264,7 @@
             "priv_reqs": [ "esp_driver_gpio", "esp_pm", "esp_mm" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_i2s/libesp_driver_i2s.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_i2s/libesp_driver_i2s.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2s/i2s_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2s/i2s_std.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2s/i2s_pdm.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_i2s/i2s_platform.c" ],
             "include_dirs": [ "include" ]
         },
@@ -279,7 +279,7 @@
             "priv_reqs": [ "esp_pm" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_ledc/libesp_driver_ledc.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_ledc/libesp_driver_ledc.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_ledc/src/ledc.c" ],
             "include_dirs": [ "include" ]
         },
@@ -294,7 +294,7 @@
             "priv_reqs": [ "esp_pm", "esp_driver_gpio" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_mcpwm/libesp_driver_mcpwm.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_mcpwm/libesp_driver_mcpwm.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_mcpwm/src/mcpwm_cap.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_mcpwm/src/mcpwm_cmpr.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_mcpwm/src/mcpwm_com.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_mcpwm/src/mcpwm_fault.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_mcpwm/src/mcpwm_gen.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_mcpwm/src/mcpwm_oper.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_mcpwm/src/mcpwm_sync.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_mcpwm/src/mcpwm_timer.c" ],
             "include_dirs": [ "include" ]
         },
@@ -324,7 +324,7 @@
             "priv_reqs": [ "esp_pm", "esp_driver_gpio" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_pcnt/libesp_driver_pcnt.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_pcnt/libesp_driver_pcnt.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_pcnt/src/pulse_cnt.c" ],
             "include_dirs": [ "include" ]
         },
@@ -339,7 +339,7 @@
             "priv_reqs": [ "esp_pm", "esp_driver_gpio", "esp_driver_bitscrambler", "esp_mm" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_rmt/libesp_driver_rmt.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_rmt/libesp_driver_rmt.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_rmt/src/rmt_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_rmt/src/rmt_encoder.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_rmt/src/rmt_encoder_bytes.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_rmt/src/rmt_encoder_copy.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_rmt/src/rmt_encoder_simple.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_rmt/src/rmt_rx.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_rmt/src/rmt_tx.c" ],
             "include_dirs": [ "include" ]
         },
@@ -354,7 +354,7 @@
             "priv_reqs": [ "esp_driver_gpio", "esp_ringbuf" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_sdio/libesp_driver_sdio.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_sdio/libesp_driver_sdio.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdio/src/sdio_slave.c" ],
             "include_dirs": [ "include" ]
         },
@@ -369,7 +369,7 @@
             "priv_reqs": [ "esp_pm", "esp_driver_gpio" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_sdm/libesp_driver_sdm.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_sdm/libesp_driver_sdm.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdm/src/sdm.c" ],
             "include_dirs": [ "include" ]
         },
@@ -384,7 +384,7 @@
             "priv_reqs": [ "esp_timer", "esp_pm", "esp_mm" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_sdmmc/libesp_driver_sdmmc.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_sdmmc/libesp_driver_sdmmc.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdmmc/src/sdmmc_transaction.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdmmc/src/sdmmc_host.c" ],
             "include_dirs": [ "include" ]
         },
@@ -399,7 +399,7 @@
             "priv_reqs": [ "esp_timer", "esp_mm" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_sdspi/libesp_driver_sdspi.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_sdspi/libesp_driver_sdspi.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdspi/src/sdspi_crc.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdspi/src/sdspi_host.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_sdspi/src/sdspi_transaction.c" ],
             "include_dirs": [ "include" ]
         },
@@ -414,7 +414,7 @@
             "priv_reqs": [ "esp_timer", "esp_mm", "esp_driver_gpio" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_spi/libesp_driver_spi.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_spi/libesp_driver_spi.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_spi/src/gpspi/spi_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_spi/src/gpspi/spi_master.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_spi/src/gpspi/spi_slave.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_spi/src/gpspi/spi_dma.c" ],
             "include_dirs": [ "include" ]
         },
@@ -444,7 +444,7 @@
             "priv_reqs": [ "esp_driver_gpio", "esp_pm" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_twai/libesp_driver_twai.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_twai/libesp_driver_twai.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_twai/esp_twai.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_twai/esp_twai_onchip.c" ],
             "include_dirs": [ "include" ]
         },
@@ -459,7 +459,7 @@
             "priv_reqs": [ "esp_pm", "esp_driver_gpio", "esp_ringbuf", "esp_mm" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_driver_uart/libesp_driver_uart.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_driver_uart/libesp_driver_uart.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_uart/src/uart.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_uart/src/uart_wakeup.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c" ],
             "include_dirs": [ "include" ]
         },
@@ -489,7 +489,7 @@
             "priv_reqs": [ "esp_timer" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_event/libesp_event.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_event/libesp_event.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_event/default_event_loop.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_event/esp_event.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_event/esp_event_private.c" ],
             "include_dirs": [ "include" ]
         },
@@ -504,7 +504,7 @@
             "priv_reqs": [ "mbedtls", "lwip", "esp_timer" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_http_server/libesp_http_server.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_http_server/libesp_http_server.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_http_server/src/httpd_main.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_http_server/src/httpd_parse.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_http_server/src/httpd_sess.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_http_server/src/httpd_txrx.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_http_server/src/httpd_uri.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_http_server/src/httpd_ws.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_http_server/src/util/ctrl_sock.c" ],
             "include_dirs": [ "include" ]
         },
@@ -519,7 +519,7 @@
             "priv_reqs": [ "efuse", "spi_flash", "bootloader_support", "esp_security", "esp_driver_gpio", "esp_timer", "esp_pm", "esp_mm" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_hw_support/libesp_hw_support.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_hw_support/libesp_hw_support.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/cpu.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/port/esp32/esp_cpu_intr.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/esp_memory_utils.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/port/esp32/cpu_region_protect.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/esp_clk.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/clk_ctrl_os.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/hw_random.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/intr_alloc.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/mac_addr.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/periph_ctrl.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/revision.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/rtc_module.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/regi2c_ctrl.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/esp_gpio_reserve.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/sar_periph_ctrl_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/port/esp32/io_mux.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/port/esp32/esp_clk_tree.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/dma/esp_dma_utils.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/dma/gdma_link.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/spi_bus_lock.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/clk_utils.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/port/esp_clk_tree_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/spi_share_hw_ctrl.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/adc_share_hw_ctrl.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/sleep_modem.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/sleep_modes.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/sleep_console.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/sleep_usb.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/sleep_gpio.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/sleep_event.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/rtc_wdt.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/mspi_timing_tuning/mspi_timing_tuning.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/sleep_wake_stub.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/esp_clock_output.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/power_supply/brownout.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/port/esp32/rtc_clk.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/port/esp32/rtc_clk_init.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/port/esp32/rtc_init.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/port/esp32/rtc_sleep.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/port/esp32/rtc_time.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/port/esp32/chip_info.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/port/esp32/cache_sram_mmu.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/port/esp32/sar_periph_ctrl.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_hw_support/lowpower" ],
             "include_dirs": [ "include", "include/soc", "include/soc/esp32", "dma/include", "ldo/include", "debug_probe/include", "mspi_timing_tuning/include", "mspi_timing_tuning/tuning_scheme_impl/include", "power_supply/include" ]
         },
@@ -534,7 +534,7 @@
             "priv_reqs": [ "heap", "spi_flash" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_mm/libesp_mm.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_mm/libesp_mm.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_mm/esp_mmu_map.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_mm/port/esp32/ext_mem_layout.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_mm/esp_cache_msync.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_mm/esp_cache_utils.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_mm/cache_esp32.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_mm/heap_align_hw.c" ],
             "include_dirs": [ "include" ]
         },
@@ -549,7 +549,7 @@
             "priv_reqs": [ "esp_system", "spi_flash", "partition_table", "bootloader_support", "app_update" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_partition/libesp_partition.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_partition/libesp_partition.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_partition/partition.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_partition/partition_target.c" ],
             "include_dirs": [ "include" ]
         },
@@ -564,7 +564,7 @@
             "priv_reqs": [ "esp_system", "esp_driver_gpio", "esp_timer" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_pm/libesp_pm.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_pm/libesp_pm.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_pm/pm_locks.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_pm/pm_trace.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_pm/pm_impl.c" ],
             "include_dirs": [ "include" ]
         },
@@ -579,7 +579,7 @@
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_ringbuf/libesp_ringbuf.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_ringbuf/libesp_ringbuf.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_ringbuf/ringbuf.c" ],
             "include_dirs": [ "include" ]
         },
@@ -594,7 +594,7 @@
             "priv_reqs": [ "soc", "hal" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_rom/libesp_rom.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_rom/libesp_rom.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_rom/patches/esp_rom_sys.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_rom/patches/esp_rom_print.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_rom/patches/esp_rom_crc.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_rom/patches/esp_rom_uart.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_rom/patches/esp_rom_spiflash.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_rom/patches/esp_rom_efuse.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_rom/patches/esp_rom_gpio.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_rom/patches/esp_rom_longjmp.S" ],
             "include_dirs": [ "include", "esp32/include", "esp32/include/esp32", "esp32" ]
         },
@@ -609,7 +609,7 @@
             "priv_reqs": [ "efuse", "esp_hw_support", "esp_system", "esp_timer" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_security/libesp_security.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_security/libesp_security.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_security/src/init.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_security/src/esp_crypto_lock.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_security/src/esp_crypto_periph_clk.c" ],
             "include_dirs": [ "include" ]
         },
@@ -624,7 +624,7 @@
             "priv_reqs": [ "spi_flash", "esp_timer", "esp_mm", "bootloader_support", "esp_pm" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_system/libesp_system.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_system/libesp_system.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/esp_err.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/crosscore_int.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/esp_ipc.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/esp_system_console.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/freertos_hooks.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/int_wdt.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/panic.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/esp_system.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/startup.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/startup_funcs.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/system_time.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/stack_check.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/ubsan.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/xt_wdt.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/task_wdt/task_wdt_impl_timergroup.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/cpu_start.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/panic_handler.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/esp_system_chip.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/image_process.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/esp_ipc_isr.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/arch/xtensa/esp_ipc_isr_port.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/arch/xtensa/esp_ipc_isr_handler.S", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/arch/xtensa/esp_ipc_isr_routines.S", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/arch/xtensa/panic_arch.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/arch/xtensa/panic_handler_asm.S", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/arch/xtensa/expression_with_stack.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/arch/xtensa/expression_with_stack_asm.S", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers_asm.S", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_stubs.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/arch/xtensa/trax.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/soc/esp32/highint_hdl.S", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/soc/esp32/clk.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/soc/esp32/reset_reason.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/soc/esp32/system_internal.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_system/port/soc/esp32/cache_err_int.c" ],
             "include_dirs": [ "include" ]
         },
@@ -639,7 +639,7 @@
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_timer/libesp_timer.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_timer/libesp_timer.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_timer/src/esp_timer.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_timer/src/esp_timer_init.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_timer/src/ets_timer_legacy.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_timer/src/system_time.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_timer/src/esp_timer_impl_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/esp_timer/src/esp_timer_impl_lac.c" ],
             "include_dirs": [ "include" ]
         },
@@ -654,7 +654,7 @@
             "priv_reqs": [ "vfs", "esp_driver_uart", "esp_driver_usb_serial_jtag" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/esp_vfs_console/libesp_vfs_console.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esp_vfs_console/libesp_vfs_console.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/esp_vfs_console/vfs_console.c" ],
             "include_dirs": [ "include" ]
         },
@@ -662,30 +662,30 @@
             "alias": "idf::espressif__esp32-camera",
             "target": "___idf_espressif__esp32-camera",
             "prefix": "idf",
-            "dir": "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera",
+            "dir": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera",
             "type": "LIBRARY",
             "lib": "__idf_espressif__esp32-camera",
             "reqs": [ "driver", "espressif__esp_jpeg" ],
             "priv_reqs": [ "freertos", "nvs_flash", "esp_mm", "esp_timer" ],
             "managed_reqs": [ "espressif__esp_jpeg" ],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/espressif__esp32-camera/libespressif__esp32-camera.a",
-            "sources": [ "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/conversions/yuv.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/conversions/to_jpg.cpp", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/conversions/to_bmp.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/conversions/jpge.cpp", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/driver/esp_camera.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/driver/cam_hal.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/driver/sensor.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/ov2640.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/ov3660.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/ov5640.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/ov7725.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/ov7670.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/nt99141.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/gc0308.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/gc2145.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/gc032a.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/bf3005.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/bf20a6.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/sc101iot.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/sc030iot.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/sc031gs.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/mega_ccm.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/hm1055.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/sensors/hm0360.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/target/xclk.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/target/esp32/ll_cam.c", "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera/driver/sccb-ng.c" ],
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/espressif__esp32-camera/libespressif__esp32-camera.a",
+            "sources": [ "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/conversions/yuv.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/conversions/to_jpg.cpp", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/conversions/to_bmp.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/conversions/jpge.cpp", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/driver/esp_camera.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/driver/cam_hal.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/driver/sensor.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/ov2640.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/ov3660.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/ov5640.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/ov7725.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/ov7670.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/nt99141.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/gc0308.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/gc2145.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/gc032a.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/bf3005.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/bf20a6.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/sc101iot.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/sc030iot.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/sc031gs.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/mega_ccm.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/hm1055.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/sensors/hm0360.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/target/xclk.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/target/esp32/ll_cam.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera/driver/sccb-ng.c" ],
             "include_dirs": [ "driver/include", "conversions/include" ]
         },
         "espressif__esp_jpeg": {
             "alias": "idf::espressif__esp_jpeg",
             "target": "___idf_espressif__esp_jpeg",
             "prefix": "idf",
-            "dir": "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp_jpeg",
+            "dir": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp_jpeg",
             "type": "LIBRARY",
             "lib": "__idf_espressif__esp_jpeg",
             "reqs": [],
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/espressif__esp_jpeg/libespressif__esp_jpeg.a",
-            "sources": [ "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp_jpeg/jpeg_decoder.c" ],
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/espressif__esp_jpeg/libespressif__esp_jpeg.a",
+            "sources": [ "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp_jpeg/jpeg_decoder.c" ],
             "include_dirs": [ "include" ]
         },
         "esptool_py": {
@@ -714,7 +714,7 @@
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/freertos/libfreertos.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/freertos/libfreertos.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/freertos/heap_idf.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/app_startup.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/port_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/port_systick.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/FreeRTOS-Kernel/list.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/FreeRTOS-Kernel/timers.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/FreeRTOS-Kernel/event_groups.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/FreeRTOS-Kernel/stream_buffer.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/portasm.S", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/xtensa_init.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/xtensa_overlay_os_hook.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/esp_additions/freertos_compatibility.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/esp_additions/idf_additions_event_groups.c", "/Users/maryna_ohinska/esp/esp-idf/components/freertos/esp_additions/idf_additions.c" ],
             "include_dirs": [ "config/include", "config/include/freertos", "config/xtensa/include", "FreeRTOS-Kernel/include", "FreeRTOS-Kernel/portable/xtensa/include", "FreeRTOS-Kernel/portable/xtensa/include/freertos", "esp_additions/include" ]
         },
@@ -729,7 +729,7 @@
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/hal/libhal.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/hal/libhal.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/hal/hal_utils.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/mpu_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/efuse_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/esp32/efuse_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/wdt_hal_iram.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/mmu_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/esp32/cache_hal_esp32.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/color_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/spi_flash_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/spi_flash_hal_iram.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/spi_flash_encrypt_hal_iram.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/esp32/clk_tree_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/uart_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/uart_hal_iram.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/gpio_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/rtc_io_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/timer_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/ledc_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/ledc_hal_iram.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/i2c_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/i2c_hal_iram.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/rmt_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/pcnt_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/mcpwm_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/twai_hal_sja1000.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/i2s_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/sdm_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/sdmmc_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/adc_hal_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/adc_oneshot_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/adc_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/mpi_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/sha_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/aes_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/brownout_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/spi_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/spi_hal_iram.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/spi_slave_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/spi_slave_hal_iram.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/sdio_slave_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/esp32/touch_sensor_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/touch_sensor_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/touch_sens_hal.c", "/Users/maryna_ohinska/esp/esp-idf/components/hal/esp32/gpio_hal_workaround.c" ],
             "include_dirs": [ "platform_port/include", "esp32/include", "include" ]
         },
@@ -744,7 +744,7 @@
             "priv_reqs": [ "soc" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/heap/libheap.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/heap/libheap.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/heap/heap_caps_base.c", "/Users/maryna_ohinska/esp/esp-idf/components/heap/heap_caps.c", "/Users/maryna_ohinska/esp/esp-idf/components/heap/heap_caps_init.c", "/Users/maryna_ohinska/esp/esp-idf/components/heap/multi_heap.c", "/Users/maryna_ohinska/esp/esp-idf/components/heap/tlsf/tlsf.c", "/Users/maryna_ohinska/esp/esp-idf/components/heap/port/memory_layout_utils.c", "/Users/maryna_ohinska/esp/esp-idf/components/heap/port/esp32/memory_layout.c" ],
             "include_dirs": [ "include", "tlsf" ]
         },
@@ -759,7 +759,7 @@
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/http_parser/libhttp_parser.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/http_parser/libhttp_parser.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/http_parser/http_parser.c" ],
             "include_dirs": [ "." ]
         },
@@ -774,7 +774,7 @@
             "priv_reqs": [ "hal", "soc", "esp_hw_support" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/log/liblog.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/log/liblog.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/log/src/os/log_timestamp.c", "/Users/maryna_ohinska/esp/esp-idf/components/log/src/log_timestamp_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/log/src/os/log_lock.c", "/Users/maryna_ohinska/esp/esp-idf/components/log/src/buffer/log_buffers.c", "/Users/maryna_ohinska/esp/esp-idf/components/log/src/os/util.c", "/Users/maryna_ohinska/esp/esp-idf/components/log/src/util.c", "/Users/maryna_ohinska/esp/esp-idf/components/log/src/log_format_text.c", "/Users/maryna_ohinska/esp/esp-idf/components/log/src/log_print.c", "/Users/maryna_ohinska/esp/esp-idf/components/log/src/log.c", "/Users/maryna_ohinska/esp/esp-idf/components/log/src/os/log_write.c", "/Users/maryna_ohinska/esp/esp-idf/components/log/src/log_level/log_level.c", "/Users/maryna_ohinska/esp/esp-idf/components/log/src/log_level/tag_log_level/tag_log_level.c", "/Users/maryna_ohinska/esp/esp-idf/components/log/src/log_level/tag_log_level/linked_list/log_linked_list.c", "/Users/maryna_ohinska/esp/esp-idf/components/log/src/log_level/tag_log_level/cache/log_binary_heap.c" ],
             "include_dirs": [ "include" ]
         },
@@ -789,7 +789,7 @@
             "priv_reqs": [ "vfs" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/lwip/liblwip.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/lwip/liblwip.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/lwip/apps/sntp/sntp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/api/api_lib.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/api/api_msg.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/api/err.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/api/if_api.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/api/netbuf.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/api/netdb.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/api/netifapi.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/api/sockets.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/api/tcpip.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/apps/sntp/sntp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/apps/netbiosns/netbiosns.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/def.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/dns.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/inet_chksum.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/init.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ip.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/mem.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/memp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/netif.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/pbuf.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/raw.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/stats.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/sys.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/tcp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/tcp_in.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/tcp_out.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/timeouts.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/udp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv4/autoip.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv4/dhcp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv4/etharp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv4/icmp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv4/igmp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv4/ip4.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv4/ip4_napt.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv4/ip4_addr.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv4/ip4_frag.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv6/dhcp6.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv6/ethip6.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv6/icmp6.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv6/inet6.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv6/ip6.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv6/ip6_addr.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv6/ip6_frag.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv6/mld6.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/core/ipv6/nd6.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ethernet.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/bridgeif.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/bridgeif_fdb.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/slipif.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/auth.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/ccp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/chap-md5.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/chap-new.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/chap_ms.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/demand.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/eap.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/ecp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/eui64.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/fsm.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/ipcp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/ipv6cp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/lcp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/magic.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/mppe.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/multilink.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/ppp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/pppapi.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/pppcrypt.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/pppoe.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/pppol2tp.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/pppos.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/upap.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/utils.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/vj.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/port/hooks/tcp_isn_default.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/port/hooks/lwip_default_hooks.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/port/debug/lwip_debug.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/port/sockets_ext.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/port/freertos/sys_arch.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/port/if_index.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/port/acd_dhcp_check.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/port/esp32xx/vfs_lwip.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/apps/ping/esp_ping.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/apps/ping/ping.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/apps/ping/ping_sock.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/polarssl/arc4.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/polarssl/des.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/polarssl/md4.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/polarssl/md5.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/lwip/src/netif/ppp/polarssl/sha1.c", "/Users/maryna_ohinska/esp/esp-idf/components/lwip/apps/dhcpserver/dhcpserver.c" ],
             "include_dirs": [ "include", "include/apps", "include/apps/sntp", "lwip/src/include", "port/include", "port/freertos/include/", "port/esp32xx/include", "port/esp32xx/include/arch", "port/esp32xx/include/sys" ]
         },
@@ -797,15 +797,15 @@
             "alias": "idf::main",
             "target": "___idf_main",
             "prefix": "idf",
-            "dir": "/Users/maryna_ohinska/Desktop/lcd/main",
+            "dir": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/main",
             "type": "LIBRARY",
             "lib": "__idf_main",
             "reqs": [ "esp_http_server", "nvs_flash", "esp_timer", "driver", "esp_driver_ledc", "espressif__esp32-camera", "espressif__esp_jpeg" ],
             "priv_reqs": [ "espressif__esp32-camera" ],
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__esp32-camera" ],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/main/libmain.a",
-            "sources": [ "/Users/maryna_ohinska/Desktop/lcd/main/main.c", "/Users/maryna_ohinska/Desktop/lcd/main/i2c_lcd.c", "/Users/maryna_ohinska/Desktop/lcd/main/driving.cpp", "/Users/maryna_ohinska/Desktop/lcd/main/new_algo.c", "/Users/maryna_ohinska/Desktop/lcd/main/dots_algo.c", "/Users/maryna_ohinska/Desktop/lcd/main/take_picture.c", "/Users/maryna_ohinska/Desktop/lcd/main/web_stream.c", "/Users/maryna_ohinska/Desktop/lcd/main/web_capture.c" ],
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/main/libmain.a",
+            "sources": [ "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/main/main.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/main/i2c_lcd.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/main/driving.cpp", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/main/new_algo.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/main/dots_algo.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/main/take_picture.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/main/web_stream.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/main/web_capture.c" ],
             "include_dirs": [ "." ]
         },
         "mbedtls": {
@@ -819,8 +819,8 @@
             "priv_reqs": [ "soc", "esp_hw_support", "esp_pm" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/mbedtls/libmbedtls.a",
-            "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/mbedtls/esp_crt_bundle/esp_crt_bundle.c", "/Users/maryna_ohinska/Desktop/lcd/build/x509_crt_bundle.S" ],
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/mbedtls/libmbedtls.a",
+            "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/mbedtls/esp_crt_bundle/esp_crt_bundle.c", "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/x509_crt_bundle.S" ],
             "include_dirs": [ "port/include", "mbedtls/include", "mbedtls/library", "esp_crt_bundle/include" ]
         },
         "newlib": {
@@ -834,7 +834,7 @@
             "priv_reqs": [ "soc", "spi_flash" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/newlib/libnewlib.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/newlib/libnewlib.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/init.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/abort.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/assert.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/heap.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/locks.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/poll.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/pthread.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/random.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/getentropy.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/termios.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/stdatomic.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/time.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/sysconf.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/realpath.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/scandir.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/syscalls.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/reent_syscalls.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/port/esp_time_impl.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/flockfile.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/reent_init.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/newlib_init.c", "/Users/maryna_ohinska/esp/esp-idf/components/newlib/src/port/esp_time_impl.c" ],
             "include_dirs": [ "platform_include" ]
         },
@@ -849,7 +849,7 @@
             "priv_reqs": [ "spi_flash", "newlib" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/nvs_flash/libnvs_flash.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/nvs_flash/libnvs_flash.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_api.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_cxx_api.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_item_hash_list.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_page.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_pagemanager.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_handle_simple.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_handle_locked.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_partition.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_partition_lookup.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_partition_manager.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_types.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_platform.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_bootloader.c", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_encrypted_partition.cpp", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_bootloader_aes.c", "/Users/maryna_ohinska/esp/esp-idf/components/nvs_flash/src/nvs_bootloader_xts_aes.c" ],
             "include_dirs": [ "include" ]
         },
@@ -879,7 +879,7 @@
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/pthread/libpthread.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/pthread/libpthread.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/pthread/pthread.c", "/Users/maryna_ohinska/esp/esp-idf/components/pthread/pthread_cond_var.c", "/Users/maryna_ohinska/esp/esp-idf/components/pthread/pthread_local_storage.c", "/Users/maryna_ohinska/esp/esp-idf/components/pthread/pthread_rwlock.c", "/Users/maryna_ohinska/esp/esp-idf/components/pthread/pthread_semaphore.c" ],
             "include_dirs": [ "include" ]
         },
@@ -894,7 +894,7 @@
             "priv_reqs": [ "soc", "esp_timer", "esp_mm" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/sdmmc/libsdmmc.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/sdmmc/libsdmmc.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/sdmmc/sdmmc_cmd.c", "/Users/maryna_ohinska/esp/esp-idf/components/sdmmc/sdmmc_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/sdmmc/sdmmc_init.c", "/Users/maryna_ohinska/esp/esp-idf/components/sdmmc/sdmmc_io.c", "/Users/maryna_ohinska/esp/esp-idf/components/sdmmc/sdmmc_mmc.c", "/Users/maryna_ohinska/esp/esp-idf/components/sdmmc/sdmmc_sd.c", "/Users/maryna_ohinska/esp/esp-idf/components/sdmmc/sd_pwr_ctrl/sd_pwr_ctrl.c" ],
             "include_dirs": [ "include" ]
         },
@@ -909,7 +909,7 @@
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/soc/libsoc.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/soc/libsoc.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/soc/lldesc.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/dport_access_common.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/interrupts.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/gpio_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/uart_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/dport_access.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/adc_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/emac_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/spi_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/ledc_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/pcnt_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/rmt_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/sdm_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/i2s_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/i2c_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/timer_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/lcd_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/mcpwm_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/mpi_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/sdmmc_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/touch_sensor_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/twai_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/wdt_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/dac_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/rtc_io_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/sdio_slave_periph.c", "/Users/maryna_ohinska/esp/esp-idf/components/soc/esp32/power_supply_periph.c" ],
             "include_dirs": [ "include", "esp32", "esp32/include", "esp32/register" ]
         },
@@ -924,7 +924,7 @@
             "priv_reqs": [ "bootloader_support", "app_update", "soc", "esp_mm", "esp_driver_gpio" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/spi_flash/libspi_flash.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/spi_flash/libspi_flash.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/flash_brownout_hook.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/spi_flash_chip_drivers.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/spi_flash_chip_generic.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/spi_flash_chip_issi.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/spi_flash_chip_mxic.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/spi_flash_chip_gd.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/spi_flash_chip_winbond.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/spi_flash_chip_boya.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/spi_flash_chip_mxic_opi.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/spi_flash_chip_th.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/memspi_host_driver.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/cache_utils.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/flash_mmap.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/flash_ops.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/spi_flash_wrap.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/esp_flash_api.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/esp_flash_spi_init.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/spi_flash_os_func_app.c", "/Users/maryna_ohinska/esp/esp-idf/components/spi_flash/spi_flash_os_func_noos.c" ],
             "include_dirs": [ "include" ]
         },
@@ -939,7 +939,7 @@
             "priv_reqs": [ "esp_timer", "esp_driver_uart", "esp_driver_usb_serial_jtag", "esp_vfs_console" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/vfs/libvfs.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/vfs/libvfs.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/vfs/vfs.c", "/Users/maryna_ohinska/esp/esp-idf/components/vfs/vfs_eventfd.c", "/Users/maryna_ohinska/esp/esp-idf/components/vfs/vfs_semihost.c", "/Users/maryna_ohinska/esp/esp-idf/components/vfs/nullfs.c" ],
             "include_dirs": [ "include" ]
         },
@@ -954,7 +954,7 @@
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/xtensa/libxtensa.a",
+            "file": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/xtensa/libxtensa.a",
             "sources": [ "/Users/maryna_ohinska/esp/esp-idf/components/xtensa/eri.c", "/Users/maryna_ohinska/esp/esp-idf/components/xtensa/xt_trax.c", "/Users/maryna_ohinska/esp/esp-idf/components/xtensa/xtensa_context.S", "/Users/maryna_ohinska/esp/esp-idf/components/xtensa/xtensa_intr_asm.S", "/Users/maryna_ohinska/esp/esp-idf/components/xtensa/xtensa_intr.c", "/Users/maryna_ohinska/esp/esp-idf/components/xtensa/xtensa_vectors.S" ],
             "include_dirs": [ "esp32/include", "include", "deprecated_include" ]
         }
@@ -1042,7 +1042,7 @@
             "priv_reqs": [ "esp_driver_uart", "esp_driver_usb_serial_jtag" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "include_dirs": [ "/Users/maryna_ohinska/Desktop/lcd/build" ]
+            "include_dirs": [ "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build" ]
         },
         "cxx": {
             "alias": "idf::cxx",
@@ -1090,7 +1090,7 @@
             "priv_reqs": [ "http_parser", "esp_timer", "lwip" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "include_dirs": [ "/Users/maryna_ohinska/Desktop/lcd/build", "esp-tls-crypto" ]
+            "include_dirs": [ "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build", "esp-tls-crypto" ]
         },
         "esp_adc": {
             "alias": "idf::esp_adc",
@@ -2260,7 +2260,7 @@
             "alias": "idf::main",
             "target": "___idf_main",
             "prefix": "idf",
-            "dir": "/Users/maryna_ohinska/Desktop/lcd/main",
+            "dir": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/main",
             "lib": "__idf_main",
             "reqs": [ "esp_http_server", "nvs_flash", "esp_timer", "driver", "esp_driver_ledc", "espressif__esp32-camera", "espressif__esp_jpeg" ],
             "priv_reqs": [ "espressif__esp32-camera" ],
@@ -2272,7 +2272,7 @@
             "alias": "idf::espressif__esp32-camera",
             "target": "___idf_espressif__esp32-camera",
             "prefix": "idf",
-            "dir": "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp32-camera",
+            "dir": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp32-camera",
             "lib": "__idf_espressif__esp32-camera",
             "reqs": [ "driver", "espressif__esp_jpeg" ],
             "priv_reqs": [ "freertos", "nvs_flash", "esp_mm", "esp_timer" ],
@@ -2284,7 +2284,7 @@
             "alias": "idf::espressif__esp_jpeg",
             "target": "___idf_espressif__esp_jpeg",
             "prefix": "idf",
-            "dir": "/Users/maryna_ohinska/Desktop/lcd/managed_components/espressif__esp_jpeg",
+            "dir": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/managed_components/espressif__esp_jpeg",
             "lib": "__idf_espressif__esp_jpeg",
             "reqs": [],
             "priv_reqs": [],
@@ -2295,10 +2295,10 @@
     },
     "debug_prefix_map_gdbinit": "",
     "gdbinit_files": {
-        "01_symbols": "/Users/maryna_ohinska/Desktop/lcd/build/gdbinit/symbols",
-        "02_prefix_map": "/Users/maryna_ohinska/Desktop/lcd/build/gdbinit/prefix_map",
-        "03_py_extensions": "/Users/maryna_ohinska/Desktop/lcd/build/gdbinit/py_extensions",
-        "04_connect": "/Users/maryna_ohinska/Desktop/lcd/build/gdbinit/connect"
+        "01_symbols": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/gdbinit/symbols",
+        "02_prefix_map": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/gdbinit/prefix_map",
+        "03_py_extensions": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/gdbinit/py_extensions",
+        "04_connect": "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/gdbinit/connect"
     },
     "debug_arguments_openocd": "-f board/esp32-wrover-kit-3.3v.cfg"
 }

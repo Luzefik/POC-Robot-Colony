@@ -1,0 +1,24 @@
+Command: ninja all
+[1/9] Performing build step for 'bootloader'
+[1/1] cd /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader/esp-idf/esptool_py && /Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/python /Users/maryna_ohinska/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader/bootloader.bin
+Bootloader binary size 0x6680 bytes. 0x980 bytes (8%) free.
+[2/9] No install step for 'bootloader'
+[3/9] Completed 'bootloader'
+[4/9] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj
+/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/main/main.c:56:13: warning: 'detection_task' defined but not used [-Wunused-function]
+   56 | static void detection_task(void *arg)
+      |             ^~~~~~~~~~~~~~
+/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/main/main.c:22:13: warning: 'on_wifi_ready' defined but not used [-Wunused-function]
+   22 | static void on_wifi_ready(void)
+      |             ^~~~~~~~~~~~~
+[5/9] Linking C static library esp-idf/main/libmain.a
+[6/9] Generating esp-idf/esp_system/ld/sections.ld
+[7/9] Linking CXX executable camera_example.elf
+[8/9] Generating binary image from built executable
+esptool.py v4.11.dev1
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/camera_example.bin
+[9/9] cd /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esptool_py && /Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/python /Users/maryna_ohinska/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/partition_table/partition-table.bin /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/camera_example.bin
+camera_example.bin binary size 0x35c00 bytes. Smallest app partition is 0x100000 bytes. 0xca400 bytes (79%) free.

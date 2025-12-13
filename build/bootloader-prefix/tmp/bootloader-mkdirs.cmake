@@ -10,18 +10,18 @@ if(NOT EXISTS "/Users/maryna_ohinska/esp/esp-idf/components/bootloader/subprojec
   file(MAKE_DIRECTORY "/Users/maryna_ohinska/esp/esp-idf/components/bootloader/subproject")
 endif()
 file(MAKE_DIRECTORY
-  "/Users/maryna_ohinska/Desktop/lcd/build/bootloader"
-  "/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix"
-  "/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/tmp"
-  "/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp"
-  "/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src"
-  "/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp"
+  "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader"
+  "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader-prefix"
+  "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader-prefix/tmp"
+  "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader-prefix/src/bootloader-stamp"
+  "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader-prefix/src"
+  "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
 endif()

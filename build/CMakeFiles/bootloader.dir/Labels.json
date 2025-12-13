@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/bootloader"
+			"file" : "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/bootloader"
 		},
 		{
-			"file" : "/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/bootloader.rule"
+			"file" : "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/bootloader.rule"
 		},
 		{
-			"file" : "/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/bootloader-complete.rule"
+			"file" : "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/bootloader-complete.rule"
 		},
 		{
-			"file" : "/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+			"file" : "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
 		},
 		{
-			"file" : "/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+			"file" : "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
 		},
 		{
-			"file" : "/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+			"file" : "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
 		},
 		{
-			"file" : "/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+			"file" : "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
 		},
 		{
-			"file" : "/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+			"file" : "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
 		},
 		{
-			"file" : "/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+			"file" : "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
 		},
 		{
-			"file" : "/Users/maryna_ohinska/Desktop/lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+			"file" : "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
 		}
 	],
 	"target" : 

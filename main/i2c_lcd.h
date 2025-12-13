@@ -5,13 +5,13 @@
 #define SLAVE_ADDRESS_LCD 0x27
 
 // GPIO number used for I2C master clock
-#define I2C_MASTER_SCL_IO GPIO_NUM_32
+#define I2C_MASTER_SCL_IO GPIO_NUM_22
 
 // GPIO number used for I2C master data
-#define I2C_MASTER_SDA_IO GPIO_NUM_33
+#define I2C_MASTER_SDA_IO GPIO_NUM_21
 
 // I2C master port number (number of I2C peripheral interfaces available depends on the chip)
-#define I2C_MASTER_NUM 1
+#define I2C_MASTER_NUM 0
 
 // I2C master clock frequency
 #define I2C_MASTER_FREQ_HZ 400000
@@ -26,7 +26,7 @@
 #define I2C_MASTER_TIMEOUT_MS 1000
 
 // Define the I2C number to be used
-#define I2C_NUM I2C_NUM_1
+#define I2C_NUM I2C_NUM_0
 
 // LCD command definitions
 #define LCD_CMD_CLEAR_DISPLAY 0x01

@@ -1,0 +1,19 @@
+Command: ninja all
+[1/10] Performing build step for 'bootloader'
+[1/1] cd /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader/esp-idf/esptool_py && /Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/python /Users/maryna_ohinska/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader/bootloader.bin
+Bootloader binary size 0x6680 bytes. 0x980 bytes (8%) free.
+[2/10] No install step for 'bootloader'
+[3/10] Completed 'bootloader'
+[4/10] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/take_picture.c.obj
+[5/10] Linking C static library esp-idf/main/libmain.a
+[6/10] Generating esp-idf/esp_system/ld/sections.ld
+[7/10] Building C object CMakeFiles/camera_example.elf.dir/project_elf_src_esp32.c.obj
+[8/10] Linking CXX executable camera_example.elf
+[9/10] Generating binary image from built executable
+esptool.py v4.11.dev1
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/camera_example.bin
+[10/10] cd /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esptool_py && /Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/python /Users/maryna_ohinska/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/partition_table/partition-table.bin /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/camera_example.bin
+camera_example.bin binary size 0x4e230 bytes. Smallest app partition is 0x100000 bytes. 0xb1dd0 bytes (69%) free.

@@ -1,0 +1,8 @@
+Command: ninja all
+[1/4] cd /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esptool_py && /Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/python /Users/maryna_ohinska/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/partition_table/partition-table.bin /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/camera_example.bin
+camera_example.bin binary size 0x4dfe0 bytes. Smallest app partition is 0x100000 bytes. 0xb2020 bytes (70%) free.
+[2/4] Performing build step for 'bootloader'
+[1/1] cd /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader/esp-idf/esptool_py && /Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/python /Users/maryna_ohinska/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader/bootloader.bin
+Bootloader binary size 0x6680 bytes. 0x980 bytes (8%) free.
+[3/4] No install step for 'bootloader'
+[4/4] Completed 'bootloader'

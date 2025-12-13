@@ -23,7 +23,6 @@ events:
     names:
       - "git"
     candidate_directories:
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -36,8 +35,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -56,10 +56,24 @@ events:
       - "/Users/maryna_ohinska/.dotnet/tools/"
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/"
       - "/Users/maryna_ohinska/.local/bin/"
+    searched_directories:
+      - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/git"
+      - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/git"
+      - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/git"
+      - "/Users/maryna_ohinska/.espressif/tools/ninja/1.12.1/git"
+      - "/Users/maryna_ohinska/.espressif/tools/cmake/3.30.2/CMake.app/Contents/bin/git"
+      - "/Users/maryna_ohinska/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/git"
+      - "/Users/maryna_ohinska/.espressif/tools/riscv32-esp-elf-gdb/16.2_20250324/riscv32-esp-elf-gdb/bin/git"
+      - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf-gdb/16.2_20250324/xtensa-esp-elf-gdb/bin/git"
+      - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/git"
+      - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/git"
+      - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/git"
+      - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/git"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/git"
+      - "/Users/maryna_ohinska/esp/esp-idf/tools/git"
     found: "/opt/homebrew/bin/git"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -72,7 +86,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -93,7 +107,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -116,7 +129,6 @@ events:
     names:
       - "uname"
     candidate_directories:
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -129,8 +141,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -150,7 +163,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/"
       - "/Users/maryna_ohinska/.local/bin/"
     searched_directories:
-      - "/opt/homebrew/bin/uname"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/uname"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/uname"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/uname"
@@ -163,8 +175,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/uname"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/uname"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/uname"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/uname"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/uname"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/uname"
+      - "/opt/homebrew/bin/uname"
       - "/opt/homebrew/sbin/uname"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/uname"
       - "/usr/local/bin/uname"
@@ -172,7 +185,6 @@ events:
     found: "/usr/bin/uname"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -185,7 +197,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -206,7 +218,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -240,7 +251,6 @@ events:
       - "ninja"
       - "samu"
     candidate_directories:
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -253,8 +263,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -274,11 +285,52 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/"
       - "/Users/maryna_ohinska/.local/bin/"
     searched_directories:
+      - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/ninja-build"
+      - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/ninja"
+      - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/samu"
+      - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/ninja-build"
+      - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/ninja"
+      - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/samu"
+      - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/ninja-build"
+      - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/ninja"
+      - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/samu"
+      - "/Users/maryna_ohinska/.espressif/tools/ninja/1.12.1/ninja-build"
+      - "/Users/maryna_ohinska/.espressif/tools/ninja/1.12.1/ninja"
+      - "/Users/maryna_ohinska/.espressif/tools/ninja/1.12.1/samu"
+      - "/Users/maryna_ohinska/.espressif/tools/cmake/3.30.2/CMake.app/Contents/bin/ninja-build"
+      - "/Users/maryna_ohinska/.espressif/tools/cmake/3.30.2/CMake.app/Contents/bin/ninja"
+      - "/Users/maryna_ohinska/.espressif/tools/cmake/3.30.2/CMake.app/Contents/bin/samu"
+      - "/Users/maryna_ohinska/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/ninja-build"
+      - "/Users/maryna_ohinska/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/ninja"
+      - "/Users/maryna_ohinska/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/samu"
+      - "/Users/maryna_ohinska/.espressif/tools/riscv32-esp-elf-gdb/16.2_20250324/riscv32-esp-elf-gdb/bin/ninja-build"
+      - "/Users/maryna_ohinska/.espressif/tools/riscv32-esp-elf-gdb/16.2_20250324/riscv32-esp-elf-gdb/bin/ninja"
+      - "/Users/maryna_ohinska/.espressif/tools/riscv32-esp-elf-gdb/16.2_20250324/riscv32-esp-elf-gdb/bin/samu"
+      - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf-gdb/16.2_20250324/xtensa-esp-elf-gdb/bin/ninja-build"
+      - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf-gdb/16.2_20250324/xtensa-esp-elf-gdb/bin/ninja"
+      - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf-gdb/16.2_20250324/xtensa-esp-elf-gdb/bin/samu"
+      - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/ninja-build"
+      - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/ninja"
+      - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/samu"
+      - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/ninja-build"
+      - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/ninja"
+      - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/samu"
+      - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/ninja-build"
+      - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/ninja"
+      - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/samu"
+      - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/ninja-build"
+      - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/ninja"
+      - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/samu"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/ninja-build"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/ninja"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/samu"
+      - "/Users/maryna_ohinska/esp/esp-idf/tools/ninja-build"
+      - "/Users/maryna_ohinska/esp/esp-idf/tools/ninja"
+      - "/Users/maryna_ohinska/esp/esp-idf/tools/samu"
       - "/opt/homebrew/bin/ninja-build"
     found: "/opt/homebrew/bin/ninja"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -291,7 +343,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -312,7 +364,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -336,7 +387,6 @@ events:
     names:
       - "xtensa-esp32-elf-gcc"
     candidate_directories:
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -349,8 +399,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -370,7 +421,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/"
       - "/Users/maryna_ohinska/.local/bin/"
     searched_directories:
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc"
@@ -382,7 +432,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -395,7 +444,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -416,7 +465,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -449,7 +497,6 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -462,7 +509,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -483,7 +530,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -507,7 +553,7 @@ events:
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
       
       The C compiler identification is GNU, found in:
-        /Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/4.1.2/CompilerIdC/a.out
+        /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/4.1.2/CompilerIdC/a.out
       
   -
     kind: "find-v1"
@@ -532,7 +578,6 @@ events:
       - "ar"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -544,8 +589,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -567,7 +613,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-ar"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -580,7 +625,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -601,7 +646,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -627,7 +671,6 @@ events:
       - "ranlib"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -639,8 +682,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -662,7 +706,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-ranlib"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -675,7 +718,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -696,7 +739,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -722,7 +764,6 @@ events:
       - "strip"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -734,8 +775,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -757,7 +799,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-strip"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -770,7 +811,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -791,7 +832,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -817,7 +857,6 @@ events:
       - "ld"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -829,8 +868,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -852,7 +892,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-ld"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -865,7 +904,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -886,7 +925,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -912,7 +950,6 @@ events:
       - "nm"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -924,8 +961,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -947,7 +985,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-nm"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -960,7 +997,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -981,7 +1018,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -1007,7 +1043,6 @@ events:
       - "objdump"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -1019,8 +1054,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -1042,7 +1078,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-objdump"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -1055,7 +1090,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -1076,7 +1111,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -1102,7 +1136,6 @@ events:
       - "objcopy"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -1114,8 +1147,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -1137,7 +1171,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-objcopy"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -1150,7 +1183,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -1171,7 +1204,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -1197,7 +1229,6 @@ events:
       - "readelf"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -1209,8 +1240,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -1232,7 +1264,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-readelf"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -1245,7 +1276,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -1266,7 +1297,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -1292,7 +1322,6 @@ events:
       - "dlltool"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -1304,8 +1333,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -1326,7 +1356,6 @@ events:
       - "/Users/maryna_ohinska/.local/bin/"
     searched_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-dlltool"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-dlltool"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-dlltool"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-dlltool"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-dlltool"
@@ -1338,8 +1367,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-dlltool"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-dlltool"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-dlltool"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-dlltool"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-dlltool"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-dlltool"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-dlltool"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-dlltool"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-dlltool"
       - "/usr/local/bin/xtensa-esp32-elf-dlltool"
@@ -1359,7 +1389,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/xtensa-esp32-elf-dlltool"
       - "/Users/maryna_ohinska/.local/bin/xtensa-esp32-elf-dlltool"
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/dlltool"
-      - "/opt/homebrew/bin/dlltool"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/dlltool"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/dlltool"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/dlltool"
@@ -1371,8 +1400,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/dlltool"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/dlltool"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/dlltool"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/dlltool"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/dlltool"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/dlltool"
+      - "/opt/homebrew/bin/dlltool"
       - "/opt/homebrew/sbin/dlltool"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/dlltool"
       - "/usr/local/bin/dlltool"
@@ -1394,7 +1424,6 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -1407,7 +1436,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -1428,7 +1457,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -1454,7 +1482,6 @@ events:
       - "addr2line"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -1466,8 +1493,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -1489,7 +1517,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-addr2line"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -1502,7 +1529,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -1523,7 +1550,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -1549,7 +1575,6 @@ events:
       - "tapi"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -1561,8 +1586,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -1583,7 +1609,6 @@ events:
       - "/Users/maryna_ohinska/.local/bin/"
     searched_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-tapi"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-tapi"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-tapi"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-tapi"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-tapi"
@@ -1595,8 +1620,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-tapi"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-tapi"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-tapi"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-tapi"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-tapi"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-tapi"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-tapi"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-tapi"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-tapi"
       - "/usr/local/bin/xtensa-esp32-elf-tapi"
@@ -1616,7 +1642,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/xtensa-esp32-elf-tapi"
       - "/Users/maryna_ohinska/.local/bin/xtensa-esp32-elf-tapi"
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/tapi"
-      - "/opt/homebrew/bin/tapi"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/tapi"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/tapi"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/tapi"
@@ -1628,8 +1653,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/tapi"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/tapi"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/tapi"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/tapi"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/tapi"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/tapi"
+      - "/opt/homebrew/bin/tapi"
       - "/opt/homebrew/sbin/tapi"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/tapi"
       - "/usr/local/bin/tapi"
@@ -1651,7 +1677,6 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -1664,7 +1689,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -1685,7 +1710,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -1713,7 +1737,6 @@ events:
       - "xtensa-esp32-elf-gcc-ar"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -1725,8 +1748,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -1747,7 +1771,6 @@ events:
       - "/Users/maryna_ohinska/.local/bin/"
     searched_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ar-14.2"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ar-14.2"
@@ -1759,8 +1782,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ar-14.2"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ar-14.2"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ar-14.2"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ar-14.2"
@@ -1780,7 +1804,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/.local/bin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ar-14"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ar-14"
@@ -1792,8 +1815,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ar-14"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ar-14"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ar-14"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar-14"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ar-14"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ar-14"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ar-14"
@@ -1813,7 +1837,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/.local/bin/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ar14"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ar14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ar14"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ar14"
@@ -1825,8 +1848,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ar14"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ar14"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ar14"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ar14"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ar14"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ar14"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar14"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ar14"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ar14"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ar14"
@@ -1848,7 +1872,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ar"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -1861,7 +1884,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -1882,7 +1905,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -1910,7 +1932,6 @@ events:
       - "xtensa-esp32-elf-gcc-ranlib"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -1922,8 +1943,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -1944,7 +1966,6 @@ events:
       - "/Users/maryna_ohinska/.local/bin/"
     searched_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ranlib-14.2"
@@ -1956,8 +1977,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ranlib-14.2"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
@@ -1977,7 +1999,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/.local/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ranlib-14"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ranlib-14"
@@ -1989,8 +2010,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ranlib-14"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ranlib-14"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ranlib-14"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ranlib-14"
@@ -2010,7 +2032,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/.local/bin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ranlib14"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ranlib14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ranlib14"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ranlib14"
@@ -2022,8 +2043,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ranlib14"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ranlib14"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ranlib14"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ranlib14"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ranlib14"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ranlib14"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib14"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ranlib14"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ranlib14"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ranlib14"
@@ -2045,7 +2067,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ranlib"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -2058,7 +2079,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -2079,7 +2100,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -2103,7 +2123,6 @@ events:
     names:
       - "xtensa-esp32-elf-g++"
     candidate_directories:
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -2116,8 +2135,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -2137,7 +2157,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/"
       - "/Users/maryna_ohinska/.local/bin/"
     searched_directories:
-      - "/opt/homebrew/bin/xtensa-esp32-elf-g++"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-g++"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-g++"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-g++"
@@ -2149,7 +2168,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-g++"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -2162,7 +2180,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -2183,7 +2201,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -2216,7 +2233,6 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCXXCompilerId.cpp.in"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -2229,7 +2245,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -2250,7 +2266,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -2274,7 +2289,7 @@ events:
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
       
       The CXX compiler identification is GNU, found in:
-        /Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/4.1.2/CompilerIdCXX/a.out
+        /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/4.1.2/CompilerIdCXX/a.out
       
   -
     kind: "find-v1"
@@ -2301,7 +2316,6 @@ events:
       - "xtensa-esp32-elf-gcc-ar"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -2313,8 +2327,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -2335,7 +2350,6 @@ events:
       - "/Users/maryna_ohinska/.local/bin/"
     searched_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ar-14.2"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ar-14.2"
@@ -2347,8 +2361,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ar-14.2"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ar-14.2"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ar-14.2"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ar-14.2"
@@ -2368,7 +2383,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/.local/bin/xtensa-esp32-elf-gcc-ar-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ar-14"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ar-14"
@@ -2380,8 +2394,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ar-14"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ar-14"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ar-14"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar-14"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ar-14"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ar-14"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ar-14"
@@ -2401,7 +2416,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/.local/bin/xtensa-esp32-elf-gcc-ar-14"
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ar14"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ar14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ar14"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ar14"
@@ -2413,8 +2427,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ar14"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ar14"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ar14"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ar14"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ar14"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ar14"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar14"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ar14"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ar14"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ar14"
@@ -2436,7 +2451,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ar"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -2449,7 +2463,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -2470,7 +2484,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -2498,7 +2511,6 @@ events:
       - "xtensa-esp32-elf-gcc-ranlib"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -2510,8 +2522,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -2532,7 +2545,6 @@ events:
       - "/Users/maryna_ohinska/.local/bin/"
     searched_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ranlib-14.2"
@@ -2544,8 +2556,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ranlib-14.2"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
@@ -2565,7 +2578,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/.local/bin/xtensa-esp32-elf-gcc-ranlib-14.2"
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ranlib-14"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ranlib-14"
@@ -2577,8 +2589,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ranlib-14"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ranlib-14"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ranlib-14"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ranlib-14"
@@ -2598,7 +2611,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/.local/bin/xtensa-esp32-elf-gcc-ranlib-14"
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ranlib14"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ranlib14"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ranlib14"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ranlib14"
@@ -2610,8 +2622,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ranlib14"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ranlib14"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ranlib14"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ranlib14"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ranlib14"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ranlib14"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib14"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ranlib14"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ranlib14"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ranlib14"
@@ -2633,7 +2646,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ranlib"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -2646,7 +2658,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -2667,7 +2679,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -2691,7 +2702,6 @@ events:
     names:
       - "xtensa-esp32-elf-gcc"
     candidate_directories:
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -2704,8 +2714,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -2725,7 +2736,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/"
       - "/Users/maryna_ohinska/.local/bin/"
     searched_directories:
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc"
@@ -2737,7 +2747,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -2750,7 +2759,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -2771,7 +2780,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -2813,7 +2821,6 @@ events:
       - "xtensa-esp32-elf-gcc-ar"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -2825,8 +2832,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -2847,7 +2855,6 @@ events:
       - "/Users/maryna_ohinska/.local/bin/"
     searched_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ar-"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar-"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ar-"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ar-"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ar-"
@@ -2859,8 +2866,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ar-"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ar-"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ar-"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ar-"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ar-"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ar-"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar-"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ar-"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ar-"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ar-"
@@ -2880,7 +2888,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/xtensa-esp32-elf-gcc-ar-"
       - "/Users/maryna_ohinska/.local/bin/xtensa-esp32-elf-gcc-ar-"
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ar-"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar-"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ar-"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ar-"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ar-"
@@ -2892,8 +2899,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ar-"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ar-"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ar-"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ar-"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ar-"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ar-"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ar-"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ar-"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ar-"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ar-"
@@ -2915,7 +2923,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ar"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -2928,7 +2935,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -2949,7 +2956,6 @@ events:
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
-        - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
   -
@@ -2977,7 +2983,6 @@ events:
       - "xtensa-esp32-elf-gcc-ranlib"
     candidate_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/"
-      - "/opt/homebrew/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/"
@@ -2989,8 +2994,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/"
+      - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
@@ -3011,7 +3017,6 @@ events:
       - "/Users/maryna_ohinska/.local/bin/"
     searched_directories:
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ranlib-"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib-"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ranlib-"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ranlib-"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ranlib-"
@@ -3023,8 +3028,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ranlib-"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ranlib-"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ranlib-"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ranlib-"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ranlib-"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ranlib-"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib-"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ranlib-"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ranlib-"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ranlib-"
@@ -3044,7 +3050,6 @@ events:
       - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts/xtensa-esp32-elf-gcc-ranlib-"
       - "/Users/maryna_ohinska/.local/bin/xtensa-esp32-elf-gcc-ranlib-"
       - "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ranlib-"
-      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib-"
       - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump/xtensa-esp32-elf-gcc-ranlib-"
       - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table/xtensa-esp32-elf-gcc-ranlib-"
       - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011/xtensa-esp32-elf-gcc-ranlib-"
@@ -3056,8 +3061,9 @@ events:
       - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin/xtensa-esp32-elf-gcc-ranlib-"
       - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin/xtensa-esp32-elf-gcc-ranlib-"
       - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin/xtensa-esp32-elf-gcc-ranlib-"
-      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin/xtensa-esp32-elf-gcc-ranlib-"
+      - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/xtensa-esp32-elf-gcc-ranlib-"
       - "/Users/maryna_ohinska/esp/esp-idf/tools/xtensa-esp32-elf-gcc-ranlib-"
+      - "/opt/homebrew/bin/xtensa-esp32-elf-gcc-ranlib-"
       - "/opt/homebrew/sbin/xtensa-esp32-elf-gcc-ranlib-"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/xtensa-esp32-elf-gcc-ranlib-"
       - "/usr/local/bin/xtensa-esp32-elf-gcc-ranlib-"
@@ -3079,7 +3085,6 @@ events:
     found: "/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc-ranlib"
     search_context:
       ENV{PATH}:
-        - "/opt/homebrew/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/components/espcoredump"
         - "/Users/maryna_ohinska/esp/esp-idf/components/partition_table"
         - "/Users/maryna_ohinska/.espressif/tools/esp-rom-elfs/20241011"
@@ -3092,7 +3097,7 @@ events:
         - "/Users/maryna_ohinska/.espressif/tools/esp-clang/esp-19.1.2_20250312/esp-clang/bin"
         - "/Users/maryna_ohinska/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin"
         - "/Users/maryna_ohinska/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin"
-        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.9_env/bin"
+        - "/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin"
         - "/Users/maryna_ohinska/esp/esp-idf/tools"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/bin"
@@ -3115,7 +3120,6 @@ events:
         - "/Users/maryna_ohinska/Library/Application Support/JetBrains/Toolbox/scripts"
         - "/Users/maryna_ohinska/.local/bin"
         - "/Users/maryna_ohinska/.local/bin"
-        - "/Users/maryna_ohinska/.local/bin"
   -
     kind: "try_compile-v1"
     backtrace:
@@ -3126,8 +3130,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-lkFODb"
-      binary: "/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-lkFODb"
+      source: "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-FV7yCx"
+      binary: "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-FV7yCx"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy"
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -3137,10 +3141,10 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-lkFODb'
+        Change Dir: '/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-FV7yCx'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_96846
-        [1/2] /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc   -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy    -v -o CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_6b694
+        [1/2] /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc   -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy    -v -o CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
         Using built-in specs.
         COLLECT_GCC=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp-elf-gcc
         Target: xtensa-esp-elf
@@ -3148,8 +3152,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib
         gcc version 14.2.0 (crosstool-NG esp-14.2.0_20241119) 
-        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_96846.dir/'
-         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/cc1 -quiet -v -imultilib esp32 -iprefix /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/ -isysroot /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_96846.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mdynconfig=xtensa_esp32.so -mlongcalls -Wno-frame-address -version -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -o /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//ccTSmoyp.s
+        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_6b694.dir/'
+         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/cc1 -quiet -v -imultilib esp32 -iprefix /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/ -isysroot /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_6b694.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mdynconfig=xtensa_esp32.so -mlongcalls -Wno-frame-address -version -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -o /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//cctYcKCb.s
         GNU C17 (crosstool-NG esp-14.2.0_20241119) version 14.2.0 (xtensa-esp-elf)
         	compiled by GNU C version Debian Clang 11.0.1, GMP version 6.2.1, MPFR version 4.2.1, MPC version 1.2.1, isl version isl-0.26-GMP
         
@@ -3166,12 +3170,12 @@ events:
          /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/include
         End of search list.
         Compiler executable checksum: af69fd9f9a101617223bab54c4450538
-        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_96846.dir/'
-         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/as --traditional-format --longcalls --dynconfig=xtensa_esp32.so -o CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//ccTSmoyp.s
+        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_6b694.dir/'
+         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/as --traditional-format --longcalls --dynconfig=xtensa_esp32.so -o CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//cctYcKCb.s
         COMPILER_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/
         LIBRARY_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib/
-        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.'
-        [2/2] : && /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -nostartfiles  -v CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj -o cmTC_96846   && :
+        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.'
+        [2/2] : && /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -nostartfiles  -v CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj -o cmTC_6b694   && :
         Using built-in specs.
         COLLECT_GCC=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp-elf-gcc
         COLLECT_LTO_WRAPPER=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/lto-wrapper
@@ -3182,10 +3186,10 @@ events:
         gcc version 14.2.0 (crosstool-NG esp-14.2.0_20241119) 
         COMPILER_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/
         LIBRARY_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib/
-        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_96846' '-dumpdir' 'cmTC_96846.'
-         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/collect2 -plugin /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/liblto_plugin.so -plugin-opt=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//ccgqliIi.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc --sysroot=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf --dynconfig=xtensa_esp32.so -o cmTC_96846 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj -lgcc -lc -lnosys -lc -lgcc
+        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_6b694' '-dumpdir' 'cmTC_6b694.'
+         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/collect2 -plugin /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/liblto_plugin.so -plugin-opt=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//ccAw6utj.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc --sysroot=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf --dynconfig=xtensa_esp32.so -o cmTC_6b694 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj -lgcc -lc -lnosys -lc -lgcc
         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 00400074
-        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_96846' '-dumpdir' 'cmTC_96846.'
+        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_6b694' '-dumpdir' 'cmTC_6b694.'
         
       exitCode: 0
   -
@@ -3220,10 +3224,10 @@ events:
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-lkFODb']
+        ignore line: [Change Dir: '/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-FV7yCx']
         ignore line: []
-        ignore line: [Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_96846]
-        ignore line: [[1/2] /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc   -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy    -v -o CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_6b694]
+        ignore line: [[1/2] /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc   -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy    -v -o CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp-elf-gcc]
         ignore line: [Target: xtensa-esp-elf]
@@ -3231,8 +3235,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib]
         ignore line: [gcc version 14.2.0 (crosstool-NG esp-14.2.0_20241119) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_96846.dir/']
-        ignore line: [ /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/cc1 -quiet -v -imultilib esp32 -iprefix /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/ -isysroot /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_96846.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mdynconfig=xtensa_esp32.so -mlongcalls -Wno-frame-address -version -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -o /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//ccTSmoyp.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_6b694.dir/']
+        ignore line: [ /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/cc1 -quiet -v -imultilib esp32 -iprefix /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/ -isysroot /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_6b694.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mdynconfig=xtensa_esp32.so -mlongcalls -Wno-frame-address -version -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -o /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//cctYcKCb.s]
         ignore line: [GNU C17 (crosstool-NG esp-14.2.0_20241119) version 14.2.0 (xtensa-esp-elf)]
         ignore line: [	compiled by GNU C version Debian Clang 11.0.1  GMP version 6.2.1  MPFR version 4.2.1  MPC version 1.2.1  isl version isl-0.26-GMP]
         ignore line: []
@@ -3249,12 +3253,12 @@ events:
         ignore line: [ /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/include]
         ignore line: [End of search list.]
         ignore line: [Compiler executable checksum: af69fd9f9a101617223bab54c4450538]
-        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_96846.dir/']
-        ignore line: [ /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/as --traditional-format --longcalls --dynconfig=xtensa_esp32.so -o CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//ccTSmoyp.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_6b694.dir/']
+        ignore line: [ /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/as --traditional-format --longcalls --dynconfig=xtensa_esp32.so -o CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//cctYcKCb.s]
         ignore line: [COMPILER_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/]
         ignore line: [LIBRARY_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.']
-        ignore line: [[2/2] : && /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -nostartfiles  -v CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj -o cmTC_96846   && :]
+        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.']
+        ignore line: [[2/2] : && /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -nostartfiles  -v CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj -o cmTC_6b694   && :]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp-elf-gcc]
         ignore line: [COLLECT_LTO_WRAPPER=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/lto-wrapper]
@@ -3265,13 +3269,13 @@ events:
         ignore line: [gcc version 14.2.0 (crosstool-NG esp-14.2.0_20241119) ]
         ignore line: [COMPILER_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/]
         ignore line: [LIBRARY_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_96846' '-dumpdir' 'cmTC_96846.']
-        link line: [ /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/collect2 -plugin /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/liblto_plugin.so -plugin-opt=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//ccgqliIi.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc --sysroot=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf --dynconfig=xtensa_esp32.so -o cmTC_96846 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj -lgcc -lc -lnosys -lc -lgcc]
+        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_6b694' '-dumpdir' 'cmTC_6b694.']
+        link line: [ /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/collect2 -plugin /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/liblto_plugin.so -plugin-opt=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//ccAw6utj.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc --sysroot=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf --dynconfig=xtensa_esp32.so -o cmTC_6b694 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj -lgcc -lc -lnosys -lc -lgcc]
           arg [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//ccgqliIi.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//ccAw6utj.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
           arg [-plugin-opt=-pass-through=-lnosys] ==> ignore
@@ -3280,7 +3284,7 @@ events:
           arg [--sysroot=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf] ==> ignore
           arg [--dynconfig=xtensa_esp32.so] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_96846] ==> ignore
+          arg [cmTC_6b694] ==> ignore
           arg [-L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32] ==> dir [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32]
           arg [-L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32] ==> dir [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32]
           arg [-L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32] ==> dir [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32]
@@ -3289,7 +3293,7 @@ events:
           arg [-L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib] ==> dir [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib]
           arg [-L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib] ==> dir [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib]
           arg [-L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib] ==> dir [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib]
-          arg [CMakeFiles/cmTC_96846.dir/CMakeCCompilerABI.c.obj] ==> ignore
+          arg [CMakeFiles/cmTC_6b694.dir/CMakeCCompilerABI.c.obj] ==> ignore
           arg [-lgcc] ==> lib [gcc]
           arg [-lc] ==> lib [c]
           arg [-lnosys] ==> lib [nosys]
@@ -3297,7 +3301,7 @@ events:
           arg [-lgcc] ==> lib [gcc]
         ignore line: [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: warning: cannot find entry symbol _start]
         ignore line: [ defaulting to 00400074]
-        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_96846' '-dumpdir' 'cmTC_96846.']
+        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_6b694' '-dumpdir' 'cmTC_6b694.']
         ignore line: []
         ignore line: []
         collapse library dir [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32] ==> [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/lib/gcc/xtensa-esp-elf/14.2.0/esp32]
@@ -3324,8 +3328,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-L7MH5y"
-      binary: "/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-L7MH5y"
+      source: "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-eI0hbX"
+      binary: "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-eI0hbX"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "-mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy"
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -3336,10 +3340,10 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-L7MH5y'
+        Change Dir: '/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-eI0hbX'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_c7d39
-        [1/2] /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-g++   -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy    -v -o CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_ece54
+        [1/2] /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-g++   -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy    -v -o CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
         COLLECT_GCC=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp-elf-g++
         Target: xtensa-esp-elf
@@ -3347,8 +3351,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib
         gcc version 14.2.0 (crosstool-NG esp-14.2.0_20241119) 
-        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_c7d39.dir/'
-         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/cc1plus -quiet -v -imultilib esp32 -iprefix /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/ -isysroot /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_c7d39.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mdynconfig=xtensa_esp32.so -mlongcalls -Wno-frame-address -version -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -o /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//ccA1Vn5a.s
+        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_ece54.dir/'
+         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/cc1plus -quiet -v -imultilib esp32 -iprefix /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/ -isysroot /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_ece54.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mdynconfig=xtensa_esp32.so -mlongcalls -Wno-frame-address -version -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -o /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//cc1VrwTC.s
         GNU C++17 (crosstool-NG esp-14.2.0_20241119) version 14.2.0 (xtensa-esp-elf)
         	compiled by GNU C version Debian Clang 11.0.1, GMP version 6.2.1, MPFR version 4.2.1, MPC version 1.2.1, isl version isl-0.26-GMP
         
@@ -3371,12 +3375,12 @@ events:
          /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/include
         End of search list.
         Compiler executable checksum: f95fb27b9d6b101b60d0ece4239a97f9
-        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_c7d39.dir/'
-         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/as --traditional-format --longcalls --dynconfig=xtensa_esp32.so -o CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//ccA1Vn5a.s
+        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_ece54.dir/'
+         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/as --traditional-format --longcalls --dynconfig=xtensa_esp32.so -o CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//cc1VrwTC.s
         COMPILER_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/
         LIBRARY_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib/
-        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.'
-        [2/2] : && /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-g++ -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -nostartfiles  -v CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_c7d39   && :
+        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.'
+        [2/2] : && /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-g++ -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -nostartfiles  -v CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_ece54   && :
         Using built-in specs.
         COLLECT_GCC=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp-elf-g++
         COLLECT_LTO_WRAPPER=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/lto-wrapper
@@ -3387,10 +3391,10 @@ events:
         gcc version 14.2.0 (crosstool-NG esp-14.2.0_20241119) 
         COMPILER_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/
         LIBRARY_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib/
-        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_c7d39' '-dumpdir' 'cmTC_c7d39.'
-         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/collect2 -plugin /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/liblto_plugin.so -plugin-opt=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//cch1qbT9.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc --sysroot=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf --dynconfig=xtensa_esp32.so -o cmTC_c7d39 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lc -lnosys -lc -lgcc
+        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_ece54' '-dumpdir' 'cmTC_ece54.'
+         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/collect2 -plugin /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/liblto_plugin.so -plugin-opt=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//cc3iQIEw.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc --sysroot=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf --dynconfig=xtensa_esp32.so -o cmTC_ece54 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lc -lnosys -lc -lgcc
         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 00400074
-        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_c7d39' '-dumpdir' 'cmTC_c7d39.'
+        COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_ece54' '-dumpdir' 'cmTC_ece54.'
         
       exitCode: 0
   -
@@ -3431,10 +3435,10 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-L7MH5y']
+        ignore line: [Change Dir: '/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-eI0hbX']
         ignore line: []
-        ignore line: [Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_c7d39]
-        ignore line: [[1/2] /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-g++   -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy    -v -o CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_ece54]
+        ignore line: [[1/2] /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-g++   -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy    -v -o CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp-elf-g++]
         ignore line: [Target: xtensa-esp-elf]
@@ -3442,8 +3446,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib]
         ignore line: [gcc version 14.2.0 (crosstool-NG esp-14.2.0_20241119) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_c7d39.dir/']
-        ignore line: [ /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/cc1plus -quiet -v -imultilib esp32 -iprefix /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/ -isysroot /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_c7d39.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mdynconfig=xtensa_esp32.so -mlongcalls -Wno-frame-address -version -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -o /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//ccA1Vn5a.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_ece54.dir/']
+        ignore line: [ /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/cc1plus -quiet -v -imultilib esp32 -iprefix /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/ -isysroot /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_ece54.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mdynconfig=xtensa_esp32.so -mlongcalls -Wno-frame-address -version -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -o /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//cc1VrwTC.s]
         ignore line: [GNU C++17 (crosstool-NG esp-14.2.0_20241119) version 14.2.0 (xtensa-esp-elf)]
         ignore line: [	compiled by GNU C version Debian Clang 11.0.1  GMP version 6.2.1  MPFR version 4.2.1  MPC version 1.2.1  isl version isl-0.26-GMP]
         ignore line: []
@@ -3466,12 +3470,12 @@ events:
         ignore line: [ /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/include]
         ignore line: [End of search list.]
         ignore line: [Compiler executable checksum: f95fb27b9d6b101b60d0ece4239a97f9]
-        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_c7d39.dir/']
-        ignore line: [ /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/as --traditional-format --longcalls --dynconfig=xtensa_esp32.so -o CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//ccA1Vn5a.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_ece54.dir/']
+        ignore line: [ /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/as --traditional-format --longcalls --dynconfig=xtensa_esp32.so -o CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj /var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//cc1VrwTC.s]
         ignore line: [COMPILER_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/]
         ignore line: [LIBRARY_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.']
-        ignore line: [[2/2] : && /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-g++ -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -nostartfiles  -v CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_c7d39   && :]
+        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-v' '-o' 'CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [[2/2] : && /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-g++ -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -nostartfiles  -v CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_ece54   && :]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp-elf-g++]
         ignore line: [COLLECT_LTO_WRAPPER=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/lto-wrapper]
@@ -3482,13 +3486,13 @@ events:
         ignore line: [gcc version 14.2.0 (crosstool-NG esp-14.2.0_20241119) ]
         ignore line: [COMPILER_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/]
         ignore line: [LIBRARY_PATH=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/:/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_c7d39' '-dumpdir' 'cmTC_c7d39.']
-        link line: [ /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/collect2 -plugin /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/liblto_plugin.so -plugin-opt=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//cch1qbT9.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc --sysroot=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf --dynconfig=xtensa_esp32.so -o cmTC_c7d39 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lc -lnosys -lc -lgcc]
+        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_ece54' '-dumpdir' 'cmTC_ece54.']
+        link line: [ /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/collect2 -plugin /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/liblto_plugin.so -plugin-opt=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//cc3iQIEw.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lnosys -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc --sysroot=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf --dynconfig=xtensa_esp32.so -o cmTC_ece54 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0 -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib -L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm -lgcc -lc -lnosys -lc -lgcc]
           arg [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../libexec/gcc/xtensa-esp-elf/14.2.0/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//cch1qbT9.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/var/folders/38/qz8q76gs5975gf2bxkpqgtxh0000gn/T//cc3iQIEw.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
           arg [-plugin-opt=-pass-through=-lnosys] ==> ignore
@@ -3497,7 +3501,7 @@ events:
           arg [--sysroot=/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf] ==> ignore
           arg [--dynconfig=xtensa_esp32.so] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_c7d39] ==> ignore
+          arg [cmTC_ece54] ==> ignore
           arg [-L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32] ==> dir [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32]
           arg [-L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32] ==> dir [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib/esp32]
           arg [-L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32] ==> dir [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib/esp32]
@@ -3506,7 +3510,7 @@ events:
           arg [-L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib] ==> dir [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/lib]
           arg [-L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib] ==> dir [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/lib]
           arg [-L/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib] ==> dir [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../xtensa-esp-elf/usr/lib]
-          arg [CMakeFiles/cmTC_c7d39.dir/CMakeCXXCompilerABI.cpp.obj] ==> ignore
+          arg [CMakeFiles/cmTC_ece54.dir/CMakeCXXCompilerABI.cpp.obj] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgcc] ==> lib [gcc]
@@ -3516,7 +3520,7 @@ events:
           arg [-lgcc] ==> lib [gcc]
         ignore line: [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: warning: cannot find entry symbol _start]
         ignore line: [ defaulting to 00400074]
-        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_c7d39' '-dumpdir' 'cmTC_c7d39.']
+        ignore line: [COLLECT_GCC_OPTIONS='-mdynconfig=xtensa_esp32.so' '-mlongcalls' '-Wno-frame-address' '-fno-builtin-memcpy' '-fno-builtin-memset' '-fno-builtin-bzero' '-fno-builtin-stpcpy' '-fno-builtin-strncpy' '-nostartfiles' '-v' '-o' 'cmTC_ece54' '-dumpdir' 'cmTC_ece54.']
         ignore line: []
         ignore line: []
         collapse library dir [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/esp32] ==> [/Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/lib/gcc/xtensa-esp-elf/14.2.0/esp32]
@@ -3544,8 +3548,8 @@ events:
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-7ySnuG"
-      binary: "/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-7ySnuG"
+      source: "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-i2lWbu"
+      binary: "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-i2lWbu"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy"
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -3555,17 +3559,17 @@ events:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: '/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-7ySnuG'
+        Change Dir: '/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-i2lWbu'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_9196e
-        [1/2] /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc -DCMAKE_HAVE_LIBC_PTHREAD  -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -o CMakeFiles/cmTC_9196e.dir/src.c.obj -c /Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-7ySnuG/src.c
-        [2/2] : && /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -nostartfiles CMakeFiles/cmTC_9196e.dir/src.c.obj -o cmTC_9196e   && :
-        /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: CMakeFiles/cmTC_9196e.dir/src.c.obj:(.literal+0x14): warning: pthread_atfork is not implemented and will always fail
-        /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: CMakeFiles/cmTC_9196e.dir/src.c.obj:(.literal+0xc): warning: pthread_cancel is not implemented and will always fail
-        /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: CMakeFiles/cmTC_9196e.dir/src.c.obj:(.literal+0x4): warning: pthread_create is not implemented and will always fail
-        /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: CMakeFiles/cmTC_9196e.dir/src.c.obj:(.literal+0x8): warning: pthread_detach is not implemented and will always fail
-        /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: CMakeFiles/cmTC_9196e.dir/src.c.obj:(.literal+0x18): warning: pthread_exit is not implemented and will always fail
-        /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: CMakeFiles/cmTC_9196e.dir/src.c.obj:(.literal+0x10): warning: pthread_join is not implemented and will always fail
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_ea3c2
+        [1/2] /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc -DCMAKE_HAVE_LIBC_PTHREAD  -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -o CMakeFiles/cmTC_ea3c2.dir/src.c.obj -c /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-i2lWbu/src.c
+        [2/2] : && /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -nostartfiles CMakeFiles/cmTC_ea3c2.dir/src.c.obj -o cmTC_ea3c2   && :
+        /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: CMakeFiles/cmTC_ea3c2.dir/src.c.obj:(.literal+0x14): warning: pthread_atfork is not implemented and will always fail
+        /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: CMakeFiles/cmTC_ea3c2.dir/src.c.obj:(.literal+0xc): warning: pthread_cancel is not implemented and will always fail
+        /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: CMakeFiles/cmTC_ea3c2.dir/src.c.obj:(.literal+0x4): warning: pthread_create is not implemented and will always fail
+        /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: CMakeFiles/cmTC_ea3c2.dir/src.c.obj:(.literal+0x8): warning: pthread_detach is not implemented and will always fail
+        /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: CMakeFiles/cmTC_ea3c2.dir/src.c.obj:(.literal+0x18): warning: pthread_exit is not implemented and will always fail
+        /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: CMakeFiles/cmTC_ea3c2.dir/src.c.obj:(.literal+0x10): warning: pthread_join is not implemented and will always fail
         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 00400054
         
       exitCode: 0
@@ -3579,8 +3583,8 @@ events:
     checks:
       - "Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS"
     directories:
-      source: "/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-gIUmv6"
-      binary: "/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-gIUmv6"
+      source: "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-JjXLSE"
+      binary: "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-JjXLSE"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow"
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -3590,11 +3594,11 @@ events:
       variable: "C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS"
       cached: true
       stdout: |
-        Change Dir: '/Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-gIUmv6'
+        Change Dir: '/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-JjXLSE'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_23220
-        [1/2] /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc -DC_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS  -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow    -Wformat-signedness -o CMakeFiles/cmTC_23220.dir/src.c.obj -c /Users/maryna_ohinska/Desktop/lcd/build/CMakeFiles/CMakeScratch/TryCompile-gIUmv6/src.c
-        [2/2] : && /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow -nostartfiles CMakeFiles/cmTC_23220.dir/src.c.obj -o cmTC_23220   && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_7b426
+        [1/2] /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc -DC_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS  -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow    -Wformat-signedness -o CMakeFiles/cmTC_7b426.dir/src.c.obj -c /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/CMakeFiles/CMakeScratch/TryCompile-JjXLSE/src.c
+        [2/2] : && /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -Wall -Wextra -Wwrite-strings -Wmissing-prototypes -Wformat=2 -Wno-format-nonliteral -Wvla -Wlogical-op -Wshadow -nostartfiles CMakeFiles/cmTC_7b426.dir/src.c.obj -o cmTC_7b426   && :
         /Users/maryna_ohinska/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/14.2.0/../../../../xtensa-esp-elf/bin/ld: warning: cannot find entry symbol _start; defaulting to 00400054
         
       exitCode: 0

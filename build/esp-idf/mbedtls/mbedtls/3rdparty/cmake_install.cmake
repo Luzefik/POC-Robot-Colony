@@ -39,14 +39,14 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/mbedtls/mbedtls/3rdparty/everest/cmake_install.cmake")
-  include("/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/mbedtls/mbedtls/3rdparty/p256-m/cmake_install.cmake")
+  include("/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/mbedtls/mbedtls/3rdparty/everest/cmake_install.cmake")
+  include("/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/mbedtls/mbedtls/3rdparty/p256-m/cmake_install.cmake")
 
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/maryna_ohinska/Desktop/lcd/build/esp-idf/mbedtls/mbedtls/3rdparty/install_local_manifest.txt"
+  file(WRITE "/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/mbedtls/mbedtls/3rdparty/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

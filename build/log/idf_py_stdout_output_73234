@@ -1,0 +1,53 @@
+Command: ninja flash
+[1/5] cd /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/esp-idf/esptool_py && /Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/python /Users/maryna_ohinska/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/partition_table/partition-table.bin /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/camera_example.bin
+camera_example.bin binary size 0x4dfe0 bytes. Smallest app partition is 0x100000 bytes. 0xb2020 bytes (70%) free.
+[2/5] Performing build step for 'bootloader'
+[1/1] cd /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader/esp-idf/esptool_py && /Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/python /Users/maryna_ohinska/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build/bootloader/bootloader.bin
+Bootloader binary size 0x6680 bytes. 0x980 bytes (8%) free.
+[3/5] No install step for 'bootloader'
+[4/5] Completed 'bootloader'
+[4/5] cd /Users/maryna_ohinska/esp/esp-idf/components/esptool_py && /opt/homebrew/bin/cmake -D IDF_PATH=/Users/maryna_ohinska/esp/esp-idf -D "SERIAL_TOOL=/Users/maryna_ohinska/.espressif/python_env/idf5.5_py3.14_env/bin/python;;/Users/maryna_ohinska/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32" -D "SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args" -D WORKING_DIRECTORY=/Users/maryna_ohinska/Desktop/1/POC-Robot-Colony/build -P /Users/maryna_ohinska/esp/esp-idf/components/esptool_py/run_serial_tool.cmake
+esptool.py --chip esp32 -p /dev/cu.usbserial-10 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 camera_example.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.11.dev1
+Serial port /dev/cu.usbserial-10
+Connecting....
+Chip is ESP32-D0WD-V3 (revision v3.1)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: cc:7b:5c:97:8b:0c
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x0005dfff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+SHA digest in image updated
+Compressed 26240 bytes to 16488...
+Writing at 0x00001000... (50 %)
+Writing at 0x000075fb... (100 %)
+Wrote 26240 bytes (16488 compressed) at 0x00001000 in 0.9 seconds (effective 234.5 kbit/s)...
+Hash of data verified.
+Compressed 319456 bytes to 178278...
+Writing at 0x00010000... (9 %)
+Writing at 0x0001b975... (18 %)
+Writing at 0x000235e6... (27 %)
+Writing at 0x0002905e... (36 %)
+Writing at 0x0003043b... (45 %)
+Writing at 0x00036eb3... (54 %)
+Writing at 0x0003ca32... (63 %)
+Writing at 0x00044321... (72 %)
+Writing at 0x0004be87... (81 %)
+Writing at 0x0005256b... (90 %)
+Writing at 0x00058679... (100 %)
+Wrote 319456 bytes (178278 compressed) at 0x00010000 in 4.7 seconds (effective 548.3 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 103...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.1 seconds (effective 285.9 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...

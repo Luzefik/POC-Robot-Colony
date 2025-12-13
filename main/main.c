@@ -83,7 +83,7 @@ static void lcd_status_print(void)
     }
     else
     {
-        role = "FOLLOWER";
+        role = "PUSSY";
     }
 
     int col = (16 - strlen(role)) / 2;
@@ -95,6 +95,13 @@ void app_main(void)
 {
     // 1. Спочатку ініціалізуємо NVS (системна пам'ять)
     esp_err_t ret = nvs_flash_init();
+
+    // 4. І тільки ТЕПЕР ініціалізуємо LCD
+    // Це важливо: камера вже забрала свої переривання, LCD візьме те, що лишилося.
+    lcd_status_print();
+
+    xTaskCreate(detection_task, "detection", 8192, NULL, 5, NULL);
+
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND)
     {
         ESP_ERROR_CHECK(nvs_flash_erase());
@@ -110,15 +117,8 @@ void app_main(void)
     ESP_LOGI(TAG, "Camera initialized");
 
     // 3. Запускаємо задачу детекції
-    xTaskCreate(detection_task, "detection", 8192, NULL, 5, NULL);
-
-    // 4. І тільки ТЕПЕР ініціалізуємо LCD
-    // Це важливо: камера вже забрала свої переривання, LCD візьме те, що лишилося.
-    lcd_status_print();
 
     motor_init();
-    motor_init(); // До речі, у тебе тут дублюється motor_init()
-
     for (;;)
     {
         Conv data = getData();
