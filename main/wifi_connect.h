@@ -1,7 +1,9 @@
-#ifndef WIFI_CONNECT_H
-#define WIFI_CONNECT_H
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 
-void wifi_init_sta(void);
-void wifi_register_got_ip_cb(void (*cb)(void));
+#pragma once
+#include "esp_err.h"
 
-#endif
+esp_err_t wifi_init_sta(void);
+typedef void (*wifi_got_ip_cb_t)(void);
+void wifi_register_got_ip_cb(wifi_got_ip_cb_t cb);
