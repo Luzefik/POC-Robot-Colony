@@ -1,11 +1,9 @@
-/**
- * This example takes a picture every 5s and print its size on serial monitor.
- */
-
-// =============================== SETUP ======================================
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 
 // 1. Board setup (Uncomment):
-// #define BOARD_WROVER_KIT
+#include "sensor.h"
+#define BOARD_WROVER_KIT 1
 // #define BOARD_ESP32CAM_AITHINKER
 // #define BOARD_ESP32S3_WROOM
 // #define BOARD_ESP32S3_XIAO
@@ -52,6 +50,7 @@
 #define BOARD_WROVER_KIT 1
 
 #include "camera_pinout.h"
+#include "new_algo.h"  // Додайте на початку файла
 
 static const char *TAG = "example:take_picture";
 
@@ -80,18 +79,33 @@ static camera_config_t camera_config = {
     .ledc_timer = LEDC_TIMER_0,
     .ledc_channel = LEDC_CHANNEL_0,
 
-    .pixel_format = PIXFORMAT_RGB565, //YUV422,GRAYSCALE,RGB565,JPEG
-    .frame_size = FRAMESIZE_QVGA,    //QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
+    .pixel_format = PIXFORMAT_YUV422,
 
-    .jpeg_quality = 12, //0-63, for OV series camera sensors, lower number means higher quality
-    .fb_count = 1,       //When jpeg mode is used, if fb_count more than one, the driver will work in continuous mode.
+    .frame_size = FRAMESIZE_CIF,
+    /*
+    FRAMESIZE_UXGA (1600 x 1200)
+    FRAMESIZE_QVGA (320 x 240)
+    FRAMESIZE_CIF (352 x 288)
+    FRAMESIZE_VGA (640 x 480)
+    FRAMESIZE_SVGA (800 x 600)
+    FRAMESIZE_XGA (1024 x 768)
+    FRAMESIZE_SXGA (1280 x 1024)
+    */
+
+    //QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
+
+    .jpeg_quality = 10,  // 0-63, higher = more compression (smaller files, faster stream)
+    .fb_count = 3,       // Increased from 2 to 3 to prevent buffer overflow
     .fb_location = CAMERA_FB_IN_PSRAM,
-    .grab_mode = CAMERA_GRAB_WHEN_EMPTY,
+    .grab_mode = CAMERA_GRAB_LATEST,
+    // CAMERA_GRAB_WHEN_EMPTY,
 };
 
 static esp_err_t init_camera(void)
 {
-    //initialize the camera
+
+
+
     esp_err_t err = esp_camera_init(&camera_config);
     if (err != ESP_OK)
     {
@@ -99,30 +113,53 @@ static esp_err_t init_camera(void)
         return err;
     }
 
+    sensor_t * s = esp_camera_sensor_get();
+    s->set_brightness(s, 0);     // -2 to 2
+    s->set_contrast(s, 0);       // -2 to 2
+    s->set_saturation(s, 0);     // -2 to 2
+    s->set_special_effect(s, 0); // 0 to 6 (0 - No Effect, 1 - Negative, 2 - Grayscale, 3 - Red Tint, 4 - Green Tint, 5 - Blue Tint, 6 - Sepia)
+    s->set_whitebal(s, 0);       // 0 = disable , 1 = enable
+    s->set_awb_gain(s, 0);       // 0 = disable , 1 = enable
+    s->set_wb_mode(s, 1);        // 0 to 4 - if awb_gain enabled (0 - Auto, 1 - Sunny, 2 - Cloudy, 3 - Office, 4 - Home)
+    s->set_exposure_ctrl(s, 0);  // 0 = disable , 1 = enable
+    s->set_aec2(s, 0);           // 0 = disable , 1 = enable
+    s->set_ae_level(s, 0);       // -2 to 2
+    s->set_aec_value(s, 50);    // 0 to 1200
+    s->set_gain_ctrl(s, 0);      // 0 = disable , 1 = enable
+    s->set_agc_gain(s, 0);       // 0 to 30
+    s->set_gainceiling(s, (gainceiling_t)0);  // 0 to 6
+    s->set_bpc(s, 0);            // 0 = disable , 1 = enable
+    s->set_wpc(s, 1);            // 0 = disable , 1 = enable
+    s->set_raw_gma(s, 1);        // 0 = disable , 1 = enable
+    s->set_lenc(s, 1);           // 0 = disable , 1 = enable
+    s->set_hmirror(s, 0);        // 0 = disable , 1 = enable
+    s->set_vflip(s, 0);          // 0 = disable , 1 = enable
+    s->set_dcw(s, 1);            // 0 = disable , 1 = enable
+    s->set_colorbar(s, 0);       // 0 = disable , 1 = enable
+
+
     return ESP_OK;
 }
-#endif
 
-void app_main(void)
-{
-#if ESP_CAMERA_SUPPORTED
-    if(ESP_OK != init_camera()) {
+void process_camera_stream() {
+    if (!camera_init_board()) {
+        ESP_LOGE(TAG, "Camera Init Failed");
         return;
     }
 
-    while (1)
-    {
-        ESP_LOGI(TAG, "Taking picture...");
-        camera_fb_t *pic = esp_camera_fb_get();
+    while (true) {
+        camera_fb_t * fb = esp_camera_fb_get();
+        if (!fb) {
+            ESP_LOGE(TAG, "Failed to take picture");
+            continue;
+        }
 
-        // use pic->buf to access the image
-        ESP_LOGI(TAG, "Picture taken! Its size was: %zu bytes", pic->len);
-        esp_camera_fb_return(pic);
+        ESP_LOGI(TAG, "Picture taken! Its size was: %zu bytes", fb->len);
 
-        vTaskDelay(5000 / portTICK_RATE_MS);
+        process_image(fb);
+
+        esp_camera_fb_return(fb);
+
+        vTaskDelay(500 / portTICK_PERIOD_MS);
     }
-#else
-    ESP_LOGE(TAG, "Camera support is not available for this chip");
-    return;
-#endif
 }
