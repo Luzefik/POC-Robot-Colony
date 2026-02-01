@@ -158,7 +158,7 @@ tmp/
 
 managed_components/
 sdkconfig.old
-
+src/
 # Configuration files (uncomment if you want to ignore config files)
 # config.ini
 # settings.json
