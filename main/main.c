@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "driver/i2c.h"
-#include "i2c_lcd.h"
+
 
 
 static const char *TAG = "app";

@@ -1,13 +1,15 @@
 idf_component_register(
     SRCS
-        "new_algo.c"
         "main.c"
         "wifi_connect.c"
         "take_picture.c"
         "web_capture.c"
         "web_stream.c"
         "driving.cpp"
-        "i2c_lcd.c"
+        "driving_dots.c"
+        "dots_algo.c"
+        "new_algo.c"
+        "my_platform.c"
     INCLUDE_DIRS "."
     PRIV_REQUIRES
         esp_wifi
@@ -18,5 +20,10 @@ idf_component_register(
         esp_timer
         esp_psram
         esp_jpeg
-        espressif__esp32-camera
-        driver)
+        esp_driver_gpio
+        esp_driver_ledc
+        lwip
+        esp32-camera
+        bluepad32
+        btstack        
+)

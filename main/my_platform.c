@@ -143,7 +143,7 @@ static void my_platform_on_controller_data(uni_hid_device_t* d, uni_controller_t
 
     if (left_y > 0) {left_y += 335;}
     else if (left_y < 0) { left_y -= 336;}
-    
+
     if (left_y > speed) {speed += (left_y - speed);}
     else if (left_y < speed) {speed -= (speed - left_y);}
 
