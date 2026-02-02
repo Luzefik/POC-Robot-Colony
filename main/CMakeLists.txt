@@ -8,7 +8,7 @@ idf_component_register(
         "driving.cpp"
         "driving_dots.c"
         "dots_algo.c"
-        "new_algo.c"
+        "dot_detection.c"
         "my_platform.c"
     INCLUDE_DIRS "."
     PRIV_REQUIRES
@@ -25,5 +25,5 @@ idf_component_register(
         lwip
         esp32-camera
         bluepad32
-        btstack        
+        btstack
 )
