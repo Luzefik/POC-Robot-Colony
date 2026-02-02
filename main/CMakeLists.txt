@@ -1,16 +1,16 @@
 idf_component_register(
     SRCS
         "main.c"
-        "wifi_connect.c"
-        "take_picture.c"
-        "web_capture.c"
-        "web_stream.c"
-        "driving.cpp"
-        "driving_dots.c"
-        "dots_algo.c"
-        "dot_detection.c"
-        "my_platform.c"
-    INCLUDE_DIRS "."
+        "wifi/wifi_connect.c"
+        "camera-logic/take_picture.c"
+        "wifi/web_capture.c"
+        "wifi/web_stream.c"
+        "driving-logic/driving.cpp"
+        "driving-logic/driving_dots.c"
+        "object-detection/dots_algo.c"
+        "object-detection/dot_detection.c"
+        "driving-logic/my_platform.c"
+    INCLUDE_DIRS "." "camera-logic" "driving-logic" "object-detection" "wifi"
     PRIV_REQUIRES
         esp_wifi
         esp_event

@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  esp-build:
+    build: .
+    image: ugv-esp32-project
+    volumes:
+      - .:/project
+
+    working_dir: /project
+    command: idf.py build
