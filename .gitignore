@@ -162,3 +162,6 @@ src/
 # Configuration files (uncomment if you want to ignore config files)
 # config.ini
 # settings.json
+
+*.py text eol=lf
+*.sh text eol=lf
