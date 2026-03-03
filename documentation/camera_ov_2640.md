@@ -1,10 +1,3 @@
-The parameters and setup you've listed look very standard for getting the OV2640 to work with the ESP32. I've taken the technical points from your documentation and organized them into a clear Markdown format for better readability and structure. Here it is:
-
-```md
-# ESP32 and OV2640 Camera Integration Parameters
-
-This document outlines the hardware specifications, optical features, and ESP-IDF configuration parameters for integrating the OV2640 camera module with an ESP32 board, specifically focusing on a project involving LED point detection using a Gaussian filter.
-
 ## Hardware Parameters
 
 **Sensor Details:**
@@ -16,7 +9,6 @@ This document outlines the hardware specifications, optical features, and ESP-ID
 * **UXGA/SXGA (1600x1200 / 1280x1024):** 15 fps
 * **SVGA (800x600):** 30 fps
 * **CIF (400x296):** 60 fps
-* *Note: For real-time tracking, lower resolutions (e.g., CIF or QVGA) are recommended to maintain higher frame rates.*
 
 **Sensor Characteristics:**
 * **Sensitivity:** 0.6 V/Lux-sec
