@@ -6,7 +6,7 @@
 #include <driving.h>
 #include "esp_log.h"
 
-#include "../src/components/bluepad32/include/uni.h"
+#include "uni.h"
 
 // External function declared in main.c
 extern void set_gamepad_connected(bool connected);
@@ -113,18 +113,6 @@ static uni_error_t my_platform_on_device_ready(uni_hid_device_t* d) {
     return UNI_ERROR_SUCCESS;
 }
 
-int16_t clamp(int x, int min, int max) {
-    if (x < min) {
-        return min;
-    } else if (x >= max) {
-        return max;
-    }
-
-    return x;
-}
-
-
-
 static void my_platform_on_controller_data(uni_hid_device_t* d, uni_controller_t* ctl) {
     static uni_controller_t prev = {0};
     uni_gamepad_t* gp;
@@ -151,7 +139,7 @@ static void my_platform_on_controller_data(uni_hid_device_t* d, uni_controller_t
     else if (-320 < speed && speed < 0) {speed = -320;}
 
 
-    right_x = clamp(right_x, -32, 31);
+    right_x = clampi(right_x, -32, 31);
     if (right_x > turn) {turn += 2;}
     else if (right_x < turn) {turn -= 2;}
 

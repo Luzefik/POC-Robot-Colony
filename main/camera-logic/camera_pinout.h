@@ -5,9 +5,7 @@
 
 #include "esp_camera.h"
 
-// WROVER-KIT PIN Map
-#ifdef BOARD_WROVER_KIT
-
+// WROVER-KIT pin map (Freenove ESP32-WROVER camera board)
 #define CAM_PIN_PWDN -1  //power down is not used
 #define CAM_PIN_RESET -1 //software reset will be performed
 #define CAM_PIN_XCLK 21
@@ -25,8 +23,3 @@
 #define CAM_PIN_VSYNC 25
 #define CAM_PIN_HREF 23
 #define CAM_PIN_PCLK 22
-
-#endif
-
-
-esp_err_t camera_init_board(void);

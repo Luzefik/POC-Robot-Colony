@@ -1,11 +1,18 @@
-version: '3.8'
+# Cross-platform build orchestration (Windows / Linux / macOS).
+#   docker compose run --rm build            -> idf.py build
+#   docker compose run --rm build idf.py menuconfig
+#   docker compose run --rm build idf.py fullclean
+#
+# The project directory is bind-mounted into /project, so build artifacts
+# (build/) land back on the host, ready to flash from the host with esptool.
 
 services:
-  esp-build:
-    build: .
+  build:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: ugv-esp32-project
     volumes:
       - .:/project
-
     working_dir: /project
     command: idf.py build

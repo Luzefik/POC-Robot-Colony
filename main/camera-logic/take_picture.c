@@ -1,47 +1,14 @@
-#define CAM_PIN_PWDN -1
-#define CAM_PIN_RESET -1
-#define CAM_PIN_XCLK 21
-#define CAM_PIN_SIOD 26
-#define CAM_PIN_SIOC 27
+#include "take_picture.h"
+#include "camera_pinout.h"
 
-#define CAM_PIN_D7 35
-#define CAM_PIN_D6 34
-#define CAM_PIN_D5 39
-#define CAM_PIN_D4 36
-#define CAM_PIN_D3 19
-#define CAM_PIN_D2 18
-#define CAM_PIN_D1 5
-#define CAM_PIN_D0 4
-#define CAM_PIN_VSYNC 25
-#define CAM_PIN_HREF 23
-#define CAM_PIN_PCLK 22
-#define DEBUG 0
-
-
-
-
-#include <esp_log.h>
-#include <esp_system.h>
-#include <nvs_flash.h>
-#include <sys/param.h>
-#include <string.h>
-
+#include "esp_camera.h"
+#include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+static const char *TAG = "camera";
 
-
-// support IDF 5.x
-#ifndef portTICK_RATE_MS
-#define portTICK_RATE_MS portTICK_PERIOD_MS
-#endif
-
-#include "esp_camera.h"
-
-static const char *TAG = "example:take_picture";
-
-// #if ESP_CAMERA_SUPPORTED
-static camera_config_t camera_config = {
+static const camera_config_t camera_config = {
     .pin_pwdn = CAM_PIN_PWDN,
     .pin_reset = CAM_PIN_RESET,
     .pin_xclk = CAM_PIN_XCLK,
@@ -60,52 +27,40 @@ static camera_config_t camera_config = {
     .pin_href = CAM_PIN_HREF,
     .pin_pclk = CAM_PIN_PCLK,
 
-    //XCLK 20MHz or 10MHz for OV2640 double FPS (Experimental)
     .xclk_freq_hz = 20000000,
+    /* XCLK is generated on the LOW_SPEED LEDC unit inside the camera
+     * driver; the motor PWM uses the HIGH_SPEED unit (driving.cpp). */
     .ledc_timer = LEDC_TIMER_0,
     .ledc_channel = LEDC_CHANNEL_0,
 
-    // #ifdef DEBUG
-    // .pixel_format = PIXFORMAT_JPEG,
-    // #else
-    .pixel_format = PIXFORMAT_RGB565,   
-    // #endif
+    /* YUV422 (YUYV): the detection thresholds work directly on the U/V
+     * chroma channels ("Column of Ground Robots", V.B). CIF keeps the
+     * processing loop fast enough for the 20 Hz control cycle. */
+    .pixel_format = PIXFORMAT_YUV422,
+    .frame_size = FRAMESIZE_CIF,
 
-    .frame_size = FRAMESIZE_VGA,
-
-    /*
-    FRAMESIZE_QVGA (320x240)
-
-    FRAMESIZE_VGA (640x480)
-
-    FRAMESIZE_SVGA (800x600)
-
-    FRAMESIZE_XGA (1024x768)
-
-    FRAMESIZE_SXGA (1280x1024)
-
-    FRAMESIZE_UXGA (1600x1200)
-    */
-
-    //QQVGA-UXGA, For ESP32, do not use sizes above QVGA when not JPEG. The performance of the ESP32-S series has improved a lot, but JPEG mode always gives better frame rates.
-
-
-    #ifdef DEBUG
-        .jpeg_quality = 12,  // 0-63, higher = more compression (smaller files, faster stream)
-    #endif
-    .fb_count = 3,       // Increased from 2 to 3 to prevent buffer overflow
+    .fb_count = 2,
     .fb_location = CAMERA_FB_IN_PSRAM,
-    .grab_mode = CAMERA_GRAB_WHEN_EMPTY,
+    /* Always hand the freshest frame to the detector: stale frames add
+     * dead time to the control loop and cause target loss. */
+    .grab_mode = CAMERA_GRAB_LATEST,
 };
 
-esp_err_t camera_init_board(void)
-{
-    esp_err_t err = esp_camera_init(&camera_config);
-    if (err != ESP_OK)
-    {
-        ESP_LOGE(TAG, "Camera Init Failed");
-        return err;
+esp_err_t camera_init_board(void) {
+    /* Sensor init sometimes NACKs mid-way on a marginal power rail or after
+     * a warm reset; a deinit + retry recovers it in practice. */
+    esp_err_t err = ESP_FAIL;
+    for (int attempt = 1; attempt <= 3; attempt++) {
+        err = esp_camera_init(&camera_config);
+        if (err == ESP_OK)
+            return ESP_OK;
+
+        ESP_LOGW(TAG, "Camera init attempt %d/3 failed: %s", attempt,
+                 esp_err_to_name(err));
+        esp_camera_deinit();
+        vTaskDelay(pdMS_TO_TICKS(500));
     }
 
-    return ESP_OK;
+    ESP_LOGE(TAG, "Camera init failed: %s", esp_err_to_name(err));
+    return err;
 }

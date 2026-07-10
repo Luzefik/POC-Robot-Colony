@@ -11,5 +11,3 @@ set(EXTRA_COMPONENT_DIRS src/components)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 project(robots)
-
-set(IDF_TARGET "esp32")

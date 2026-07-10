@@ -1,0 +1,30 @@
+menu "UGV column configuration"
+
+    config UGV_MODE_SWITCH_GPIO
+        int "Leader/Follower mode switch GPIO (SW1), -1 to disable"
+        range -1 39
+        default -1
+        help
+            GPIO of the SW1 mode switch, read once at boot with an internal
+            pull-up: level 1 selects LEADER mode (Bluetooth gamepad), level 0
+            selects FOLLOWER mode (vision tracking). Set to -1 when the board
+            has no switch; the DEFAULT_ROLE_LEADER define at the top of
+            main/main.c is used instead.
+
+    config UGV_ENABLE_WEB_STREAM
+        bool "Enable Wi-Fi MJPEG debug stream"
+        default n
+        help
+            Starts Wi-Fi (station) and an HTTP server that streams the
+            camera as MJPEG on port 80. Useful to tune the detection, adds
+            latency to the vision pipeline - keep off during normal runs.
+
+    config UGV_WIFI_SSID
+        string "Wi-Fi SSID for the debug stream"
+        default ""
+
+    config UGV_WIFI_PASSWORD
+        string "Wi-Fi password for the debug stream"
+        default ""
+
+endmenu

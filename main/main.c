@@ -2,272 +2,268 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java:
 // https://pvs-studio.com
 
-#include "camera_pinout.h"
 #include "dot_detection.h"
 #include "driving.h"
 #include "esp_camera.h"
 #include "esp_log.h"
 #include "esp_timer.h"
+#include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
-#include "freertos/semphr.h"
 #include "freertos/task.h"
-#include "nvs_flash.h"
+#include "sdkconfig.h"
 #include "take_picture.h"
-#include "web_stream.h"
-#include "wifi_connect.h"
 #include <math.h>
 #include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
+#include <stdlib.h>
 
-#include "driver/i2c.h"
-#include <stdio.h>
-#include <string.h>
+#if CONFIG_UGV_ENABLE_WEB_STREAM
+#include "web_stream.h"
+#include "wifi_connect.h"
+#endif
+
+#if CONFIG_BT_ENABLED
+#include "btstack_port_esp32.h"
+#include "btstack_run_loop.h"
+#include "uni.h"
+struct uni_platform *get_my_platform(void); // driving-logic/my_platform.c
+#endif
+
+#if CONFIG_UGV_MODE_SWITCH_GPIO >= 0
+#include "driver/gpio.h"
+#endif
 
 static const char *TAG = "app";
 
-static void on_wifi_ready(void) {
-  ESP_LOGI(TAG, "Wi-Fi ready → starting WEB STREAM");
-  web_stream_start();
-}
+/* ── Role selection ──────────────────────────────────────────────────────
+ * When no SW1 switch is configured (CONFIG_UGV_MODE_SWITCH_GPIO = -1),
+ * the robot boots into this role. Flip the value and rebuild:
+ *   0 = FOLLOWER (vision tracking), 1 = LEADER (Bluetooth gamepad).
+ * With a switch configured, the GPIO level decides instead (1 = leader). */
+#define DEFAULT_ROLE_LEADER 0
 
 QueueHandle_t dots_detection_queue;
-typedef struct {
-  int16_t turn;
-  int16_t acc;
-  bool valid;
-} Conv;
 
-Conv getData() {
-  BlobResult dots = {0};
-  Conv result = {0, 0, false};
+/* ── Follower control ("Column of Ground Robots", section III.B) ─────────
+ *
+ * Three-stage pipeline at 20 Hz: signal preprocessing (eq. 1-2), velocity
+ * smoothing with dead-zone compensation (eq. 3), and motor mixing (eq. 4).
+ */
+#define CONTROL_PERIOD_MS 50 // 20 Hz control loop
 
-  if (xQueueReceive(dots_detection_queue, &dots, portMAX_DELAY)) {
-    if (dots.blobs[0].count > 0 && dots.blobs[1].count > 0 &&
-        dots.blobs[2].count > 0) {
-      ESP_LOGI(TAG, "Valid data from queue");
-      result.valid = true;
-    } else {
-      ESP_LOGW(TAG, "Invalid data - blobs have zero count");
-      result.valid = false;
-      return result;
-    }
-  } else {
-    ESP_LOGW(TAG, "Queue empty");
-    result.valid = false;
-    return result;
-  }
+#define TURN_DIV 16 // eq. 1: E_turn = x_error / 16
+#define VEL_DIV 4   // eq. 2: E_vel = spacing_error / 4
 
-  result.turn = (int16_t)dots.blobs[1].cord_x;
+#define RAMP_STEP_V 4 // eq. 3: max velocity change per cycle, PWM units
+#define RAMP_STEP_W 2
 
-  float gap_1_y = sqrt(pow(dots.blobs[0].cord_x - dots.blobs[1].cord_x, 2) +
-                       pow(dots.blobs[0].cord_y - dots.blobs[1].cord_y, 2));
-  float gap_2_y = sqrt(pow(dots.blobs[1].cord_x - dots.blobs[2].cord_x, 2) +
-                       pow(dots.blobs[1].cord_y - dots.blobs[2].cord_y, 2));
+#define PWM_DEADZONE 351   // static friction compensation of the gearboxes
+#define MIN_ACTIVE_CMD 3   // commands below this are treated as zero
+#define MAX_V_CMD 120      // clamp for the ramped commands, PWM units
+#define MAX_W_CMD 80
 
-  ESP_LOGI(TAG, "LEFT DOT:   X=%.1f, Y=%.1f", dots.blobs[0].cord_x,
-           dots.blobs[0].cord_y);
-  ESP_LOGI(TAG, "CENTER DOT: X=%.1f, Y=%.1f", dots.blobs[1].cord_x,
-           dots.blobs[1].cord_y);
-  ESP_LOGI(TAG, "RIGHT DOT:  X=%.1f, Y=%.1f", dots.blobs[2].cord_x,
-           dots.blobs[2].cord_y);
+/* Apparent width of the LED triple at the desired following distance.
+ * Larger spacing = leader closer (spacing ~ 1/distance). Tune on hardware. */
+#define TARGET_SPACING_PX 70
+#define SPACING_DEADBAND_PX 8 // hold position inside this error band
 
-  float gap_y = (gap_1_y + gap_2_y) / 2.0f;
+#define SEARCH_AFTER_MS 100 // paper: rotate in place after 100 ms without data
+#define SEARCH_PWM 350
+#define LOST_STOP_MS 3000 // fail-safe: full stop when the leader is gone
 
-  ESP_LOGI(TAG, "gap_1_y: %.1f, gap_2_y: %.1f, gap_y %.1f", gap_1_y, gap_2_y,
-           gap_y);
+/* ── Gamepad state (referenced by driving-logic/my_platform.c) ─────────── */
 
-  // if (gap_y < 75) {
-  //     gap_y = 0;
-  // }
+static volatile bool s_gamepad_connected;
 
-  result.acc = gap_y;
-
-  return result;
+void set_gamepad_connected(bool connected) {
+    s_gamepad_connected = connected;
+    ESP_LOGI(TAG, "Gamepad %s", connected ? "connected" : "disconnected");
+    if (!connected)
+        drive_stop(); // fail-safe: never keep driving without a pilot
 }
 
-int16_t clamp(int x, int min, int max) {
-  if (x < min) {
-    return min;
-  } else if (x >= max) {
-    return max;
-  }
-
-  return x;
-}
+/* ── Detection task ────────────────────────────────────────────────────── */
 
 static void detection_task(void *arg) {
-  while (1) {
-    int64_t start_camera = esp_timer_get_time();
+    int frames = 0;
+    int64_t window_start = esp_timer_get_time();
 
-    camera_fb_t *fb = esp_camera_fb_get();
-    if (!fb) {
-      vTaskDelay(100 / portTICK_PERIOD_MS);
-      continue;
+    while (1) {
+        camera_fb_t *fb = esp_camera_fb_get();
+        if (!fb) {
+            ESP_LOGW(TAG, "Frame grab failed");
+            vTaskDelay(pdMS_TO_TICKS(100));
+            continue;
+        }
+
+        process_image(fb);
+        esp_camera_fb_return(fb);
+
+        /* Compact once-a-second stats instead of per-frame log flood. */
+        frames++;
+        int64_t now = esp_timer_get_time();
+        if (now - window_start >= 1000000) {
+            ESP_LOGI(TAG, "Detection: %.1f fps", frames * 1000000.0f / (now - window_start));
+            frames = 0;
+            window_start = now;
+        }
+
+        vTaskDelay(1);
+    }
+}
+
+/* ── Follower mode ─────────────────────────────────────────────────────── */
+
+static int slew(int cur, int target, int step) {
+    if (cur < target)
+        return (cur + step > target) ? target : cur + step;
+    if (cur > target)
+        return (cur - step < target) ? target : cur - step;
+    return cur;
+}
+
+/* Dead-zone compensation (eq. 3): any non-zero command gets PWM_DEADZONE
+ * added to overcome the static friction of the DC gearboxes. */
+static int apply_deadzone(int cmd) {
+    if (abs(cmd) < MIN_ACTIVE_CMD)
+        return 0;
+    int mag = clampi(abs(cmd), 0, MOTOR_MAX_DUTY - PWM_DEADZONE);
+    return (cmd > 0) ? PWM_DEADZONE + mag : -(PWM_DEADZONE + mag);
+}
+
+static void follower_loop(void) {
+    int v = 0, w = 0;          // ramped velocity / turn commands
+    float last_heading = 0.0f; // last known direction to the leader, px
+    int64_t last_valid_us = esp_timer_get_time();
+    bool stopped_logged = false;
+    TickType_t wake = xTaskGetTickCount();
+
+    for (;;) {
+        BlobResult r;
+        bool valid = xQueueReceive(dots_detection_queue, &r,
+                                   pdMS_TO_TICKS(CONTROL_PERIOD_MS)) == pdTRUE &&
+                     r.valid;
+
+        if (valid) {
+            last_valid_us = esp_timer_get_time();
+            stopped_logged = false;
+
+            /* eq. 1: heading error from the center dot (already frame-centered) */
+            float heading_err = r.dots[1].x;
+            last_heading = heading_err;
+
+            /* eq. 2: distance error from the triple width */
+            float spacing_err = TARGET_SPACING_PX - r.spacing_px; // >0: too far
+
+            int v_target = 0;
+            if (fabsf(spacing_err) > SPACING_DEADBAND_PX)
+                v_target = clampi((int)(spacing_err / VEL_DIV), -MAX_V_CMD, MAX_V_CMD);
+            int w_target = clampi((int)(heading_err / TURN_DIV), -MAX_W_CMD, MAX_W_CMD);
+
+            /* eq. 3: incremental update, no instantaneous state changes */
+            v = slew(v, v_target, RAMP_STEP_V);
+            w = slew(w, w_target, RAMP_STEP_W);
+
+            /* eq. 4: motor mixing */
+            drive_left(apply_deadzone(v + w));
+            drive_right(apply_deadzone(v - w));
+
+            ESP_LOGD(TAG, "x_err=%.0f spacing=%.0f v=%d w=%d", heading_err,
+                     r.spacing_px, v, w);
+        } else {
+            int64_t lost_ms = (esp_timer_get_time() - last_valid_us) / 1000;
+            v = 0;
+            w = 0;
+
+            if (lost_ms > LOST_STOP_MS) {
+                /* Fail-safe: target is gone, stop instead of spinning forever
+                 * (with several robots losing the leader at once, endless
+                 * search mode destroys the column - see paper VI.B). */
+                drive_stop();
+                if (!stopped_logged) {
+                    ESP_LOGW(TAG, "Leader lost for %lld ms - stopping", lost_ms);
+                    stopped_logged = true;
+                }
+            } else if (lost_ms > SEARCH_AFTER_MS) {
+                /* Search mode: rotate in place toward the last known vector. */
+                int dir = (last_heading >= 0) ? 1 : -1;
+                drive_left(dir * SEARCH_PWM);
+                drive_right(-dir * SEARCH_PWM);
+            }
+            /* else: brief dropout, keep the last motor command */
+        }
+
+        vTaskDelayUntil(&wake, pdMS_TO_TICKS(CONTROL_PERIOD_MS));
+    }
+}
+
+static void follower_main(void) {
+    ESP_LOGI(TAG, "Starting in FOLLOWER mode (vision tracking)");
+
+    if (camera_init_board() != ESP_OK) {
+        ESP_LOGE(TAG, "Camera init failed");
+        return;
     }
 
-    int64_t start_algo = esp_timer_get_time();
-    process_image(fb);
-    int64_t end_algo = esp_timer_get_time();
+    dots_detection_queue = xQueueCreate(1, sizeof(BlobResult));
+    if (dots_detection_queue == NULL) {
+        ESP_LOGE(TAG, "Failed to create dots_detection_queue");
+        return;
+    }
 
-    esp_camera_fb_return(fb);
+    motor_init();
 
-    int64_t end_camera = esp_timer_get_time();
+#if CONFIG_UGV_ENABLE_WEB_STREAM
+    wifi_register_got_ip_cb(web_stream_start);
+    wifi_init_sta();
+#endif
 
-    ESP_LOGI(
-        TAG,
-        "CAMERA TIMING - Total: %lld ms, Algo: %lld ms, Get+Return: %lld ms",
-        (end_camera - start_camera) / 1000, (end_algo - start_algo) / 1000,
-        (end_camera - start_camera - (end_algo - start_algo)) / 1000);
+    /* Vision on core 1, control loop stays on core 0 with the main task. */
+    xTaskCreatePinnedToCore(detection_task, "detection", 8192, NULL, 5, NULL, 1);
 
-    vTaskDelay(1);
-  }
+    follower_loop();
+}
+
+/* ── Leader mode ───────────────────────────────────────────────────────── */
+
+static void leader_main(void) {
+#if CONFIG_BT_ENABLED
+    ESP_LOGI(TAG, "Starting in LEADER mode (Bluetooth gamepad)");
+
+    motor_init();
+
+    btstack_init();
+    uni_platform_set_custom(get_my_platform());
+    uni_init(0, NULL);
+
+    btstack_run_loop_execute(); // does not return
+#else
+    ESP_LOGE(TAG, "Leader mode requires CONFIG_BT_ENABLED "
+                  "(see sdkconfig.defaults); staying idle");
+#endif
+}
+
+/* ── Entry point ───────────────────────────────────────────────────────── */
+
+/* SW1 selects leader/follower at boot without reflashing (paper IV.B).
+ * Configure the GPIO via menuconfig: "UGV column configuration". */
+static bool mode_is_leader(void) {
+#if CONFIG_UGV_MODE_SWITCH_GPIO >= 0
+    gpio_config_t cfg = {
+        .pin_bit_mask = 1ULL << CONFIG_UGV_MODE_SWITCH_GPIO,
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_ENABLE,
+    };
+    ESP_ERROR_CHECK(gpio_config(&cfg));
+    vTaskDelay(pdMS_TO_TICKS(10));
+    return gpio_get_level(CONFIG_UGV_MODE_SWITCH_GPIO) == 1;
+#else
+    return DEFAULT_ROLE_LEADER != 0;
+#endif
 }
 
 void app_main(void) {
-  // esp_err_t ret = nvs_flash_init();
-
-  // if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret ==
-  // ESP_ERR_NVS_NEW_VERSION_FOUND) {
-  //     ESP_ERROR_CHECK(nvs_flash_erase());
-  //     ESP_ERROR_CHECK(nvs_flash_init());
-  // }
-  // ESP_ERROR_CHECK(ret);
-
-  if (camera_init_board() != ESP_OK) {
-    ESP_LOGE(TAG, "Camera init failed");
-    return;
-  }
-
-  ESP_LOGI(TAG, "Camera initialized");
-
-  dots_detection_queue = xQueueCreate(1, sizeof(BlobResult));
-  if (dots_detection_queue == NULL) {
-    ESP_LOGE(TAG, "Failed to create dots_detection_queue");
-    return;
-  }
-  ESP_LOGI(TAG, "Queue created successfully");
-
-  motor_init();
-  ESP_LOGI(TAG, "Motors initialized");
-
-  xTaskCreate(detection_task, "detection", 8192, NULL, 5, NULL);
-
-  // lcd_status_print(0);
-
-  // wifi_register_got_ip_cb(on_wifi_ready);
-  // wifi_init_sta();
-
-  static int16_t turn = 0;
-  static int16_t speed = 0;
-  static bool prev_detected = false;
-  int64_t start_loop = esp_timer_get_time();
-  // float Kp_turn = 1.5;
-  // float Kp_speed = 1.0;
-  for (;;) {
-    // -512 <-> 512
-    // 508 бо джойстик у нульовій позиціє для X та Y маюьть по 4 одиниці
-    Conv data = getData();
-    int64_t after_getData = esp_timer_get_time();
-
-    if (data.valid && data.acc < 70) {
-      ESP_LOGI(TAG, "TARGET NEAR (y=%d) - STOPPING", data.acc);
-      speed = 0;
-      turn = 0;
-      motor(0, 0);
-      motor(1, 0);
-      motor(2, 0);
-      motor(3, 0);
-      start_loop = esp_timer_get_time();
-      continue;
-    }
-
-    int16_t pacc = clamp(data.acc, -508, 508) / 8;
-    int16_t px = clamp(data.turn, -508, 508) / 8;
-    // static int16_t lastc;
-    // if (data.valid) {lastc = px/25;}
-
-    int64_t curr_timer = esp_timer_get_time();
-    if (curr_timer - start_loop > 50) {
-      ESP_LOGW(TAG, "LOOP TIME EXCEEDED: %lld ms",
-               (curr_timer - start_loop) / 1000);
-      ESP_LOGW(TAG, "Data: %lld", curr_timer - start_loop);
-    }
-    static bool flag = 0;
-    if (!data.valid) {
-      // if (flag < 3) {
-      //     motor(0, 0);
-      //     motor(1, 0);
-      //     motor(2, 0);
-      //     motor(3, 0);
-      //     flag++;
-      // } else {
-      //     // flag += abs(lastc);
-      if (turn <= 0) {
-        motor(0, 0);
-        motor(1, 0);
-        motor(2, 370);
-        motor(3, 0);
-      } else {
-        motor(0, 370);
-        motor(1, 0);
-        motor(2, 0);
-        motor(3, 0);
-      }
-      flag = 1;
-      if (flag) {
-        if (turn <= 0) {
-          motor(0, 300 + px / 3);
-          motor(1, 0);
-          motor(2, 0);
-          motor(3, 0);
-        } else {
-          motor(0, 0);
-          motor(1, 0);
-          motor(2, 300 + px / 3);
-          motor(3, 0);
-        }
-        flag = 0;
-      }
-    } else {
-      if (pacc > 0) {
-        pacc += 351;
-      }
-
-      if (speed < pacc) {
-        speed += 4;
-      }
-      if (speed > pacc) {
-        speed -= 4;
-      }
-
-      if (0 < speed && speed < 351 && pacc) {
-        speed = 351;
-      }
-      px = clamp(px, -64, 63);
-      if (px > turn) {
-        turn += 4;
-      }
-      if (px < turn) {
-        turn -= 4;
-      }
-
-      motor(0, speed + (turn));
-      motor(1, 0);
-      motor(2, speed - (turn));
-      motor(3, 0);
-    }
-
-    int64_t end_loop = esp_timer_get_time();
-    int64_t loop_duration = (end_loop - start_loop) / 1000;
-    int64_t getData_time = (after_getData - start_loop) / 1000;
-
-    ESP_LOGI(TAG,
-             "MOTOR LOOP - Total: %lld ms, getData: %lld ms, Turn: %d, Speed: "
-             "%d, Valid: %d",
-             loop_duration, getData_time, turn, speed, data.valid);
-
-    start_loop = esp_timer_get_time();
-    // vTaskDelay(50 / portTICK_PERIOD_MS);
-  }
+    if (mode_is_leader())
+        leader_main();
+    else
+        follower_main();
 }

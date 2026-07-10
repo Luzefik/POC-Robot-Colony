@@ -9,6 +9,10 @@ This module detects up to 3 red dots in real-time camera frames using chrominanc
 **Key Features:**
 - Single-pass pixel scanning with spatial clustering
 - YUV422 (YUYV) native format processing (no color conversion needed)
+- Horizontal 5-tap Gaussian on the Y channel (noise suppression, frame kept intact)
+- Geometric validation of the LED triple (horizontal, wide enough, symmetric)
+- Temporal gating: the triple cannot teleport or change scale in one frame
+- EMA smoothing (alpha = 0.8) against frame-to-frame jitter
 - Tracking persistence across temporary detection failures
 - Image-centered coordinate output for robot navigation
 
@@ -37,14 +41,16 @@ This module detects up to 3 red dots in real-time camera frames using chrominanc
                           │
                           ▼
 ┌─────────────────────────────────────────────────────────────┐
-│ PASS 3: Selection & Sorting                                 │
-│   - Sort blobs by X coordinate (left → right)               │
-│   - Select top 3 as LEFT, CENTER, RIGHT                     │
+│ PASS 3: Geometric Validation & Triple Selection             │
+│   - Triple must be near-horizontal (Δy < 20 px)             │
+│   - Wide enough (> 20 px), center dot near the middle       │
+│   - While tracking: reject jumps > 80 px and scale changes  │
+│     outside 0.6–1.6× (stops locking onto other red objects) │
 └─────────────────────────────────────────────────────────────┘
                           │
                           ▼
 ┌─────────────────────────────────────────────────────────────┐
-│ PASS 4: Coordinate Transform                                │
+│ PASS 4: EMA Smoothing (α = 0.8) + Coordinate Transform      │
 │   - Origin at image center                                  │
 │   - +X right, -X left, +Y up, -Y down                       │
 └─────────────────────────────────────────────────────────────┘
@@ -75,25 +81,26 @@ BlobResult process_image(camera_fb_t *fb);
 
 ### Data Structures
 
-#### `struct Blob`
+#### `DetectedDot`
 ```c
-struct Blob {
-    float cord_x;   // X coordinate (image-centered)
-    float cord_y;   // Y coordinate (image-centered)
-    int sum_x;      // Internal: sum of X coords (for centroid)
-    int sum_y;      // Internal: sum of Y coords
-    int count;      // Number of pixels in blob
-};
+typedef struct {
+    float x;    // X coordinate (image-centered, right positive)
+    float y;    // Y coordinate (image-centered, up positive)
+    int count;  // Number of pixels in the blob
+} DetectedDot;
 ```
 
 #### `BlobResult`
 ```c
 typedef struct {
-    struct Blob blobs[3];  // [0]=LEFT, [1]=CENTER, [2]=RIGHT
+    bool valid;           // true only for a geometrically consistent triple
+    DetectedDot dots[3];  // [0]=LEFT, [1]=CENTER, [2]=RIGHT
+    float spacing_px;     // dots[2].x - dots[0].x; grows as leader gets closer
 } BlobResult;
 ```
 
-**Blob ordering:** Sorted by X coordinate (leftmost first).
+**Dot ordering:** Sorted by X coordinate (leftmost first). Always check
+`valid` before using the coordinates.
 
 **Coordinate system:**
 ```
@@ -129,6 +136,12 @@ All parameters are defined as macros in `dot_detection.c`:
 | `MIN_BLOB_PIXELS` | 5 | Minimum pixels to consider valid blob |
 | `CLUSTER_RADIUS` | 50 | Max distance (px) to merge pixels into same blob |
 | `SCAN_STEP` | 2 | Pixel skip factor (1=full, 2=half resolution) |
+| `GEO_MAX_DY` | 20 | Max vertical spread inside the triple (px) |
+| `GEO_MIN_WIDTH` | 20 | Min horizontal width of the triple (px) |
+| `GEO_SYM_TOL` | 0.35 | Center-dot symmetry tolerance (fraction of width) |
+| `TRACK_MAX_JUMP_PX` | 80 | Max center displacement between frames (px) |
+| `TRACK_SCALE_MIN/MAX` | 0.6 / 1.6 | Accepted width change between frames |
+| `EMA_ALPHA` | 0.8 | Weight of the new measurement in the output |
 | `MAX_BLIND_FRAMES` | 5 | Frames to retain last position on detection loss |
 
 ## Color Detection
@@ -242,12 +255,12 @@ void navigation_task(void *arg) {
     BlobResult result;
 
     while (1) {
-        if (xQueueReceive(dots_detection_queue, &result, portMAX_DELAY)) {
-            float left_x = result.blobs[0].cord_x;
-            float center_x = result.blobs[1].cord_x;
-            float right_x = result.blobs[2].cord_x;
+        if (xQueueReceive(dots_detection_queue, &result, pdMS_TO_TICKS(50)) &&
+            result.valid) {
+            float heading_err = result.dots[1].x; // px, >0: leader to the right
+            float spacing = result.spacing_px;    // grows as the leader closes in
 
-            // Use positions for navigation...
+            // Use for navigation... (see follower_loop in main.c)
         }
     }
 }

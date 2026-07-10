@@ -1,21 +1,30 @@
-// This is a personal academic project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
+#pragma once
 
 #include "esp_camera.h"
 #include <stdbool.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/queue.h"
 
-struct Blob {
-    float cord_x;
-    float cord_y;
-    int sum_x;
-    int sum_y;
-    int count;
-};
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* One detected LED marker, in image-centered coordinates:
+ * x: left negative / right positive, y: down negative / up positive. */
+typedef struct {
+    float x;
+    float y;
+    int count; /* pixels in the blob */
+} DetectedDot;
 
 typedef struct {
-    struct Blob blobs[3];
-}BlobResult;
+    bool valid;
+    DetectedDot dots[3]; /* ordered left, center, right */
+    float spacing_px;    /* dots[2].x - dots[0].x; grows as the leader gets closer */
+} BlobResult;
 
-BlobResult process_image(camera_fb_t * fb);
+/* Detect the three-LED reference on a YUV422 (YUYV) frame and publish the
+ * result to dots_detection_queue (single-slot, overwrite semantics). */
+BlobResult process_image(camera_fb_t *fb);
+
+#ifdef __cplusplus
+}
+#endif

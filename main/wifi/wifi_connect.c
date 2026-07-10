@@ -6,10 +6,11 @@
 #include "nvs_flash.h"
 #include "esp_log.h"
 #include "esp_netif.h"
+#include "sdkconfig.h"
 
-
-#define WIFI_SSID "(*******)"
-#define WIFI_PASS "********"
+/* Set via: idf.py menuconfig -> "UGV column configuration" */
+#define WIFI_SSID CONFIG_UGV_WIFI_SSID
+#define WIFI_PASS CONFIG_UGV_WIFI_PASSWORD
 
 static const char *TAG = "wifi_init";
 static void (*g_got_ip_cb)(void) = NULL;
@@ -33,7 +34,7 @@ static void on_got_ip(void *arg, esp_event_base_t event_base, int32_t event_id, 
     }
 }
 
-void wifi_init_sta(void) {
+esp_err_t wifi_init_sta(void) {
     // INIT NVS (
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
@@ -66,6 +67,7 @@ void wifi_init_sta(void) {
     // Start
     ESP_ERROR_CHECK(esp_wifi_start());
     ESP_LOGI(TAG, "Wi-Fi initialization done.");
+    return ESP_OK;
 }
 void wifi_register_got_ip_cb(void (*cb)(void))
 {

@@ -1,0 +1,32 @@
+# Board configuration for the UGV column (Freenove ESP32-WROVER).
+# The generated sdkconfig is NOT committed; it is recreated from this file
+# on the first build. After editing, run:  idf.py fullclean && idf.py build
+# (or delete sdkconfig) so the changes are picked up.
+
+CONFIG_IDF_TARGET="esp32"
+
+# CPU / performance: the vision pipeline must fit the 20 Hz control loop.
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
+CONFIG_FREERTOS_HZ=1000
+
+# Flash: WROVER has 4 MB; the app (BT + camera + HTTP) needs the large layout.
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y
+
+# PSRAM: WROVER has 8 MB; required for the camera framebuffers
+# (CAMERA_FB_IN_PSRAM in main/camera-logic/take_picture.c).
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_USE_CAPS_ALLOC=y
+
+# Bluetooth: controller-only mode. BTstack is the host stack and Bluepad32
+# provides the gamepad support on top of it (leader mode).
+CONFIG_BT_ENABLED=y
+CONFIG_BT_CONTROLLER_ONLY=y
+CONFIG_BTDM_CTRL_MODE_BTDM=y
+
+# Bluepad32 must use the "custom" platform: main.c registers its own
+# callbacks via uni_platform_set_custom() (driving-logic/my_platform.c).
+CONFIG_BLUEPAD32_PLATFORM_CUSTOM=y
+
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=4096

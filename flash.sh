@@ -17,7 +17,7 @@ esptool -p "$PORT" -b 460800 \
   --chip esp32 \
   write-flash \
   --flash-mode dio \
-  --flash-size 2MB \
+  --flash-size detect \
   --flash-freq 40m \
   0x1000 build/bootloader/bootloader.bin \
   0x8000 build/partition_table/partition-table.bin \
