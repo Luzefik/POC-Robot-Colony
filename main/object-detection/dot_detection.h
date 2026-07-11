@@ -34,6 +34,36 @@ BlobResult dot_detection_get_last(void);
  * (http://<robot>.local/mask) and tune the thresholds against reality. */
 void dot_detection_paint_mask(camera_fb_t *fb);
 
+/* ── Живі параметри детекції ─────────────────────────────────────────────
+ * Всі пороги можна міняти на льоту зі сторінки /tune (без перепрошивки).
+ * "Зберегти" на сторінці пише їх у NVS; при старті вони звантажуються
+ * назад. Відтюнені значення варто перенести в код як нові дефолти
+ * (dot_detection.c, блок DEF_*). */
+
+typedef struct {
+    /* пороги "червоності" (YUV) */
+    int red_v_min;  /* V (Cr): високий = червоне */
+    int red_u_max;  /* U (Cb): низький = не синє */
+    int luma_min;   /* Y: мінімальна яскравість */
+    int min_blob_px; /* менші плями - шум */
+    /* геометрія трійки */
+    float geo_max_dy;    /* мін. допуск по вертикалі, px */
+    float geo_dy_frac;   /* + частка ширини (нахил планки) */
+    float geo_min_width; /* мінімальна ширина трійки, px */
+    float geo_sym_tol;   /* симетрія центру, частка ширини */
+    /* трекінг */
+    float trk_max_jump;  /* макс. стрибок центру за кадр, px */
+    float trk_scale_min; /* межі зміни розміру за кадр */
+    float trk_scale_max;
+    float ema_alpha;     /* вага нового виміру в згладжуванні */
+} detect_params_t;
+
+detect_params_t dot_detection_get_params(void);
+void dot_detection_set_params(const detect_params_t *p);
+void dot_detection_params_reset(void); /* повернути дефолти з коду */
+void dot_detection_params_load(void);  /* з NVS (кличеться при старті) */
+esp_err_t dot_detection_params_save(void); /* у NVS */
+
 #ifdef __cplusplus
 }
 #endif

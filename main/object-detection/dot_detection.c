@@ -22,6 +22,7 @@
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
+#include "nvs.h"
 #include <float.h>
 #include <math.h>
 #include <stdlib.h>
@@ -31,36 +32,125 @@ static const char *TAG = "blob_detect";
 
 extern QueueHandle_t dots_detection_queue;
 
-/* ── Налаштування (тюнити тут; перевіряти наживо через /mask і /log) ───── */
+/* ── Налаштування ────────────────────────────────────────────────────────
+ * DEF_* - дефолти, зашиті в код. Реальні робочі значення живуть у
+ * g_params і міняються НАЖИВО зі сторінки /tune (перевіряй через /mask
+ * і /log). Кнопка "зберегти" на /tune пише їх у NVS; відтюнене вартує
+ * перенести сюди як нові дефолти. */
 
 // Пороги "червоності" пікселя (простір YUV)
-#define RED_V_MIN 150 // канал V (Cr): високий = червоне
-#define RED_U_MAX 100 // канал U (Cb): низький = не синє/фіолетове
-#define LUMA_MIN 50   // канал Y: мінімальна яскравість (відсіює темне)
+#define DEF_RED_V_MIN 150 // канал V (Cr): високий = червоне
+#define DEF_RED_U_MAX 100 // канал U (Cb): низький = не синє/фіолетове
+#define DEF_LUMA_MIN 50   // канал Y: мінімальна яскравість (відсіює темне)
 
 // Кластеризація плям
-#define MAX_BLOBS 10      // скільки плям трекаємо одночасно
-#define MIN_BLOB_PIXELS 5 // менші плями - шум, викидаємо
+#define MAX_BLOBS 10          // скільки плям трекаємо одночасно
+#define DEF_MIN_BLOB_PIXELS 5 // менші плями - шум, викидаємо
 #define CLUSTER_RADIUS 50 // пікселі ближче цього зливаються в одну пляму
 
 // Прискорення сканування
 #define SCAN_STEP 2 // крок по пікселях (1 = кожен, 2 = через один)
 
 // Геометрична перевірка трійки ліхтариків
-#define GEO_MAX_DY 20.0f     // мінімальний допуск по вертикалі, px
-#define GEO_MAX_DY_FRAC 0.3f // ...і росте з шириною трійки: якщо камера
-                             // або планка нахилені, лінія теж нахилена
-#define GEO_MIN_WIDTH 20.0f  // трійка вужча за це - випадкові плями
-#define GEO_SYM_TOL 0.35f    // центр посередині: |d_лів - d_прав| <= tol * ширина
+#define DEF_GEO_MAX_DY 20.0f     // мінімальний допуск по вертикалі, px
+#define DEF_GEO_MAX_DY_FRAC 0.3f // ...і росте з шириною трійки (нахил)
+#define DEF_GEO_MIN_WIDTH 20.0f  // трійка вужча за це - випадкові плями
+#define DEF_GEO_SYM_TOL 0.35f    // центр: |d_лів - d_прав| <= tol * ширина
 
 // Захист від "перестрибування" на чужий об'єкт під час трекінгу
-#define TRACK_MAX_JUMP_PX 80.0f // ціль не може телепортнутись за кадр
-#define TRACK_SCALE_MIN 0.6f    // і не може різко змінити розмір
-#define TRACK_SCALE_MAX 1.6f
+#define DEF_TRACK_MAX_JUMP_PX 80.0f // ціль не телепортується за кадр
+#define DEF_TRACK_SCALE_MIN 0.6f    // і не міняє розмір стрибком
+#define DEF_TRACK_SCALE_MAX 1.6f
 #define MAX_BLIND_FRAMES 5 // скільки кадрів тримаємо стару позицію при збої
 
 // Згладжування виходу
-#define EMA_ALPHA 0.8f // вага нового виміру (0.8 нове + 0.2 старе)
+#define DEF_EMA_ALPHA 0.8f // вага нового виміру (0.8 нове + 0.2 старе)
+
+#define PARAMS_NVS_NAMESPACE "detect"
+#define PARAMS_NVS_KEY "params_v1"
+
+static const detect_params_t DEFAULT_PARAMS = {
+    .red_v_min = DEF_RED_V_MIN,
+    .red_u_max = DEF_RED_U_MAX,
+    .luma_min = DEF_LUMA_MIN,
+    .min_blob_px = DEF_MIN_BLOB_PIXELS,
+    .geo_max_dy = DEF_GEO_MAX_DY,
+    .geo_dy_frac = DEF_GEO_MAX_DY_FRAC,
+    .geo_min_width = DEF_GEO_MIN_WIDTH,
+    .geo_sym_tol = DEF_GEO_SYM_TOL,
+    .trk_max_jump = DEF_TRACK_MAX_JUMP_PX,
+    .trk_scale_min = DEF_TRACK_SCALE_MIN,
+    .trk_scale_max = DEF_TRACK_SCALE_MAX,
+    .ema_alpha = DEF_EMA_ALPHA,
+};
+
+static portMUX_TYPE g_params_mux = portMUX_INITIALIZER_UNLOCKED;
+static detect_params_t g_params = {
+    .red_v_min = DEF_RED_V_MIN,
+    .red_u_max = DEF_RED_U_MAX,
+    .luma_min = DEF_LUMA_MIN,
+    .min_blob_px = DEF_MIN_BLOB_PIXELS,
+    .geo_max_dy = DEF_GEO_MAX_DY,
+    .geo_dy_frac = DEF_GEO_MAX_DY_FRAC,
+    .geo_min_width = DEF_GEO_MIN_WIDTH,
+    .geo_sym_tol = DEF_GEO_SYM_TOL,
+    .trk_max_jump = DEF_TRACK_MAX_JUMP_PX,
+    .trk_scale_min = DEF_TRACK_SCALE_MIN,
+    .trk_scale_max = DEF_TRACK_SCALE_MAX,
+    .ema_alpha = DEF_EMA_ALPHA,
+};
+
+detect_params_t dot_detection_get_params(void) {
+    taskENTER_CRITICAL(&g_params_mux);
+    detect_params_t copy = g_params;
+    taskEXIT_CRITICAL(&g_params_mux);
+    return copy;
+}
+
+void dot_detection_set_params(const detect_params_t *p) {
+    taskENTER_CRITICAL(&g_params_mux);
+    g_params = *p;
+    taskEXIT_CRITICAL(&g_params_mux);
+}
+
+void dot_detection_params_reset(void) {
+    dot_detection_set_params(&DEFAULT_PARAMS);
+    ESP_LOGI(TAG, "Detection params reset to defaults");
+}
+
+void dot_detection_params_load(void) {
+    nvs_handle_t h;
+    if (nvs_open(PARAMS_NVS_NAMESPACE, NVS_READONLY, &h) != ESP_OK)
+        return; // ще нічого не зберігали - лишаються дефолти
+
+    detect_params_t p;
+    size_t len = sizeof(p);
+    if (nvs_get_blob(h, PARAMS_NVS_KEY, &p, &len) == ESP_OK &&
+        len == sizeof(p)) {
+        dot_detection_set_params(&p);
+        ESP_LOGI(TAG, "Detection params loaded from NVS "
+                      "(V>=%d U<%d Y>%d)", p.red_v_min, p.red_u_max,
+                 p.luma_min);
+    }
+    nvs_close(h);
+}
+
+esp_err_t dot_detection_params_save(void) {
+    nvs_handle_t h;
+    esp_err_t err = nvs_open(PARAMS_NVS_NAMESPACE, NVS_READWRITE, &h);
+    if (err != ESP_OK)
+        return err;
+
+    detect_params_t p = dot_detection_get_params();
+    err = nvs_set_blob(h, PARAMS_NVS_KEY, &p, sizeof(p));
+    if (err == ESP_OK)
+        err = nvs_commit(h);
+    nvs_close(h);
+
+    ESP_LOGI(TAG, "Detection params %s to NVS",
+             err == ESP_OK ? "saved" : "SAVE FAILED");
+    return err;
+}
 
 /* ── Внутрішні типи і стан ─────────────────────────────────────────────── */
 
@@ -86,8 +176,9 @@ static Candidate track_dots[3];
 
 /* ── Helpers ───────────────────────────────────────────────────────────── */
 
-static inline bool is_red_pixel(uint8_t y, uint8_t u, uint8_t v) {
-    return (v >= RED_V_MIN) && (u < RED_U_MAX) && (y > LUMA_MIN);
+static inline bool is_red_pixel(const detect_params_t *P, uint8_t y,
+                                uint8_t u, uint8_t v) {
+    return (v >= P->red_v_min) && (u < P->red_u_max) && (y > P->luma_min);
 }
 
 /* Horizontal 5-tap Gaussian (1 4 6 4 1)/16 over the Y channel of one YUYV
@@ -158,7 +249,8 @@ static struct {
 
 /* Pick the candidate triple that best matches the LED reference geometry.
  * Returns true and fills out[3] (ordered left/center/right) on success. */
-static bool select_triple(const Candidate *c, int n, Candidate out[3]) {
+static bool select_triple(const detect_params_t *P, const Candidate *c, int n,
+                          Candidate out[3]) {
     float best_score = FLT_MAX;
     bool found = false;
 
@@ -177,7 +269,7 @@ static bool select_triple(const Candidate *c, int n, Candidate out[3]) {
 
                 /* Sufficient total width. */
                 float width = t[2]->x - t[0]->x;
-                if (width < GEO_MIN_WIDTH) {
+                if (width < P->geo_min_width) {
                     g_rejects.width++;
                     continue;
                 }
@@ -187,7 +279,7 @@ static bool select_triple(const Candidate *c, int n, Candidate out[3]) {
                  * whole line. */
                 float ymin = fminf(t[0]->y, fminf(t[1]->y, t[2]->y));
                 float ymax = fmaxf(t[0]->y, fmaxf(t[1]->y, t[2]->y));
-                float max_dy = fmaxf(GEO_MAX_DY, GEO_MAX_DY_FRAC * width);
+                float max_dy = fmaxf(P->geo_max_dy, P->geo_dy_frac * width);
                 if (ymax - ymin > max_dy) {
                     g_rejects.dy++;
                     continue;
@@ -196,7 +288,7 @@ static bool select_triple(const Candidate *c, int n, Candidate out[3]) {
                 /* Center dot roughly in the middle (1:1 spacing). */
                 float d_left = t[1]->x - t[0]->x;
                 float d_right = t[2]->x - t[1]->x;
-                if (fabsf(d_left - d_right) > GEO_SYM_TOL * width) {
+                if (fabsf(d_left - d_right) > P->geo_sym_tol * width) {
                     g_rejects.sym++;
                     continue;
                 }
@@ -206,13 +298,13 @@ static bool select_triple(const Candidate *c, int n, Candidate out[3]) {
                     /* Gate against the last confirmed detection: the leader
                      * cannot teleport or change apparent size in one frame. */
                     float scale = width / track_width;
-                    if (scale < TRACK_SCALE_MIN || scale > TRACK_SCALE_MAX) {
+                    if (scale < P->trk_scale_min || scale > P->trk_scale_max) {
                         g_rejects.scale++;
                         continue;
                     }
 
                     float jump = hypotf(t[1]->x - track_cx, t[1]->y - track_cy);
-                    if (jump > TRACK_MAX_JUMP_PX) {
+                    if (jump > P->trk_max_jump) {
                         g_rejects.jump++;
                         continue;
                     }
@@ -262,6 +354,7 @@ void dot_detection_paint_mask(camera_fb_t *fb) {
     if (!fb || !fb->buf || fb->format != PIXFORMAT_YUV422)
         return;
 
+    const detect_params_t P = dot_detection_get_params();
     const int width = fb->width;
     const int height = fb->height;
     uint8_t *buf = fb->buf;
@@ -276,10 +369,10 @@ void dot_detection_paint_mask(camera_fb_t *fb) {
             int pair_base = (x & ~1) * 2;
             uint8_t U = row[pair_base + 1];
             uint8_t V = row[pair_base + 3];
-            if (V < RED_V_MIN || U >= RED_U_MAX)
+            if (V < P.red_v_min || U >= P.red_u_max)
                 continue;
 
-            if (is_red_pixel(blurred_luma(row, x, width), U, V)) {
+            if (is_red_pixel(&P, blurred_luma(row, x, width), U, V)) {
                 row[x * 2] = 255; // bright green marker
                 row[pair_base + 1] = 0;
                 row[pair_base + 3] = 0;
@@ -303,6 +396,10 @@ BlobResult process_image(camera_fb_t *fb) {
         return send_result(&result);
     }
 
+    /* Знімок параметрів на весь кадр: /tune може міняти їх у будь-яку
+     * мить, а кадр має оброблятись одним узгодженим набором. */
+    const detect_params_t P = dot_detection_get_params();
+
     const int width = fb->width;
     const int height = fb->height;
     const uint8_t *buf = fb->buf;
@@ -324,11 +421,11 @@ BlobResult process_image(camera_fb_t *fb) {
 
             uint8_t U = row[pair_base + 1];
             uint8_t V = row[pair_base + 3];
-            if (V < RED_V_MIN || U >= RED_U_MAX)
+            if (V < P.red_v_min || U >= P.red_u_max)
                 continue; // cheap chroma reject before the blur
 
             uint8_t Y = blurred_luma(row, x, width);
-            if (is_red_pixel(Y, U, V))
+            if (is_red_pixel(&P, Y, U, V))
                 add_pixel_to_blobs(blobs, &active_blobs, x, y);
         }
     }
@@ -339,7 +436,7 @@ BlobResult process_image(camera_fb_t *fb) {
     int candidate_count = 0;
 
     for (int i = 0; i < active_blobs; i++) {
-        if (blobs[i].count >= MIN_BLOB_PIXELS) {
+        if (blobs[i].count >= P.min_blob_px) {
             candidates[candidate_count].x = (float)blobs[i].sum_x / blobs[i].count;
             candidates[candidate_count].y = (float)blobs[i].sum_y / blobs[i].count;
             candidates[candidate_count].count = blobs[i].count;
@@ -350,7 +447,8 @@ BlobResult process_image(camera_fb_t *fb) {
     /* ── Pass 3: geometric validation and triple selection ─────────────── */
 
     Candidate triple[3];
-    bool found = candidate_count >= 3 && select_triple(candidates, candidate_count, triple);
+    bool found = candidate_count >= 3 &&
+                 select_triple(&P, candidates, candidate_count, triple);
 
     if (!found && candidate_count >= 3) {
         /* Blobs exist but no triple passed - explain why, once a second. */
@@ -386,12 +484,13 @@ BlobResult process_image(camera_fb_t *fb) {
         return send_result(&result); // valid = false
     }
 
-    /* ── Pass 4: EMA smoothing alpha = 0.8 ────────────────────── */
+    /* ── Pass 4: EMA smoothing ──────────────────────────────────────────── */
 
     if (has_valid_track) {
+        float a = P.ema_alpha;
         for (int i = 0; i < 3; i++) {
-            triple[i].x = EMA_ALPHA * triple[i].x + (1.0f - EMA_ALPHA) * track_dots[i].x;
-            triple[i].y = EMA_ALPHA * triple[i].y + (1.0f - EMA_ALPHA) * track_dots[i].y;
+            triple[i].x = a * triple[i].x + (1.0f - a) * track_dots[i].x;
+            triple[i].y = a * triple[i].y + (1.0f - a) * track_dots[i].y;
         }
     }
 

@@ -5,6 +5,7 @@ idf_component_register(
         "camera-logic/take_picture.c"
         "wifi/web_stream.c"
         "wifi/web_log.c"
+        "wifi/web_tune.c"
         "driving-logic/driving.cpp"
         "object-detection/dot_detection.c"
         "driving-logic/my_platform.c"

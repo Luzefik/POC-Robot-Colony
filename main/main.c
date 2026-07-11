@@ -235,6 +235,9 @@ static void follower_main(void) {
      * хотспоті - сам знаходить канал відправника скануванням. */
     column_link_init(true);
 
+    /* Відтюнені на /tune і збережені пороги детекції (якщо є в NVS) */
+    dot_detection_params_load();
+
     if (camera_init_board() != ESP_OK) {
         ESP_LOGE(TAG, "Camera init failed");
         return;

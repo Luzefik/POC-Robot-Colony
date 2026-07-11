@@ -1,6 +1,7 @@
 
 #include "dot_detection.h"
 #include "web_log.h"
+#include "web_tune.h"
 #include "esp_camera.h"
 #include "esp_http_server.h"
 #include "esp_log.h"
@@ -162,29 +163,73 @@ esp_err_t jpg_stream_httpd_handler(httpd_req_t *req) {
     return res;
 }
 
+/* Головна сторінка: стрім + піпетка. Клік по картинці -> /probe -> показує
+ * реальні Y/U/V пікселя і чи проходить він пороги. Так пороги на /tune
+ * підбираються за фактами, а не навмання. */
+static const char INDEX_HTML[] =
+"<!DOCTYPE html><html><head><meta charset='utf-8'>"
+"<meta name='viewport' content='width=device-width,initial-scale=1'>"
+"<title>UGV stream</title><style>"
+"body{background:#111;color:#ddd;font:14px monospace;margin:0;padding:10px}"
+"a{color:#7c7}img{max-width:100%;image-rendering:pixelated;cursor:crosshair}"
+"#i{margin:6px 0;color:#9c9;min-height:1.4em}"
+"#i b.red{color:#f66}#i b.ok{color:#6f6}</style></head><body>"
+"<div><a href='/mask'>маска</a> | <a href='/tune'>тюнінг</a> | "
+"<a href='/log'>лог</a> &nbsp; <small>клік по картинці = піпетка "
+"(Y/U/V пікселя)</small></div>"
+"<div id='i'>&nbsp;</div>"
+"<img id='s' src='/stream'>"
+"<script>"
+"const img=document.getElementById('s'),info=document.getElementById('i');"
+"img.onclick=async e=>{"
+"const r=img.getBoundingClientRect();"
+"const p=await(await fetch('/probe?x=0&y=0')).json();"
+"if(!p.w){info.textContent='нема кадру';return;}"
+"const x=Math.floor((e.clientX-r.left)*p.w/r.width);"
+"const y=Math.floor((e.clientY-r.top)*p.h/r.height);"
+"const q=await(await fetch(`/probe?x=${x}&y=${y}`)).json();"
+"if(q.error){info.textContent=q.error;return;}"
+"info.innerHTML=`(${q.x},${q.y}) Y=${q.Y} U=${q.U} V=${q.V} &rarr; `+"
+"(q.red?'<b class=ok>проходить пороги (червоне)</b>'"
+":'<b class=red>НЕ проходить пороги</b>');};"
+"</script></body></html>";
+
+static esp_err_t index_handler(httpd_req_t *req) {
+    httpd_resp_set_type(req, "text/html");
+    return httpd_resp_send(req, INDEX_HTML, HTTPD_RESP_USE_STRLEN);
+}
+
 static httpd_handle_t start_webserver(void) {
     httpd_handle_t server = NULL;
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
     config.lru_purge_enable = true;
+    config.max_uri_handlers = 16;
 
     if (httpd_start(&server, &config) == ESP_OK) {
+        const httpd_uri_t index_uri = {
+            .uri = "/", .method = HTTP_GET, .handler = index_handler
+        };
+        httpd_register_uri_handler(server, &index_uri);
+
+        /* Сирий MJPEG-потік (його показує <img> на головній) */
         httpd_uri_t stream_uri = {
-            .uri = "/",
+            .uri = "/stream",
             .method = HTTP_GET,
             .handler = jpg_stream_httpd_handler,
             .user_ctx = NULL
         };
         httpd_register_uri_handler(server, &stream_uri);
 
-        /* Threshold-mask debug view at /mask (any non-NULL ctx enables it) */
+        /* Той самий потік, але з зафарбованою маскою порогів */
         static httpd_uri_t mask_uri;
         mask_uri = stream_uri;
         mask_uri.uri = "/mask";
         mask_uri.user_ctx = (void *)1;
         httpd_register_uri_handler(server, &mask_uri);
 
-        /* Device log at /log (page) and /log.txt (raw) */
+        /* Лог на /log, тюнінг на /tune, піпетка на /probe */
         web_log_register(server);
+        web_tune_register(server);
     }
     return server;
 }
