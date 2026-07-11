@@ -5,6 +5,7 @@
 #   ./ugv.sh flash [PORT]     flash from the host with esptool
 #   ./ugv.sh monitor [PORT]   serial monitor (tio if installed, else pyserial)
 #   ./ugv.sh all [PORT]       build + flash + monitor
+#   ./ugv.sh clean            full clean (removes all build artifacts)
 #   ./ugv.sh shell            interactive idf.py shell inside the container
 #
 # PORT is auto-detected (first USB serial adapter) when omitted.
@@ -70,6 +71,7 @@ case "$cmd" in
     flash)   do_flash "$port" ;;
     monitor) do_monitor "$port" ;;
     all)     do_build; do_flash "$port"; do_monitor "$port" ;;
+    clean)   compose run --rm build idf.py fullclean ;;
     shell)   compose run --rm build bash ;;
-    *)       echo "Usage: ./ugv.sh [build|flash|monitor|all|shell] [PORT]"; exit 1 ;;
+    *)       echo "Usage: ./ugv.sh [build|flash|monitor|all|clean|shell] [PORT]"; exit 1 ;;
 esac

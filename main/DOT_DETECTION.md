@@ -177,6 +177,27 @@ A pixel is classified as red when:
 **False positives (orange/pink):** Raise `RED_V_MIN` or lower `RED_U_MAX`
 **Dark red not detected:** Lower `LUMA_MIN`
 
+### Live tuning workflow (no cable needed)
+
+1. Enable the debug stream (menuconfig → `UGV_ENABLE_WEB_STREAM` + Wi-Fi
+   credentials) and open the robot's pages in a browser:
+   - `http://ugv-XXXX.local/mask` — every pixel passing the thresholds is
+     painted green. Lit LEDs must show as three solid green blobs; nothing
+     else in the scene should be green.
+   - `http://ugv-XXXX.local/` — green boxes around the locked triple; the
+     small square top-left is the lock status (green = locked, red = lost).
+   - `http://ugv-XXXX.local/log` — the live log.
+2. If blobs are green but the status stays red, look for this line in the
+   log — it says exactly which geometry check rejects the triple:
+   ```
+   W blob_detect: 4 blobs, no triple: rejects dy=2 width=0 sym=1 scale=0 jump=0
+   W blob_detect:   blob 0: (152, 148) 214 px
+   ```
+   - `dy` — the triple is not horizontal enough → raise `GEO_MAX_DY_FRAC`
+   - `sym` — center dot too far from the middle → raise `GEO_SYM_TOL`
+   - `scale`/`jump` — tracking gates too strict → widen `TRACK_*`
+3. Change the constant, rebuild and flash (`./ugv.sh`), repeat.
+
 ## Clustering Algorithm
 
 ### Greedy Assignment

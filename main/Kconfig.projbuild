@@ -27,4 +27,23 @@ menu "UGV column configuration"
         string "Wi-Fi password for the debug stream"
         default ""
 
+    config UGV_ESPNOW_CHANNEL
+        int "Column link anchor Wi-Fi channel (1-13)"
+        range 1 13
+        default 1
+        help
+            Channel used by robots that are NOT connected to a hotspot.
+            Senders (leader) anchor here; followers auto-scan all channels
+            until they hear column traffic, so this rarely needs changing.
+            When a robot joins a hotspot (debug stream), the AP's channel
+            is used instead.
+
+    config UGV_HOSTNAME
+        string "mDNS hostname (empty = auto ugv-XXXX from MAC)"
+        default ""
+        help
+            Stable address of this robot's stream: http://<hostname>.local/
+            Leave empty to derive a unique name from the Wi-Fi MAC, e.g.
+            ugv-3f7c.local - it never changes for a given board.
+
 endmenu

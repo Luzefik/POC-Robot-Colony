@@ -15,4 +15,7 @@ services:
     volumes:
       - .:/project
     working_dir: /project
+    environment:
+      # menuconfig's TUI needs a capable terminal on every host OS
+      TERM: xterm-256color
     command: idf.py build

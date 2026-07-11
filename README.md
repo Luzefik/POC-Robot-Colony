@@ -15,6 +15,10 @@ The project focuses on realizing the concept of the robot column. The project id
 
 The concept developed in the project can be helpful in the realization of a column of UGV (unmanned ground vehicle) to develop rescue drones or kamikaze drones. The idea of the column simplifies the operator's task of managing different units simultaneously. Instead of controlling several units, the operator leads only one; others follow and perform basic tasks and algorithms.
 
+> **Новачок у проєкті?** Почни з
+> [documentation/ARCHITECTURE.md](documentation/ARCHITECTURE.md) — там
+> простою мовою розписано, як усе працює і куди лізти для типових задач.
+
 ---
 
 ## Firmware
@@ -42,24 +46,62 @@ flip **`DEFAULT_ROLE_LEADER`** at the top of [`main/main.c`](main/main.c)
 | `UGV_MODE_SWITCH_GPIO` | GPIO of SW1 (read at boot: 1 = leader, 0 = follower). `-1` if the board has no switch |
 | `UGV_ENABLE_WEB_STREAM` | MJPEG debug stream over Wi-Fi (adds latency — keep off during runs) |
 | `UGV_WIFI_SSID` / `UGV_WIFI_PASSWORD` | Wi-Fi credentials for the debug stream (no longer hardcoded) |
+| `UGV_HOSTNAME` | Stable stream address `http://<name>.local/`; empty = auto `ugv-XXXX` from the MAC |
+| `UGV_ESPNOW_CHANNEL` | Anchor Wi-Fi channel for the robot-to-robot link when not on a hotspot |
+
+### Debug web pages
+
+With the stream enabled, every robot advertises a **permanent mDNS address**
+(printed in its boot log), e.g. `http://ugv-3f7c.local/` — the same URL on
+every boot, regardless of DHCP. Open it in any browser on the same Wi-Fi:
+
+| Page | What it shows |
+|------|---------------|
+| `/` | Live camera stream. Green boxes = the three LEDs the detector locked onto; the small square top-left is the status: green = locked, red = lost |
+| `/mask` | Same stream, but every pixel that passes the "red" thresholds is painted green — literally what the detector sees. Use it to tune thresholds |
+| `/log` | Live device log (last ~6 KB), auto-refreshing every second. No cable needed |
+
+`.local` names resolve out of the box on macOS, Linux, iOS/Android and
+Windows 10+; on older Windows install Bonjour, or just use the IP from the
+boot log.
+
+### Robot-to-robot link (ESP-NOW)
+
+Robots also talk to each other directly over ESP-NOW (no router needed).
+Currently a proof of concept: the leader broadcasts a counted "ping" at 5 Hz,
+followers log every received message (see it on `/log`). Followers find the
+sender's channel automatically by scanning; the only rule is: **if you use a
+hotspot, put the leader on it too**. Full protocol design and next steps:
+[documentation/ESPNOW_COLUMN_LINK_PLAN.md](documentation/ESPNOW_COLUMN_LINK_PLAN.md).
 
 ---
 
-## Quick start (macOS / Linux)
+## Quick start (all platforms)
 
-The whole cycle is wrapped in one script — build in Docker, flash and monitor
-from the host (Docker has no USB access on macOS/Windows):
+The whole cycle is wrapped in one helper script — build in Docker, flash and
+monitor from the host (Docker has no USB access on macOS/Windows). Host
+prerequisites: Docker + `pip install esptool` (pyserial comes with it).
 
-```bash
-./ugv.sh            # build + flash + monitor (port auto-detected)
-./ugv.sh build      # just compile
-./ugv.sh flash      # just flash the last build
-./ugv.sh monitor    # serial log (tio if installed, else pyserial)
-./ugv.sh shell      # interactive idf.py shell inside the container
-```
+| Action | macOS / Linux | Windows (PowerShell) |
+|--------|---------------|----------------------|
+| build + flash + monitor | `./ugv.sh` | `.\ugv.ps1` |
+| build only | `./ugv.sh build` | `.\ugv.ps1 build` |
+| flash last build | `./ugv.sh flash` | `.\ugv.ps1 flash` |
+| serial monitor | `./ugv.sh monitor` | `.\ugv.ps1 monitor` |
+| full clean | `./ugv.sh clean` | `.\ugv.ps1 clean` |
+| shell in the container | `./ugv.sh shell` | `.\ugv.ps1 shell` |
 
-Host prerequisites: Docker + `pip install esptool` (pyserial comes with it).
-Optional: [`tio`](https://github.com/tio/tio) for a nicer serial monitor.
+The serial port is auto-detected on every platform; pass it explicitly if you
+have several adapters (`./ugv.sh flash /dev/ttyUSB0`, `.\ugv.ps1 flash COM5`).
+
+Platform notes:
+- **Windows**: if scripts are blocked, run `powershell -ExecutionPolicy Bypass -File ugv.ps1`.
+  The monitor exits with `Ctrl+]`. Works in plain PowerShell — no WSL needed
+  (in Git Bash / WSL you can use `./ugv.sh` instead).
+- **Linux**: add yourself to the serial group once: `sudo usermod -aG dialout $USER`
+  (then re-login).
+- **macOS/Linux**: optional [`tio`](https://github.com/tio/tio) gives a nicer
+  monitor (`Ctrl-t q` to quit); the script falls back to pyserial automatically.
 
 ---
 
@@ -187,12 +229,17 @@ idf.py -p <PORT> monitor          # if IDF installed on host
 
 | Path | Purpose |
 |------|---------|
-| `main/` | Application entry point and logic (camera, driving, object detection, Wi-Fi) |
+| `main/main.c` | Entry point: role selection, follower control loop, leader startup |
+| `main/camera-logic/` | Camera init (OV3660, YUV422/CIF, 180° rotation) |
+| `main/object-detection/` | Red LED triple detection (see `main/DOT_DETECTION.md`) |
+| `main/driving-logic/` | Motor PWM layer + Bluetooth gamepad handling |
+| `main/wifi/` | Wi-Fi, MJPEG stream, `/mask` view, `/log` page, mDNS |
+| `main/comms/` | ESP-NOW robot-to-robot link |
+| `documentation/` | Architecture guide, ESP-NOW protocol plan |
 | `src/components/` | Bluepad32 + NVS/system console components |
 | `btstack/` | BTstack Bluetooth stack (integrated into IDF at image-build time) |
-| `Dockerfile` | ESP-IDF build image definition |
-| `docker-compose.yml` | Build orchestration |
-| `flash.sh` | Host-side flashing helper (macOS/Linux) |
+| `Dockerfile` / `docker-compose.yml` | Reproducible build environment |
+| `ugv.sh` / `ugv.ps1` | One-command build/flash/monitor helpers |
 | `sdkconfig.defaults` | Board configuration (PSRAM, Bluetooth, 240 MHz, -O2); `sdkconfig` is generated from it on the first build |
 
 ---
@@ -201,18 +248,29 @@ idf.py -p <PORT> monitor          # if IDF installed on host
 
 | Symptom | Fix |
 |---------|-----|
-| `failed to read dockerfile` / build can't find Dockerfile on Linux | Ensure the file is named `Dockerfile` (capital D) — fixed in this repo. |
+| `Could not open ... port is busy` when flashing | Something holds the serial port — usually your own monitor. Quit `tio` (`Ctrl-t q`) or close the terminal, then flash again. |
+| `Camera init failed` + `I2C hardware NACK` in the log | Hardware, not code: the camera shares the I2C bus (GPIO 26/27) with other peripherals. A hung or half-connected device (e.g. the LCD) breaks sensor init. Power-cycle the board fully, reseat the camera ribbon, check peripheral wiring. |
+| Follower detects nothing (`/` shows a red square) | Are the LEDs actually powered? Open `/mask` — lit LEDs must show as green blobs. If not, tune thresholds in `main/object-detection/dot_detection.c`. If blobs are green but no lock, check `/log` for `rejects dy=... sym=...` and adjust geometry limits. |
+| Robots don't hear each other (ESP-NOW) | They must share a Wi-Fi channel. Same hotspot for everyone — or no hotspot for everyone. A follower on a hotspot cannot hear a leader that isn't on it. |
 | `bad interpreter: /usr/bin/env python3^M` during image build | CRLF line endings. `.gitattributes` prevents this; re-clone or run `git add --renormalize .`. |
 | First build is very slow | Expected — it downloads ESP-IDF and integrates BTstack. Later builds are cached. |
-| Board not found when flashing | Check the port (`ls /dev/tty.*` / Device Manager) and that no other program holds the serial port. |
+| Board not found when flashing | Check the port (`ls /dev/cu.usbserial-*` / Device Manager) and the USB cable (charge-only cables don't enumerate). |
 | Permission denied on `/dev/ttyUSB0` (Linux) | Add your user to the `dialout` group: `sudo usermod -aG dialout $USER`, then re-login. |
+| Gamepad won't pair | Hold **PS + Share** until the light bar double-flashes. Note: pairing keys are erased on every boot (`uni_bt_del_keys_unsafe` in `my_platform.c`), so re-pair after each restart. |
 
 ---
 
-## Suggested improvements
+## Planned / ideas for the next iteration
 
-1. **Pin dependency versions.** `main/idf_component.yml` uses `espressif/esp32-camera: '*'` and `esp_jpeg: '*'`. The `'*'` will silently pull newer major versions and can break the build. Pin them (`dependencies.lock` already resolved `esp32-camera 2.1.4`, `esp_jpeg 1.3.1`).
-2. **CI build.** Add a GitHub Actions workflow that runs `docker compose run --rm build` on every push so regressions are caught automatically.
-3. **Consolidate the console component variants.** `src/components/` ships both `cmd_nvs`/`cmd_nvs_4.4` and `cmd_system`/`cmd_system_4.4`. Since the project targets IDF 5.5, drop the `*_4.4` copies to reduce confusion.
-4. **Trim the vendored BTstack tree.** Only a subset of `btstack/` is used. Excluding `btstack/test`, `btstack/example`, and unused ports from the repo (or at least from the Docker context) shrinks clones and build context.
-5. **Multi-arch note.** The `espressif/idf` image is multi-arch, so it runs natively on Apple Silicon and x86 — no `platform:` override needed. Keep it that way when bumping IDF versions.
+1. **Full column protocol over ESP-NOW** — the link works (ping PoC); next
+   is the real beacon `{speed, turn, estop}` with column-wide E-STOP and
+   heartbeat fail-safe. Design is ready:
+   [documentation/ESPNOW_COLUMN_LINK_PLAN.md](documentation/ESPNOW_COLUMN_LINK_PLAN.md).
+2. **Find the SW1 switch GPIO** and set `UGV_MODE_SWITCH_GPIO`, so the role
+   is chosen by the physical switch instead of the define in `main.c`.
+3. **CI build** — a GitHub Actions workflow running `docker compose run --rm build`
+   on every push would catch broken builds automatically.
+4. **1602 LCD status display** (paper IV.B: "Following / Searching / Lost") —
+   the hardware exists, the code doesn't yet.
+5. **Trim the vendored BTstack tree** (`btstack/test`, `btstack/example`) to
+   shrink clones, and drop the `cmd_*_4.4` copies in `src/components/`.

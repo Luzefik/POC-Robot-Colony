@@ -4,10 +4,12 @@ idf_component_register(
         "wifi/wifi_connect.c"
         "camera-logic/take_picture.c"
         "wifi/web_stream.c"
+        "wifi/web_log.c"
         "driving-logic/driving.cpp"
         "object-detection/dot_detection.c"
         "driving-logic/my_platform.c"
-    INCLUDE_DIRS "." "camera-logic" "driving-logic" "object-detection" "wifi"
+        "comms/column_link.c"
+    INCLUDE_DIRS "." "camera-logic" "comms" "driving-logic" "object-detection" "wifi"
     PRIV_REQUIRES
         esp_wifi
         esp_event

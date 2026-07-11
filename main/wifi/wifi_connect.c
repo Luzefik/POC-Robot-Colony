@@ -1,12 +1,12 @@
-// This is a personal academic project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
-
 #include "esp_wifi.h"
 #include "esp_event.h"
 #include "nvs_flash.h"
 #include "esp_log.h"
+#include "esp_mac.h"
 #include "esp_netif.h"
+#include "mdns.h"
 #include "sdkconfig.h"
+#include <string.h>
 
 /* Set via: idf.py menuconfig -> "UGV column configuration" */
 #define WIFI_SSID CONFIG_UGV_WIFI_SSID
@@ -14,6 +14,27 @@
 
 static const char *TAG = "wifi_init";
 static void (*g_got_ip_cb)(void) = NULL;
+static char g_hostname[32];
+
+/* Advertise a stable per-robot name (http://<hostname>.local/) so the
+ * stream URL never depends on the DHCP-assigned IP. The name comes from
+ * menuconfig, or is derived from the Wi-Fi MAC so every board gets a
+ * unique, persistent one with zero per-device configuration. */
+static void start_mdns(void) {
+    if (strlen(CONFIG_UGV_HOSTNAME) > 0) {
+        snprintf(g_hostname, sizeof(g_hostname), "%s", CONFIG_UGV_HOSTNAME);
+    } else {
+        uint8_t mac[6];
+        ESP_ERROR_CHECK(esp_read_mac(mac, ESP_MAC_WIFI_STA));
+        snprintf(g_hostname, sizeof(g_hostname), "ugv-%02x%02x", mac[4], mac[5]);
+    }
+
+    ESP_ERROR_CHECK(mdns_init());
+    ESP_ERROR_CHECK(mdns_hostname_set(g_hostname));
+    mdns_instance_name_set("UGV column robot");
+    mdns_service_add(NULL, "_http", "_tcp", 80, NULL, 0);
+    ESP_LOGI(TAG, "mDNS: stream will be at http://%s.local/", g_hostname);
+}
 
 
 static void on_wifi_event(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data) {
@@ -28,7 +49,8 @@ static void on_wifi_event(void *arg, esp_event_base_t event_base, int32_t event_
 static void on_got_ip(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data) {
     ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
     ESP_LOGI(TAG, "Got IP: " IPSTR, IP2STR(&event->ip_info.ip));
-    ESP_LOGI(TAG, "Open http://" IPSTR, IP2STR(&event->ip_info.ip));
+    ESP_LOGI(TAG, "Stream: http://%s.local/  (or http://" IPSTR "/)",
+             g_hostname, IP2STR(&event->ip_info.ip));
     if (g_got_ip_cb) {
         g_got_ip_cb();
     }
@@ -66,6 +88,13 @@ esp_err_t wifi_init_sta(void) {
 
     // Start
     ESP_ERROR_CHECK(esp_wifi_start());
+
+    /* Modem power save adds hundreds of ms of jitter to the MJPEG stream;
+     * the robot is not battery-critical enough to justify it. */
+    ESP_ERROR_CHECK(esp_wifi_set_ps(WIFI_PS_NONE));
+
+    start_mdns();
+
     ESP_LOGI(TAG, "Wi-Fi initialization done.");
     return ESP_OK;
 }
